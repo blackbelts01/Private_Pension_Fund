@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="action_customer_view">
+            <field name="name">Customer</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('insurer_type','=', False)]</field>
+            <field name="context">{"search_default_customer":1,"own_customer_only":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the Customer
+                </p>
+            </field>
+        </record>
+        <menuitem id="main_ppf_menu" name="Private Pension Fund"/>
+        <menuitem id="configuration_view_menu" name="Configuration"
+                  parent="main_ppf_menu"/>
+        <menuitem id="customers_view_menu" name="Members" parent="configuration_view_menu"
+                  action="action_customer_view"/>
+        <menuitem id="product_view_menu" name="Investment Product" parent="configuration_view_menu"
+                  action="product.product_template_action"/>
+    </data>
+</odoo>

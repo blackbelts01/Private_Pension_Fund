@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "fund_managment",
+    'name': "PPF Private Pension Fund",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -28,6 +28,7 @@
         'views/views.xml',
         'views/customer.xml',
         'views/templates.xml',
+        'views/ppf_menus.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
