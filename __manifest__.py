@@ -28,7 +28,8 @@
         'views/views.xml',
         'views/customer.xml',
         'views/templates.xml',
-        'views/ppf_menus.xml',
+        'views/PPf_menu.xml',
+        # 'views/ppf_menus.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
