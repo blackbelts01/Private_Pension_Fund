@@ -2,3 +2,4 @@
 
 from . import models
 from . import setup
+from . import invoice_line

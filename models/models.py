@@ -13,3 +13,4 @@ from odoo import models, fields, api
 #     @api.depends('value')
 #     def _value_pc(self):
 #         self.value2 = float(self.value) / 100
+
