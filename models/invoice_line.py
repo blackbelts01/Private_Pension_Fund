@@ -6,3 +6,4 @@ class invoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
     member=fields.Char(string='Member')
+
