@@ -29,6 +29,7 @@
         'views/customer.xml',
         'views/templates.xml',
         'views/PPf_menu.xml',
+        'views/subscrib.xml',
         # 'views/ppf_menus.xml',
     ],
     # only loaded in demonstration mode
