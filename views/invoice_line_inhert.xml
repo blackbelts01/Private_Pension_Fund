@@ -1,12 +1,13 @@
 <odoo>
     <data>
-        <record id="view_invoice_form_inhert_ppf" model="ir.ui.view">
+        <record id="view_subscription_form" model="ir.ui.view">
             <field name="model">ppf.subscription</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='date_invoice']" position="after">
+                    <field name="totalamount"/>
                     <field name="allocated"/>
-                    <field name="o_s"/>
+                    <field name="o_s" readonly="1" force_save="1"/>
                 </xpath>
                 <xpath expr="//field[@name='date_invoice']" position="attributes">
                     <attribute name="string">Date of Subscription</attribute>
@@ -26,24 +27,76 @@
                 <xpath expr="//sheet/group/group/field[@name='payment_term_id']" position="attributes">
                     <attribute name="invisible">True</attribute>
                 </xpath>
+                <xpath expr="//sheet/h1/div[2]/label" position="attributes">
+                    <attribute name="string">Subscription Number:</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[1]" position="attributes">
+                    <attribute name="string">Subscription Lines</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[1]/field/tree/field[@name='product_id']" position="after">
+                    <field name="member_name"/>
+                    <field name="member_id"/>
+                    <field name="salary"/>
+                    <field name="perc_salary"/>
+                    <field name="own"/>
+                    <field name="company"/>
+                    <field name="booster"/>
+                    <field name="side"/>
+                </xpath>
             </field>
         </record>
-        <record model="ir.actions.act_window" id="action_ppf_invoice_view">
-            <field name="name">Invoice</field>
-            <field name="res_model">ppf.subscription</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-             <field name="view_id" ref="view_invoice_form_inhert_ppf"/>
-            <field name="domain">[('type','=', 'out_invoice')]</field>
-             <field name="context">  {'type':'out_invoice', 'journal_type': 'sale'}</field>
+        <record id="subscription_tree" model="ir.ui.view">
+            <field name="name">ppf.subscription.tree</field>
+            <field name="model">ppf.subscription</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" string="Subscription">
+                    <field name="partner_id" groups="base.group_user" string="Customer"/>
+                    <field name="date_invoice"/>
+                    <field name="number"/>
+                    <field name="commercial_partner_id" invisible="1"/>
+                    <field name="reference" invisible="1"/>
+                    <field name="name" invisible="1"/>
+                    <field name="journal_id" invisible="1"/>
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                    <field name="user_id"/>
+                    <field name="date_due"/>
+                    <field name="origin"/>
+                    <field name="allocated"/>
+                    <field name="totalamount"/>
+                    <field name="o_s"/>
+                    <field name="amount_total_signed" string="Total" sum="Total"/>
+                    <field name="residual_signed" string="Amount Due" sum="Amount Due"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="state"/>
+                    <field name="type" invisible="context.get('type',True)"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_ppf_subscription">
+             <field name="name">Subscription</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="res_model">ppf.subscription</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+             <field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Subscription.</p></field>
+        </record>
 
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">Create the Invoice
-                </p>
-            </field>
+        <record model="ir.actions.act_window.view" id="action_ppf_subscription_tree">
+             <field name="sequence" eval="1"/>
+             <field name="view_mode">tree</field>
+             <field name="view_id" ref="subscription_tree"/>
+             <field name="act_window_id" ref="action_ppf_subscription"/>
         </record>
-        <menuitem id="ppfinvoice_view_menu" name="Invoice" parent="configuration_view_menu"
-                  action="action_ppf_invoice_view"/>
+
+        <record model="ir.actions.act_window.view" id="action_ppf_subscription_form">
+             <field name="sequence" eval="2"/>
+             <field name="view_mode">form</field>
+             <field name="view_id" ref="view_subscription_form"/>
+             <field name="act_window_id" ref="action_ppf_subscription"/>
+        </record>
+        <menuitem id="ppfinvoice_view_menu" name="Subscription" parent="configuration_view_menu"
+                  action="action_ppf_subscription"/>
     </data>
 </odoo>
 
