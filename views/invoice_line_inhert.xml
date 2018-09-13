@@ -1,15 +1,49 @@
 <odoo>
     <data>
         <record id="view_invoice_form_inhert_ppf" model="ir.ui.view">
-            <field name="name">invoice.form</field>
-            <field name="model">account.invoice</field>
+            <field name="model">ppf.subscription</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='product_id']" position="after">
-                    <field name="member"/>
+                <xpath expr="//field[@name='date_invoice']" position="after">
+                    <field name="allocated"/>
+                    <field name="o_s"/>
+                </xpath>
+                <xpath expr="//field[@name='date_invoice']" position="attributes">
+                    <attribute name="string">Date of Subscription</attribute>
+                </xpath>
+                <xpath expr="//form" position="attributes">
+                    <attribute name="string">Subscription</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_invoice']" position="after">
+                    <field name="currency_id"  class="oe_inline"/>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='date_due']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='payment_term_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
                 </xpath>
             </field>
         </record>
+        <record model="ir.actions.act_window" id="action_ppf_invoice_view">
+            <field name="name">Invoice</field>
+            <field name="res_model">ppf.subscription</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+             <field name="view_id" ref="view_invoice_form_inhert_ppf"/>
+            <field name="domain">[('type','=', 'out_invoice')]</field>
+             <field name="context">  {'type':'out_invoice', 'journal_type': 'sale'}</field>
+
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the Invoice
+                </p>
+            </field>
+        </record>
+        <menuitem id="ppfinvoice_view_menu" name="Invoice" parent="configuration_view_menu"
+                  action="action_ppf_invoice_view"/>
     </data>
 </odoo>
 
