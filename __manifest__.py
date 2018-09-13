@@ -28,6 +28,7 @@
         'views/views.xml',
         'views/customer.xml',
         'views/PPf_menu.xml',
+        'views/allocation.xml',
         'views/invoice_line_inhert.xml',
     ],
     # only loaded in demonstration mode

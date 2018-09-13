@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="action_allocation_form">
+            <field name="name">Allocation</field>
+            <field name="res_model">allocation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="allocation_id"/>
+                        <field name="desc"/>
+                        <field name="allocation_date"/>
+                        <field name="currency"/>
+                    </group>
+                    <group >
+                        <field name="allocation_total"/>
+                        <field name="allocation_invested"/>
+                        <field name="allocation_O_S"/>
+                    </group>
+                </form>
+                <!--<field name="view_id" ref="view_invoice_form_inhert_ppf"/>-->
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
