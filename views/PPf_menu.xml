@@ -11,6 +11,17 @@
                 </p>
             </field>
         </record>
+           <record model="ir.actions.act_window" id="action_allocation_view">
+            <field name="name">Allocations</field>
+            <field name="res_model">allocation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <!--<field name="context">{"search_default_customer":1,"own_customer_only":1}</field>-->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the Allocation
+                </p>
+            </field>
+        </record>
         <menuitem id="main_ppf_menu" name="Private Pension Fund"/>
         <menuitem id="configuration_view_menu" name="Configuration"
                   parent="main_ppf_menu"/>
@@ -18,5 +29,7 @@
                   action="action_customer_view"/>
         <menuitem id="product_view_menu" name="Investment Product" parent="configuration_view_menu"
                   action="product.product_template_action"/>
+         <menuitem id="allocation_view_menu" name="Allocations" parent="configuration_view_menu"
+                  action="action_allocation_view"/>
     </data>
 </odoo>
