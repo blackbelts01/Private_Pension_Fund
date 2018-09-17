@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <record id="view_subscription_form" model="ir.ui.view">
-            <field name="model">ppf.subscription</field>
+            <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='date_invoice']" position="after">
@@ -30,6 +30,18 @@
                 <xpath expr="//sheet/h1/div[2]/label" position="attributes">
                     <attribute name="string">Subscription Number:</attribute>
                 </xpath>
+                <xpath expr="//sheet/h1/div[1]/label" position="attributes">
+                    <attribute name="string">Draft Subscription</attribute>
+                </xpath>
+                <xpath expr="//sheet/h1/div[1]/field[@name='number']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//sheet/h1/div[2]" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//sheet/h1/div[1]/field[@name='number']" position="after">
+                    <field name="number2" readonly="1" class="oe_inline" attrs="{'invisible': [('state','in',('draft',))]}"/>
+                </xpath>
                 <xpath expr="//notebook/page[1]" position="attributes">
                     <attribute name="string">Subscription Lines</attribute>
                 </xpath>
@@ -45,9 +57,17 @@
                 </xpath>
             </field>
         </record>
+        <record id="seq_subscription_details" model="ir.sequence">
+            <field name="name">Subscription</field>
+            <field name="code">account.invoice</field>
+            <field name="prefix">SUB/%(range_year)s/</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
         <record id="subscription_tree" model="ir.ui.view">
-            <field name="name">ppf.subscription.tree</field>
-            <field name="model">ppf.subscription</field>
+            <field name="name">account.invoice.tree</field>
+            <field name="model">account.invoice</field>
             <field name="arch" type="xml">
                 <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" string="Subscription">
                     <field name="partner_id" groups="base.group_user" string="Customer"/>
@@ -76,7 +96,7 @@
         <record model="ir.actions.act_window" id="action_ppf_subscription">
              <field name="name">Subscription</field>
              <field name="type">ir.actions.act_window</field>
-             <field name="res_model">ppf.subscription</field>
+             <field name="res_model">account.invoice</field>
              <field name="view_type">form</field>
              <field name="view_mode">tree,form</field>
              <field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Subscription.</p></field>
