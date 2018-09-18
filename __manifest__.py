@@ -29,7 +29,8 @@
         'views/customer.xml',
         'views/PPf_menu.xml',
         'views/allocation.xml',
-        'views/invoice_line_inhert.xml',
+        'views/subscriptions.xml',
+        'views/investment.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
