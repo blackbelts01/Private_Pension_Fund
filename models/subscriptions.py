@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api,_
+from odoo import models, fields, api
 
 
 class ppfInvoice(models.Model):
@@ -8,18 +8,18 @@ class ppfInvoice(models.Model):
 
     allocated=fields.Float('Allocated')
     o_s=fields.Float('O/S')
-    totalamount=fields.Float('Total Amount')
-    number2=fields.Char(string='Number', copy=False, readonly=True, index=True,default=lambda self: _('New'))
+    ref_id = fields.Many2one('account.invoice', string="Invoice")
+    totalamount=fields.Float(store=True, readonly=True,string='Total Amount',compute='_onchange_sum_amount')
 
-    @api.model
-    def create(self, vals):
-        if vals.get('number2', 'New') == 'New':
-            vals['number2'] = self.env['ir.sequence'].next_by_code('account.invoice') or 'New'
-        return super(ppfInvoice, self).create(vals)
+    @api.one
+    @api.depends('amount_total')
+    def _onchange_sum_amount(self):
+        self.totalamount = self.amount_total
 
     @api.onchange('allocated', 'totalamount')
     def _onchange_sum(self):
         self.o_s = self.totalamount - self.allocated
+
 
 
 
