@@ -34,7 +34,16 @@
                                 </tree>
                             </field>
                         </page>
+                            <page string="Investment Lines">
+                            <field name="allocation_line_invest">
+                                <tree editable="bottom">
+                                    <field name="invest"/>
+                                </tree>
+                            </field>
+                        </page>
                     </notebook>
+
+                   
                 </form>
                 <!--<field name="view_id" ref="view_invoice_form_inhert_ppf"/>-->
 
