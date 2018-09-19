@@ -9,12 +9,27 @@ class Allocation(models.Model):
     desc=fields.Text('Describtion')
     allocation_date=fields.Date('Allocation Date')
     currency=fields.Many2one('res.currency')
-    allocation_total=fields.Float('Allocation Total')
-    allocation_invested = fields.Float('Allocation Invested')
+    allocation_total=fields.Float('Allocation Total',compute='compute_allocation_invested',store=True)
+    allocation_invested = fields.Float('Allocation Invested',compute='compute_allocation_invested',store=True)
     allocation_O_S = fields.Float('Allocation O/S')
     allocation_line=fields.One2many('allocation.lines','allocation_id')
     allocation_line_invest = fields.One2many('investment.lines', 'allocation_id_invest')
 
+
+
+    @api.onchange('allocation_line')
+    def compute_allocation_total(self):
+        if self.allocation_line:
+            self.allocation_total=0.0
+            for rec in self.allocation_line:
+                self.allocation_total+=rec.allocated
+
+    @api.onchange('allocation_line_invest')
+    def compute_allocation_invested(self):
+        if self.allocation_line_invest:
+            self.allocation_invested=0.0
+            for rec in self.allocation_line_invest:
+                self.allocation_invested += rec.amount
 
 
 class Allocation_lines(models.Model):
