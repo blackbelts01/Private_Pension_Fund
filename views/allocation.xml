@@ -71,8 +71,6 @@
             <field name="view_id" ref="action_allocation_form1"/>
             <field name="act_window_id" ref="action_ppf_allocation"/>
         </record>
-        <menuitem id="allocation_view_menu" name="Allocation" parent="configuration_view_menu"
-                  action="action_ppf_allocation"/>
 
 
     </data>

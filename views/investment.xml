@@ -90,8 +90,6 @@
              <field name="view_id" ref="view_investment_form"/>
              <field name="act_window_id" ref="action_ppf_investment"/>
         </record>
-        <menuitem id="investment_view_menu" name="Investment" parent="configuration_view_menu"
-                  action="action_ppf_investment"/>
     </data>
 </odoo>
 

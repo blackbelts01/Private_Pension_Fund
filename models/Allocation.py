@@ -20,7 +20,7 @@ class Allocation(models.Model):
 class Allocation_lines(models.Model):
     _name='allocation.lines'
 
-    sub=fields.Many2one('account.invoice',domain="[('state','=','paid'),('type','=','in_invoice')]",string='Subscribtion')
+    sub=fields.Many2one('account.invoice',domain="[('state','=','paid'),('type','=','out_invoice')]",string='Subscribtion')
     sub_date = fields.Date(related='sub.date_invoice',string='Subscribtion Date')
     sub_total_ammount=fields.Float(related='sub.totalamount',readonly=True,force_save=True)
     allocated=fields.Float('Allocated')
