@@ -34,11 +34,17 @@
                                 </tree>
                             </field>
                         </page>
-                            <page string="Investment Lines">
+                        <page string="Investment Lines">
                             <field name="allocation_line_invest">
                                 <tree editable="bottom">
                                     <field name="invest"/>
+                                    <field name="amount"/>
+                                    <field name="date_invest"/>
                                 </tree>
+                                <form>
+                                    <field  name="bill_lines">
+                                    </field>
+                                </form>
                             </field>
                         </page>
                     </notebook>

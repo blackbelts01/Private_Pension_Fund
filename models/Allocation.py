@@ -30,6 +30,9 @@ class Allocation_lines(models.Model):
 class Investment_lines(models.Model):
     _name='investment.lines'
     invest=fields.Many2one('account.invoice',domain="[('state','=','paid'),('type','=','in_invoice')]",string='investment')
+    bill_lines=fields.One2many(related='invest.invoice_line_ids')
+    amount=fields.Float(related='invest.totalamount')
+    date_invest=fields.Date(related='invest.date_invoice',string='Date')
     allocation_id_invest = fields.Many2one('allocation')
 
 
