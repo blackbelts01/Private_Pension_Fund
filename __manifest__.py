@@ -27,10 +27,10 @@
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/customer.xml',
-        'views/PPf_menu.xml',
         'views/allocation.xml',
         'views/subscriptions.xml',
         'views/investment.xml',
+        'views/PPf_menu.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
