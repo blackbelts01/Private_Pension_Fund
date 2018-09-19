@@ -111,8 +111,6 @@
              <field name="view_id" ref="view_subscription_form"/>
              <field name="act_window_id" ref="action_ppf_subscription"/>
         </record>
-        <menuitem id="ppfinvoice_view_menu" name="Subscription" parent="configuration_view_menu"
-                  action="action_ppf_subscription"/>
     </data>
 </odoo>
 

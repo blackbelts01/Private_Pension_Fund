@@ -11,25 +11,43 @@
                 </p>
             </field>
         </record>
-           <!--<record model="ir.actions.act_window" id="action_allocation_view">-->
-            <!--<field name="name">Allocations</field>-->
-            <!--<field name="res_model">allocation</field>-->
-            <!--<field name="view_type">form</field>-->
-            <!--<field name="view_mode">kanban,tree,form</field>-->
-            <!--&lt;!&ndash;<field name="context">{"search_default_customer":1,"own_customer_only":1}</field>&ndash;&gt;-->
-            <!--<field name="help" type="html">-->
-                <!--<p class="oe_view_nocontent_create">Create the Allocation-->
-                <!--</p>-->
-            <!--</field>-->
-        <!--</record>-->
         <menuitem id="main_ppf_menu" name="Private Pension Fund"/>
-        <menuitem id="configuration_view_menu" name="Configuration"
+        <menuitem id="Setup_view_menu"
+                  name="Setup"
+                  sequence="0"
                   parent="main_ppf_menu"/>
-        <menuitem id="customers_view_menu" name="Members" parent="configuration_view_menu"
+        <menuitem id="customers_view_menu"
+                  name="Membership"
+                  parent="Setup_view_menu"
                   action="action_customer_view"/>
-        <menuitem id="product_view_menu" name="Investment Product" parent="configuration_view_menu"
+        <menuitem id="product_view_menu"
+                  name="Investment Product"
+                  parent="Setup_view_menu"
                   action="product.product_template_action"/>
-         <!--<menuitem id="allocation_view_menu" name="Allocations" parent="configuration_view_menu"-->
-                  <!--action="action_allocation_view"/>-->
+        <menuitem id="subscriptions_view_menu"
+                  name="Subscriptions Management"
+                  sequence="1"
+                  parent="main_ppf_menu"/>
+        <menuitem id="subscription_view_menu"
+                  name="Subscriptions"
+                  parent="subscriptions_view_menu"
+                  action="action_ppf_subscription"/>
+        <menuitem id="investment_view_menu"
+                  name="Investment Management"
+                  sequence="2"
+                  parent="main_ppf_menu"/>
+        <menuitem id="allocation_view_menu"
+                  name="Money Allocation"
+                  parent="investment_view_menu"
+                  action="action_ppf_allocation"/>
+        <menuitem id="buy_investment_view_menu"
+                  name="Buy Investment"
+                  parent="investment_view_menu"
+                  action="action_ppf_investment"/>
+        <menuitem id="performance_view_menu"
+                  name="Performance Management"
+                  parent="main_ppf_menu"
+                  sequence="3"/>
+
     </data>
 </odoo>
