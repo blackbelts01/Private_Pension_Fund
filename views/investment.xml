@@ -6,7 +6,20 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='date_invoice']" position="after">
                     <field name="totalamount" readonly="1" force_save="1" string="Total Invested"/>
-                    <field name="allocation_id"/>
+                </xpath>
+                <xpath expr="//sheet/group" position="inside">
+                    <h2><label string="Allocation"/></h2>
+                    <field name="allocation_id" >
+                        <tree string="Allocation lines" editable="bottom">
+                            <field name="allocation_id"/>
+                            <field name="desc"/>
+                            <field name="allocation_date"/>
+                            <field name="currency"/>
+                            <field name="allocation_total"/>
+                            <field name="allocation_invested"/>
+                            <field name="allocation_O_S"/>
+                        </tree>
+                    </field>
                 </xpath>
                 <xpath expr="//field[@name='date_invoice']" position="attributes">
                     <attribute name="string">Trx Date</attribute>
