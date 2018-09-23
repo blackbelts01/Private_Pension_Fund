@@ -20,7 +20,7 @@ class Allocation(models.Model):
     @api.onchange('currency')
     def _get_investment(self):
         print('eslam')
-        investmentlines = self.env['account.invoice'].search([('state','=','paid'),('type','=','in_invoice')])
+        investmentlines = self.env['account.invoice'].search([('state','=','paid'),('type','=','in_invoice'),('allocation_id','=',self.id)])
         result=[]
         for risk in investmentlines:
             result.append(risk.id)
@@ -58,7 +58,7 @@ class Allocation_lines(models.Model):
     sub_date = fields.Date(related='sub.date_invoice',string='Subscribtion Date')
     sub_total_ammount=fields.Float(related='sub.totalamount',readonly=True,force_save=True)
     allocated=fields.Float('Allocated')
-    out_standing=fields.Float('O/S')
+    out_standing=fields.Float('O/S',compute='compute_O_S',store=True)
     allocation_id=fields.Many2one('allocation')
 
     @api.multi

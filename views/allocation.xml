@@ -52,6 +52,25 @@
 
             </field>
         </record>
+
+        <record model="ir.ui.view" id="action_allocation_tree">
+            <field name="name">Allocation</field>
+            <field name="model">allocation</field>
+            <field name="view_type">form,tree</field>
+            <field name="view_mode">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+
+                    <field name="allocation_id"/>
+                    <field name="desc"/>
+                    <field name="allocation_date"/>
+                    <field name="currency"/>
+                    <field name="allocation_total"/>
+                    <field name="allocation_O_S"/>
+
+                </tree>
+            </field>
+        </record>
         <record model="ir.actions.act_window" id="action_ppf_allocation">
             <field name="name">Allocations</field>
             <field name="type">ir.actions.act_window</field>
