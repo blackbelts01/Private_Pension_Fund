@@ -34,13 +34,13 @@ class Allocation(models.Model):
             for rec in self.allocation_line:
                 total+=rec.allocated
             self.allocation_total=total
-    @api.multi
-    @api.depends('allocation_line_invest')
-    def compute_allocation_invested(self):
-        if self.allocation_line_invest:
-            self.allocation_invested=0.0
-            for rec in self.allocation_line_invest:
-                self.allocation_invested += rec.totalamount
+    # @api.multi
+    # @api.depends('allocation_line_invest')
+    # def compute_allocation_invested(self):
+    #     if self.allocation_line_invest:
+    #         self.allocation_invested=0.0
+    #         for rec in self.allocation_line_invest:
+    #             self.allocation_invested += rec.totalamount
 
     @api.multi
     @api.depends('allocation_line')
@@ -61,7 +61,7 @@ class Allocation_lines(models.Model):
     out_standing=fields.Float('O/S',compute='compute_O_S',store=True)
     allocation_id=fields.Many2one('allocation')
 
-    @api.multi
+    @api.one
     @api.depends('allocated')
     def compute_O_S(self):
         if self.allocated:
