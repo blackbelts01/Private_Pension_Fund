@@ -45,18 +45,34 @@ class Partners(models.Model):
                                         ('Married', 'Married'), ],
                                        'Marital Status', track_visibility='onchange')
 
-    @api.one
+    @api.multi
     def search_sub(self):
         sub=self.env['account.invoice.line'].search([('member_name', '=', self.id)])
         inv=self.env['account.invoice'].search([('invoice_line_ids','in',sub.ids)])
-        return inv.number
+        return inv
 
-    @api.one
-    def search_date(self):
-        sub=self.env['account.invoice.line'].search([('member_name', '=', self.id)])
-        inv=self.env['account.invoice'].search([('invoice_line_ids','in',sub.ids)])
-        return inv.date_invoice
+    @api.multi
+    def search_sub_member_percentage(self):
+        total=3
+        sub = self.env['account.invoice.line'].search([('member_name', '=', self.id)])
+        inv = self.env['account.invoice'].search([('invoice_line_ids', 'in', sub.ids)])
 
+        for i in inv:
+                for s in sub:
+                     total=(s.total/i.totalamount)*100
+
+                return total
+    @api.multi
+    def search_invest(self):
+        sub = self.env['account.invoice.line'].search([('member_name', '=', self.id)])
+        inv = self.env['account.invoice'].search([('invoice_line_ids', 'in', sub.ids)])
+        all_lines=self.env['allocation.lines'].search([('sub', 'in', inv.ids)])
+        allocation = self.env['allocation'].search([('allocation_line', 'in', all_lines.ids)])
+        investment = self.env['account.invoice'].search([('allocation_id', 'in', allocation.ids)])
+
+
+
+        return investment
 
 
 
