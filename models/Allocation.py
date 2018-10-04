@@ -10,21 +10,20 @@ class Allocation(models.Model):
     allocation_date=fields.Date('Allocation Date')
     currency=fields.Many2one('res.currency')
     allocation_total=fields.Float('Allocation Total',compute='_compute_allocation_total',store=True)
-    allocation_invested = fields.Float('Allocation Invested',compute='compute_allocation_invested',store=True)
+    allocation_invested = fields.Float('Allocation Invested')
     allocation_O_S = fields.Float('Allocation O/S',compute='compute_allocation_O_S',store=True)
     allocation_line=fields.One2many('allocation.lines','allocation_id')
-    allocation_line_invest = fields.Many2many('account.invoice')
+    allocation_line_invest = fields.Many2many('account.invoice',compute='_get_investment')
 
 
-    @api.multi
-    @api.onchange('currency')
+
+
+
     def _get_investment(self):
-        print('eslam')
-        investmentlines = self.env['account.invoice'].search([('state','=','paid'),('type','=','in_invoice'),('allocation_id','=',self.id)])
-        result=[]
-        for risk in investmentlines:
-            result.append(risk.id)
-        self. allocation_line_invest = [(6,0, result)]
+        investmentlines = self.env['account.invoice'].search([('allocation_id','in', self.ids),('state','=','paid'),('type','=','in_invoice')])
+
+        if investmentlines:
+            self.allocation_line_invest = [(6,0, investmentlines.ids)]
 
     @api.one
     @api.depends('allocation_line')
@@ -43,6 +42,7 @@ class Allocation(models.Model):
     #             self.allocation_invested += rec.totalamount
 
     @api.multi
+    @api.one
     @api.depends('allocation_line')
     def compute_allocation_O_S(self):
         if self.allocation_line:

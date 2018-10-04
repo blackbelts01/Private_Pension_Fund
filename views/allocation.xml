@@ -16,6 +16,7 @@
                         </group>
                         <group >
                             <field name="allocation_total"/>
+                            <!--<field name="allocation_invested"/>-->
                             <field name="allocation_O_S"/>
                         </group>
                     </group>
@@ -34,11 +35,12 @@
                             </field>
                         </page>
                         <page string="Investment Lines">
-                            <field name="allocation_line_invest"  widget="many2many">
+                            <field name="allocation_line_invest"  widget="many2many" >
                                 <tree string="Investment lines">
                                     <field name="number"/>
                                     <!--<field name="date_invoice"/>-->
                                     <field name="totalamount"/>
+                                    <field name="state"/>
                                 </tree>
                             </field>
 

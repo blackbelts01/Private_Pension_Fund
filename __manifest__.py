@@ -31,6 +31,7 @@
         'views/subscriptions.xml',
         'views/investment.xml',
         'views/PPf_menu.xml',
+        'reports/fund_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

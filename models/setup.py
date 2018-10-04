@@ -45,6 +45,17 @@ class Partners(models.Model):
                                         ('Married', 'Married'), ],
                                        'Marital Status', track_visibility='onchange')
 
+    @api.one
+    def search_sub(self):
+        sub=self.env['account.invoice.line'].search([('member_name', '=', self.id)])
+        inv=self.env['account.invoice'].search([('invoice_line_ids','in',sub.ids)])
+        return inv.number
+
+    @api.one
+    def search_date(self):
+        sub=self.env['account.invoice.line'].search([('member_name', '=', self.id)])
+        inv=self.env['account.invoice'].search([('invoice_line_ids','in',sub.ids)])
+        return inv.date_invoice
 
 
 
