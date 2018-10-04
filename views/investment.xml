@@ -3,6 +3,7 @@
         <record id="view_investment_form" model="ir.ui.view">
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="mode">primary</field>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='date_invoice']" position="after">
                     <field name="totalamount" readonly="1" force_save="1" string="Total Invested"/>
