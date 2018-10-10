@@ -1,0 +1,76 @@
+<odoo>
+    <data>
+        <report
+                id="member_fund_investment"
+                model="res.partner"
+                string="Investments"
+                report_type="qweb-pdf"
+                name="Private_Pension_Fund.report_fund_investment_view"
+                file="Private_Pension_Fund.report_fund_investment_view"
+        />
+        <template id="report_fund_investment_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <p><h4><strong>Member ID : <span t-field="doc.member_id"/></strong></h4></p>
+                            <p><h4><strong>Member Name : <span t-field="doc.name"/></strong></h4></p>
+                            <br/>
+                            <table class="table table-condensed" >
+                                <h4>Member Invsetments</h4>
+                                <thead>
+                                    <tr >
+
+                                        <th>Date of Investments</th>
+                                        <th>Investments Trx</th>
+                                        <th>Invested Amount</th>
+                                        <th>Invested Product</th>
+                                        <th>Invested Purchased Price</th>
+                                        <th>Units Purchased</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="att_own" t-value="0"/>
+                                    <t t-set="att_company" t-value="0"/>
+                                    <t t-set="att_booster" t-value="0"/>
+                                    <t t-set="att_total" t-value="0"/>
+                                    <t t-set="att_counter" t-value="1"/>
+
+
+
+
+                                    <t t-foreach="doc.search_invest()" t-as="invest">
+
+                                        <t t-foreach="invest.invoice_line_ids" t-as="line">
+                                            <tr t-foreach="doc.search_sub()" t-as="inv">
+                                                <t t-foreach="inv.invoice_line_ids" t-as="li">
+                                                    <t t-if="li.member_name.id == doc.id" >
+                                                        <t t-set="att_counter" t-value="(li.total/inv.totalamount)*100"/>
+                                                    </t>
+
+                                                    <td>  <span t-esc="invest.date_invoice"/></td>
+                                                    <td>  <span t-esc="invest.number"/></td>
+
+                                                    <td>  <span t-esc="(line.price_subtotal)*(att_counter)"/></td>
+                                                    <td>  <span t-esc="line.product_id.name"/></td>
+                                                    <td>  <span t-esc="line.price_unit"/></td>
+                                                    <td>  <span t-esc="line.quantity"/></td>
+
+                                                </t>
+                                            </tr>
+
+                                            <!--</t>-->
+                                            <!--</t>-->
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

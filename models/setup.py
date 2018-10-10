@@ -51,17 +51,16 @@ class Partners(models.Model):
         inv=self.env['account.invoice'].search([('invoice_line_ids','in',sub.ids)])
         return inv
 
+
     @api.multi
-    def search_sub_member_percentage(self):
-        total=3
+    def search_cash_pool(self):
         sub = self.env['account.invoice.line'].search([('member_name', '=', self.id)])
         inv = self.env['account.invoice'].search([('invoice_line_ids', 'in', sub.ids)])
+        all_lines = self.env['allocation.lines'].search([('sub', 'in', inv.ids)])
+        allocation = self.env['allocation'].search([('allocation_line', 'in', all_lines.ids)])
+        # investment = self.env['account.invoice'].search([('allocation_id', 'in', allocation.ids)])
 
-        for i in inv:
-                for s in sub:
-                     total=(s.total/i.totalamount)*100
-
-                return total
+        return allocation
     @api.multi
     def search_invest(self):
         sub = self.env['account.invoice.line'].search([('member_name', '=', self.id)])
