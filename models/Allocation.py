@@ -16,6 +16,18 @@ class Allocation(models.Model):
     allocation_line_invest = fields.Many2many('account.invoice',compute='_get_investment')
 
 
+    @api.onchange('allocation_line')
+    def _onchange_subscription(self):
+        if self.allocation_line:
+            sum=0.0
+            for record in self.allocation_line:
+                inv = self.env['account.invoice'].search([('id', '=', record.sub.id)])
+                sum=inv.allocated+record.allocated
+                inv.write({'allocated': sum})
+
+
+
+
 
 
 
@@ -54,9 +66,9 @@ class Allocation(models.Model):
 class Allocation_lines(models.Model):
     _name='allocation.lines'
 
-    sub=fields.Many2one('account.invoice',domain="[('state','=','open'),('type','=','out_invoice')]",string='Subscribtion')
+    sub=fields.Many2one('account.invoice',domain="[('state','=','paid'),('type','=','out_invoice')]",string='Subscribtion')
     sub_date = fields.Date(related='sub.date_invoice',string='Subscribtion Date')
-    sub_total_ammount=fields.Float(related='sub.totalamount',readonly=True,force_save=True)
+    sub_total_ammount=fields.Float(related='sub.o_s',string='Total Amount',readonly=True,force_save=True)
     allocated=fields.Float('Allocated')
     out_standing=fields.Float('O/S',compute='compute_O_S',store=True)
     allocation_id=fields.Many2one('allocation')
