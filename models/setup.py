@@ -11,7 +11,7 @@ class product_fund(models.Model):
 
 
     product_compos=fields.One2many('product.composition','product')
-    product_pricing=fields.One2many('product.pricing','Product Prices')
+    product_pricing=fields.One2many('product.pricing','product_price')
 
 class Product_Composition(models.Model):
     _name='product.composition'
