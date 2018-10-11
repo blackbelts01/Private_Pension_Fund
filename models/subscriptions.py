@@ -6,8 +6,8 @@ from odoo import models, fields, api
 class ppfInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    allocated=fields.Float('Cash Pool',compute='_compute_os')
-    o_s=fields.Float('O/S')
+    allocated=fields.Float('Cash Pool')
+    o_s=fields.Float('O/S',compute='_compute_os')
     ref_id = fields.Many2one('account.invoice', string="Invoice")
     total_amount = fields.Float(string='Total Amount',compute='_compute_total_amount')
 
