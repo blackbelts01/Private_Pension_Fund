@@ -26,15 +26,26 @@
                                         <th>Invested Amount</th>
                                         <th>Invested Product</th>
                                         <th>Invested Purchased Price</th>
-                                        <th>Units Purchased</th>
+                                        <th>Number of Units</th>
+                                        <th>Today Price</th>
+                                        <th>Investment Value</th>
+                                        <th>ROI</th>
+
+
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <t t-set="att_own" t-value="0"/>
+                                    <t t-set="number_units" t-value="1"/>
+                                    <t t-set="invest_amount" t-value="1"/>
+                                    <t t-set="invest_value" t-value="1"/>
                                     <t t-set="att_company" t-value="0"/>
                                     <t t-set="att_booster" t-value="0"/>
                                     <t t-set="att_total" t-value="0"/>
                                     <t t-set="att_counter" t-value="1"/>
+                                    <t t-set="today_price" t-value="0"/>
+                                    <t t-set="time_today" t-value="time.strftime('%Y-%m-%d')"/>
+
 
 
 
@@ -50,11 +61,32 @@
 
                                                     <td>  <span t-esc="invest.date_invoice"/></td>
                                                     <td>  <span t-esc="invest.number"/></td>
+                                                    <!--<td>  <span t-esc="att_counter"/></td>-->
+                                                    <t t-set="invest_amount" t-value="(line.price_subtotal)*(att_counter)"/>
 
-                                                    <td>  <span t-esc="(line.price_subtotal)*(att_counter)"/></td>
+
+                                                    <td>  <span t-esc="invest_amount"/></td>
                                                     <td>  <span t-esc="line.product_id.name"/></td>
                                                     <td>  <span t-esc="line.price_unit"/></td>
-                                                    <td>  <span t-esc="line.quantity"/></td>
+                                                    <t t-set="number_units" t-value="((line.price_subtotal)*(att_counter))/(line.price_unit)"/>
+
+                                                    <td>  <span t-esc="number_units"/></td>
+                                                    <t t-foreach="line.product_id.item_ids" t-as="price">
+                                                        <t t-if="price.date_start &lt; time_today and price.date_end &gt; time_today " >
+                                                            <t t-set="today_price" t-value="price.fixed_price"/>
+                                                        </t>
+                                                    </t>
+                                                    <td>  <span t-esc="today_price"/></td>
+                                                    <t t-set="invest_value" t-value="(today_price)*(number_units)"/>
+
+                                                    <td>  <span t-esc="invest_value"/></td>
+                                                    <t t-if="invest_amount !=0 " >
+                                                    <td>  <span t-esc="(invest_value-invest_amount)/(invest_amount)"/></td>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <td>  <span t-esc="invest_value"/></td>
+
+                                                    </t>
 
                                                 </t>
                                             </tr>

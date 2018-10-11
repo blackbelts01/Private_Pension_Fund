@@ -6,10 +6,10 @@ from odoo import models, fields, api
 class ppfInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    allocated=fields.Float('Cash Pool',compute='_compute_os')
-    o_s=fields.Float('O/S')
+    allocated=fields.Float('Cash Pools',compute='_compute_os')
+    o_s=fields.Float('OutStanding')
     ref_id = fields.Many2one('account.invoice', string="Invoice")
-    total_amount = fields.Float(string='Total Amount',compute='_compute_total_amount')
+    total_amount = fields.Float(string='Batch Amount',compute='_compute_total_amount')
 
     @api.one
     def _compute_total_amount(self):
@@ -22,6 +22,16 @@ class ppfInvoice(models.Model):
 
 class invoiceLine(models.Model):
     _inherit = 'account.invoice.line'
+
+    @api.multi
+    @api.onchange('member_name')
+    def get_account(self):
+        account=self.env['account.account'].search([('name', '=', 'Due subscription')])
+        self.account_id=account.id
+
+    # account_id = fields.Many2one('account.account', string='Account',
+    #                              required=True, readonly=True, states={'draft': [('readonly', False)]},
+    #                              domain=[('deprecated', '=', False)], help="The partner account used for this invoice.",default=get_account)
 
 
     @api.one
@@ -48,7 +58,7 @@ class invoiceLine(models.Model):
 
 
 
-    member_id = fields.Char(related='member_name.member_id',string='Member ID',store=True,readonly=True)
+    member_id = fields.Char(related='member_name.member_id',string='Member ID',store=True)
     member_name = fields.Many2one('res.partner',string='Member Name')
     salary = fields.Float(string='Salary')
     perc_salary = fields.Integer(' % of Salary')

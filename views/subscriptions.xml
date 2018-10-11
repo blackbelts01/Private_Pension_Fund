@@ -11,7 +11,13 @@
                     <field name="o_s" readonly="1" force_save="1"/>
                 </xpath>
                 <xpath expr="//field[@name='date_invoice']" position="attributes">
-                    <attribute name="string">Date of Subscription</attribute>
+                    <attribute name="string">Batch Date</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">Company</attribute>
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
                 </xpath>
                 <xpath expr="//form" position="attributes">
                     <attribute name="string">Subscriptions</attribute>
@@ -38,20 +44,28 @@
                     <attribute name="string">Subscription Lines</attribute>
                 </xpath>
                 <xpath expr="//notebook/page[1]/field/tree/field[@name='product_id']" position="after">
-                    <field name="member_name"/>
                     <field name="member_id"/>
+                    <field name="member_name"/>
                     <field name="salary"/>
                     <field name="perc_salary"/>
                     <field name="own"/>
                     <field name="company"/>
                     <field name="booster"/>
-                    <field name="side"/>
                     <field name="total" readonly="1" force_save="1"/>
                 </xpath>
                 <xpath expr="//notebook/page[1]/field/tree/field[@name='quantity']" position="attributes">
                     <attribute name="invisible">True</attribute>
                 </xpath>
                 <xpath expr="//notebook/page[1]/field/tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[1]/field/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[1]/field/tree/field[@name='account_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[1]/field/tree/field[@name='name']" position="attributes">
                     <attribute name="invisible">True</attribute>
                 </xpath>
                 <xpath expr="//notebook/page[1]/field/tree/field[@name='invoice_line_tax_ids']" position="attributes">
@@ -85,15 +99,15 @@
                     <field name="reference" invisible="1"/>
                     <field name="name" invisible="1"/>
                     <field name="journal_id" invisible="1"/>
-                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
-                    <field name="user_id"/>
-                    <field name="date_due"/>
-                    <field name="origin"/>
-                    <field name="allocated"/>
+                    <!--<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>-->
+                    <!--<field name="user_id"/>-->
+                    <!--<field name="date_due"/>-->
+                    <!--<field name="origin"/>-->
+                    <!--<field name="allocated"/>-->
                     <field name="total_amount"/>
                     <field name="o_s"/>
                     <field name="amount_total_signed" string="Total" sum="Total"/>
-                    <field name="residual_signed" string="Amount Due" sum="Amount Due"/>
+                    <!--<field name="residual_signed" string="Amount Due" sum="Amount Due"/>-->
                     <field name="currency_id" invisible="1"/>
                     <field name="company_currency_id" invisible="1"/>
                     <field name="state"/>
@@ -102,28 +116,28 @@
             </field>
         </record>
         <record model="ir.actions.act_window" id="action_ppf_subscription">
-             <field name="name">Subscription</field>
-             <field name="type">ir.actions.act_window</field>
-             <field name="res_model">account.invoice</field>
-             <field name="view_type">form</field>
-             <field name="view_mode">tree,form</field>
+            <field name="name">Subscription</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
             <field name="domain">[('type','=','out_invoice')]</field>
             <field name="context">{'type':'out_invoice', 'journal_type': 'sale'}</field>
-             <field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Subscription.</p></field>
+            <field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Subscription.</p></field>
         </record>
 
         <record model="ir.actions.act_window.view" id="action_ppf_subscription_tree">
-             <field name="sequence" eval="1"/>
-             <field name="view_mode">tree</field>
-             <field name="view_id" ref="subscription_tree"/>
-             <field name="act_window_id" ref="action_ppf_subscription"/>
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="subscription_tree"/>
+            <field name="act_window_id" ref="action_ppf_subscription"/>
         </record>
 
         <record model="ir.actions.act_window.view" id="action_ppf_subscription_form">
-             <field name="sequence" eval="2"/>
-             <field name="view_mode">form</field>
-             <field name="view_id" ref="view_subscription_form"/>
-             <field name="act_window_id" ref="action_ppf_subscription"/>
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_subscription_form"/>
+            <field name="act_window_id" ref="action_ppf_subscription"/>
         </record>
     </data>
 </odoo>
