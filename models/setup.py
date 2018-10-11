@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from odoo.exceptions import  ValidationError
+from datetime import datetime
 class product_fund(models.Model):
     _inherit='product.template'
 
@@ -51,11 +52,17 @@ class Partners(models.Model):
         inv=self.env['account.invoice'].search([('invoice_line_ids','in',sub.ids)])
         return inv
 
-    # @api.multi
-    # def _percentage(self):
-    #     sub = self.env['account.invoice.line'].search([('member_name', '=', self.id)])
-    #     return sub
 
+
+    @api.multi
+    def search_cash_pool(self):
+        sub = self.env['account.invoice.line'].search([('member_name', '=', self.id)])
+        inv = self.env['account.invoice'].search([('invoice_line_ids', 'in', sub.ids)])
+        all_lines = self.env['allocation.lines'].search([('sub', 'in', inv.ids)])
+        allocation = self.env['allocation'].search([('allocation_line', 'in', all_lines.ids)])
+        # investment = self.env['account.invoice'].search([('allocation_id', 'in', allocation.ids)])
+
+        return allocation
 
 
 

@@ -5,13 +5,13 @@ class Allocation(models.Model):
 
 
 
-    allocation_id=fields.Char('Alloction Number')
-    desc=fields.Text('Describtion')
+    allocation_id=fields.Char('Cash Pool ID')
+    desc=fields.Text('Description')
     allocation_date=fields.Date('Allocation Date')
     currency=fields.Many2one('res.currency')
-    allocation_total=fields.Float('Allocation Total',compute='_compute_allocation_total',store=True)
+    allocation_total=fields.Float('Cash Pool Total',compute='_compute_allocation_total',store=True)
     allocation_invested = fields.Float('Allocation Invested')
-    allocation_O_S = fields.Float('Allocation O/S',compute='compute_allocation_O_S',store=True)
+    allocation_O_S = fields.Float('Cash Pool Outstanding',compute='compute_allocation_O_S',store=True)
     allocation_line=fields.One2many('allocation.lines','allocation_id')
     allocation_line_invest = fields.Many2many('account.invoice',compute='_get_investment')
 
@@ -62,12 +62,11 @@ class Allocation(models.Model):
             for rec in self.allocation_line:
                 self.allocation_O_S += rec.out_standing
 
-
 class Allocation_lines(models.Model):
     _name='allocation.lines'
 
-    sub=fields.Many2one('account.invoice',domain="[('state','=','paid'),('type','=','out_invoice')]",string='Subscribtion')
-    sub_date = fields.Date(related='sub.date_invoice',string='Subscribtion Date')
+    sub=fields.Many2one('account.invoice',domain="[('state','=','paid'),('type','=','out_invoice')]",string='Subscription')
+    sub_date = fields.Date(related='sub.date_invoice',string='Subscription Date')
     sub_total_ammount=fields.Float(related='sub.o_s',string='Total Amount',readonly=True,force_save=True)
     allocated=fields.Float('Allocated')
     out_standing=fields.Float('O/S',compute='compute_O_S',store=True)

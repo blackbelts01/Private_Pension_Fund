@@ -31,7 +31,8 @@
         'views/subscriptions.xml',
         'views/investment.xml',
         'views/PPf_menu.xml',
-        'reports/fund_report.xml',
+        'reports/member_subscription_report.xml',
+        'reports/member_investment_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

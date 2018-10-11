@@ -7,9 +7,11 @@ class ppfInvoice(models.Model):
     _inherit = 'account.invoice'
 
     allocated=fields.Float('Cash Pool')
-    o_s=fields.Float('O/S',compute='_compute_os')
+
+    # allocated=fields.Float('Cash Pools',compute='_compute_os',store=True)
+    o_s=fields.Float('Outstanding',compute='_compute_os')
     ref_id = fields.Many2one('account.invoice', string="Invoice")
-    total_amount = fields.Float(string='Total Amount',compute='_compute_total_amount')
+    total_amount = fields.Float(string='Batch Amount',compute='_compute_total_amount')
 
     @api.one
     def _compute_total_amount(self):
@@ -18,10 +20,21 @@ class ppfInvoice(models.Model):
 
     @api.one
     def _compute_os(self):
-        self.o_s = self.total_amount - self.allocated
+        self.o_s = self.amount_total_signed - self.allocated
 
 class invoiceLine(models.Model):
     _inherit = 'account.invoice.line'
+
+    @api.multi
+    @api.onchange('member_name')
+    def get_account(self):
+        account=self.env['account.account'].search([('id', '=', '1')])
+        self.account_id=account.id
+        self.name="aya 7aga"
+
+    # account_id = fields.Many2one('account.account', string='Account',
+    #                              required=True, readonly=True, states={'draft': [('readonly', False)]},
+    #                              domain=[('deprecated', '=', False)], help="The partner account used for this invoice.",default=get_account)
 
 
     @api.one
@@ -48,7 +61,7 @@ class invoiceLine(models.Model):
 
 
 
-    member_id = fields.Char(related='member_name.member_id',string='Member ID',store=True,readonly=True)
+    member_id = fields.Char(related='member_name.member_id',string='Member ID',store=True)
     member_name = fields.Many2one('res.partner',string='Member Name')
     salary = fields.Float(string='Salary')
     perc_salary = fields.Integer(' % of Salary')
@@ -63,6 +76,7 @@ class invoiceLine(models.Model):
     @api.depends('salary','perc_salary','own','company','booster','side')
     def _compute_total(self):
         self.total = (self.salary * (self.perc_salary/100))+self.own+self.company+self.booster+self.side
+
 
 
 

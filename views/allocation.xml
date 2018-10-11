@@ -12,7 +12,6 @@
                             <field name="allocation_id"/>
                             <field name="desc"/>
                             <field name="allocation_date"/>
-                            <field name="currency"/>
                         </group>
                         <group >
                             <field name="allocation_total"/>
@@ -22,7 +21,7 @@
                     </group>
 
                     <notebook>
-                        <page string="Subscription Lines">
+                        <page string="Subscription Batches">
                             <field name="allocation_line">
                                 <tree editable="bottom">
                                     <field name="sub"/>
