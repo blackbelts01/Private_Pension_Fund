@@ -45,22 +45,21 @@ class Allocation(models.Model):
             for rec in self.allocation_line:
                 total+=rec.allocated
             self.allocation_total=total
-    # @api.multi
-    # @api.depends('allocation_line_invest')
+    # @api.one
+    # @api.depends('allocation_line_invest.totalamount')
     # def compute_allocation_invested(self):
-    #     if self.allocation_line_invest:
-    #         self.allocation_invested=0.0
-    #         for rec in self.allocation_line_invest:
-    #             self.allocation_invested += rec.totalamount
+    #     print('***************')
+    #     for rec in self.allocation_line_invest.allocation_id:
+    #             rec.allocation_invested = 50
 
     @api.multi
     @api.one
-    @api.depends('allocation_line')
+    @api.depends('allocation_line','allocation_line_invest.allocation_id.allocation_invested')
     def compute_allocation_O_S(self):
-        if self.allocation_line:
-            self.allocation_O_S = 0.0
-            for rec in self.allocation_line:
-                self.allocation_O_S += rec.out_standing
+        # if self.allocation_line_invest.allocation_id.allocation_invested:
+            # self.allocation_O_S = 0.0
+            self.allocation_O_S = self.allocation_total-self.allocation_invested
+
 
 class Allocation_lines(models.Model):
     _name='allocation.lines'

@@ -46,7 +46,13 @@
                     <attribute name="string">Investment</attribute>
                 </xpath>
                 <xpath expr="//notebook/page[1]" position="attributes">
-                    <attribute name="string">Bill Product</attribute>
+                    <attribute name="string">Investments</attribute>
+                </xpath>
+                 <xpath expr="//notebook/page[1]/field/tree/field[@name='quantity']" position="attributes">
+                    <attribute name="string">Units</attribute>
+                </xpath>
+                   <xpath expr="//notebook/page[1]/field/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="string">Investment Product</attribute>
                 </xpath>
             </field>
         </record>
