@@ -15,7 +15,7 @@
                             <field name="allocation_id"/>
                             <field name="desc"/>
                             <field name="allocation_date"/>
-                            <field name="currency"/>
+                            <!--<field name="currency"/>-->
                             <field name="allocation_total"/>
                             <field name="allocation_invested"/>
                             <field name="allocation_O_S"/>
@@ -25,17 +25,19 @@
                 <xpath expr="//field[@name='date_invoice']" position="attributes">
                     <attribute name="string">Trx Date</attribute>
                 </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">Asset Manager</attribute>
+                </xpath>
+
                 <xpath expr="//field[@name='reference']" position="attributes">
                     <attribute name="invisible">True</attribute>
                 </xpath>
                 <xpath expr="//field[@name='purchase_id']" position="attributes">
                     <attribute name="invisible">True</attribute>
                 </xpath>
+
                 <xpath expr="//sheet" position="attributes">
                     <attribute name="string">Investment Trx</attribute>
-                </xpath>
-                <xpath expr="//field[@name='date_invoice']" position="after">
-                    <field name="currency_id"  class="oe_inline"/>
                 </xpath>
                 <xpath expr="//sheet/div/label[1]" position="attributes">
                     <attribute name="string">ITX/ID:</attribute>
@@ -44,7 +46,13 @@
                     <attribute name="string">Investment</attribute>
                 </xpath>
                 <xpath expr="//notebook/page[1]" position="attributes">
-                    <attribute name="string">Bill Product</attribute>
+                    <attribute name="string">Investments</attribute>
+                </xpath>
+                 <xpath expr="//notebook/page[1]/field/tree/field[@name='quantity']" position="attributes">
+                    <attribute name="string">Units</attribute>
+                </xpath>
+                   <xpath expr="//notebook/page[1]/field/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="string">Investment Product</attribute>
                 </xpath>
             </field>
         </record>
@@ -81,28 +89,28 @@
             </field>
         </record>
         <record model="ir.actions.act_window" id="action_ppf_investment">
-             <field name="name">Investment</field>
-             <field name="type">ir.actions.act_window</field>
-             <field name="res_model">account.invoice</field>
-             <field name="view_type">form</field>
-             <field name="view_mode">tree,form</field>
-             <field name="domain">[('type','=','in_invoice')]</field>
-             <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase'}</field>
-             <field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Investment.</p></field>
+            <field name="name">Investment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','in_invoice')]</field>
+            <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase'}</field>
+            <field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Investment.</p></field>
         </record>
 
         <record model="ir.actions.act_window.view" id="action_ppf_investment_tree">
-             <field name="sequence" eval="1"/>
-             <field name="view_mode">tree</field>
-             <field name="view_id" ref="investment_tree"/>
-             <field name="act_window_id" ref="action_ppf_investment"/>
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="investment_tree"/>
+            <field name="act_window_id" ref="action_ppf_investment"/>
         </record>
 
         <record model="ir.actions.act_window.view" id="action_ppf_investment_form">
-             <field name="sequence" eval="2"/>
-             <field name="view_mode">form</field>
-             <field name="view_id" ref="view_investment_form"/>
-             <field name="act_window_id" ref="action_ppf_investment"/>
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_investment_form"/>
+            <field name="act_window_id" ref="action_ppf_investment"/>
         </record>
     </data>
 </odoo>

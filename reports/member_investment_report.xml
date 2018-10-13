@@ -52,48 +52,48 @@
 
                                     <t t-foreach="doc.search_invest()" t-as="invest">
 
-                                        <t t-foreach="invest.invoice_line_ids" t-as="line">
-                                            <tr t-foreach="doc.search_sub()" t-as="inv">
-                                                <t t-foreach="inv.invoice_line_ids" t-as="li">
-                                                    <t t-if="li.member_name.id == doc.id" >
-                                                        <t t-set="att_counter" t-value="(li.total/inv.totalamount)*100"/>
-                                                    </t>
+                                        <tr t-foreach="invest.invoice_line_ids" t-as="line">
+                                            <t t-foreach="invest.allocation_id" t-as="all">
+                                                <t t-foreach="invest.allocation_id.allocation_line" t-as="all_line">
+                                                    <t t-foreach="all_line.sub" t-as="subs">
+                                                        <t t-foreach="subs.invoice_line_ids" t-as="li">
+                                                            <t t-if="li.member_name.id == doc.id" >
+                                                                <t t-set="att_counter" t-value="(li.total/subs.totalamount)"/>
+                                                                <td>  <span t-esc="invest.date_invoice"/></td>
+                                                                <td>  <span t-esc="invest.number"/></td>
+                                                                <!--<td>  <span t-esc="att_counter"/></td>-->
+                                                                <t t-set="invest_amount" t-value="(line.price_subtotal)*(att_counter)"/>
+                                                                <td>  <span t-esc="round(invest_amount,3)"/></td>
+                                                                <td>  <span t-esc="line.product_id.name"/></td>
+                                                                <td>  <span t-esc="line.price_unit"/></td>
+                                                                <t t-set="number_units" t-value="((line.price_subtotal)*(att_counter))/(line.price_unit)"/>
+                                                                <td>  <span t-esc="number_units"/></td>
+                                                                <t t-foreach="line.product_id.seller_ids" t-as="price">
+                                                                    <t t-if="price.date_start &lt; time_today and price.date_end &gt; time_today " >
+                                                                        <t t-set="today_price" t-value="price.price"/>
+                                                                    </t>
+                                                                </t>
+                                                                <td>  <span t-esc="today_price"/></td>
+                                                                <t t-set="invest_value" t-value="(today_price)*(number_units)"/>
 
-                                                    <td>  <span t-esc="invest.date_invoice"/></td>
-                                                    <td>  <span t-esc="invest.number"/></td>
-                                                    <!--<td>  <span t-esc="att_counter"/></td>-->
-                                                    <t t-set="invest_amount" t-value="(line.price_subtotal)*(att_counter)"/>
+                                                                <td>  <span t-esc="invest_value"/></td>
+                                                                <t t-if="invest_amount !=0 " >
+                                                                    <td>  <span t-esc="(invest_value-invest_amount)/(invest_amount)"/></td>
+                                                                </t>
+                                                                <t t-else="">
+                                                                    <td>  <span t-esc="invest_value"/></td>
 
-
-                                                    <td>  <span t-esc="invest_amount"/></td>
-                                                    <td>  <span t-esc="line.product_id.name"/></td>
-                                                    <td>  <span t-esc="line.price_unit"/></td>
-                                                    <t t-set="number_units" t-value="((line.price_subtotal)*(att_counter))/(line.price_unit)"/>
-
-                                                    <td>  <span t-esc="number_units"/></td>
-                                                    <t t-foreach="line.product_id.item_ids" t-as="price">
-                                                        <t t-if="price.date_start &lt; time_today and price.date_end &gt; time_today " >
-                                                            <t t-set="today_price" t-value="price.fixed_price"/>
+                                                                </t>
+                                                            </t>
                                                         </t>
-                                                    </t>
-                                                    <td>  <span t-esc="today_price"/></td>
-                                                    <t t-set="invest_value" t-value="(today_price)*(number_units)"/>
-
-                                                    <td>  <span t-esc="invest_value"/></td>
-                                                    <t t-if="invest_amount !=0 " >
-                                                    <td>  <span t-esc="(invest_value-invest_amount)/(invest_amount)"/></td>
-                                                    </t>
-                                                    <t t-else="">
-                                                        <td>  <span t-esc="invest_value"/></td>
-
                                                     </t>
 
                                                 </t>
-                                            </tr>
+                                            </t>
 
                                             <!--</t>-->
                                             <!--</t>-->
-                                        </t>
+                                        </tr>
                                     </t>
                                 </tbody>
                             </table>

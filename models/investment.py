@@ -11,3 +11,13 @@ class ppfInvestment(models.Model):
     @api.depends('amount_total')
     def _onchange_sum_amount(self):
         self.totalamount = self.amount_total
+
+
+    # @api.onchange('allocation_id')
+    # def _onchange_allocation_id(self):
+    #     for record in self.allocation_id:
+    #         if self.allocation_id:
+    #             sum = 0.0
+    #             cashpool = self.env['allocation'].search([('id', '=', record.allocation_id.id)])
+    #             sum = cashpool.allocation_O_S
+    #             inv.write({'allocated': sum})

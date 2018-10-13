@@ -23,10 +23,10 @@
 
                                         <th>Subscription</th>
                                         <th>Date</th>
-                                        <th>Own Contribution</th>
-                                        <th>Company Contribution</th>
-                                        <th>Booster</th>
-                                        <th>SubTotal</th>
+                                        <th align="right">Own Contribution</th>
+                                        <th align="right">Company Contribution</th>
+                                        <th align="right">Booster</th>
+                                        <th align="right">SubTotal</th>
 
 
 
@@ -45,13 +45,13 @@
                                         <t t-foreach="inv.invoice_line_ids" t-as="li">
                                             <t t-if="li.member_name.id == doc.id" >
                                                 <!--<t t-set="att_counter" t-value="(li.total/inv.totalamount)*100"/>-->
-                                                <td> <span t-esc="li.own"/></td>
+                                                <td align="right"> <span t-esc="li.own"/></td>
                                                 <t t-set="att_own" t-value="(att_own+li.own)"/>
-                                                <td><span t-esc="li.company"/></td>
+                                                <td align="right"><span t-esc="li.company"/></td>
                                                  <t t-set="att_company" t-value="(att_company+li.company)"/>
-                                                <td><span t-esc="li.booster"/></td>
+                                                <td align="right"><span t-esc="li.booster"/></td>
                                                  <t t-set="att_booster" t-value="(att_booster+li.booster)"/>
-                                                <td><span t-esc="li.total"/></td>
+                                                <td align="right"><span t-esc="li.total"/></td>
                                                  <t t-set="att_total" t-value="(att_total+li.total)"/>
                                                 <!--<span t-esc="li.booster"/>-->
                                             </t>
@@ -60,10 +60,10 @@
                                     <tr>
                                         <td> <span/></td>
                                         <td> <span/></td>
-                                        <td> <span t-esc="att_own"/></td>
-                                         <td> <span t-esc="att_company"/></td>
-                                         <td> <span t-esc="att_booster"/></td>
-                                         <td> <span t-esc="att_total"/></td>
+                                        <td align="right"> <span t-esc="att_own"/></td>
+                                         <td align="right"> <span t-esc="att_company"/></td>
+                                         <td align="right"> <span t-esc="att_booster"/></td>
+                                         <td align="right"> <span t-esc="att_total"/></td>
 
                                     </tr>
                                 </tbody>
