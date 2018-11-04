@@ -7,19 +7,10 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='date_invoice']" position="after">
                     <field name="totalamount" readonly="1" force_save="1" string="Total Invested"/>
-                    <field name="total_cashpool" readonly="1" force_save="1"/>
-                </xpath>
-                <xpath expr="//sheet/group" position="inside">
-                    <h2><label string="Cash Pool"/></h2>
-                    <field name="allocation_id" >
-                        <tree string="Cash Pool lines" editable="bottom">
-                            <field name="allocation_id"/>
-                            <field name="desc"/>
-                            <field name="allocation_date"/>
-                            <field name="currency"/>
-                            <field name="amount"/>
-                        </tree>
-                    </field>
+                    <field name="allocation_id"/>
+                    <field name="cashpool_amount"/>
+                    <field name="perv_amount"/>
+                    <field name="os_amount"/>
                 </xpath>
                 <xpath expr="//field[@name='date_invoice']" position="attributes">
                     <attribute name="string">Trx Date</attribute>
@@ -50,8 +41,11 @@
                  <xpath expr="//notebook/page[1]/field/tree/field[@name='quantity']" position="attributes">
                     <attribute name="string">Units</attribute>
                 </xpath>
-                   <xpath expr="//notebook/page[1]/field/tree/field[@name='product_id']" position="attributes">
+                <xpath expr="//notebook/page[1]/field/tree/field[@name='product_id']" position="attributes">
                     <attribute name="string">Investment Product</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[1]/group" position="attributes">
+                    <attribute name="invisible">True</attribute>
                 </xpath>
             </field>
         </record>

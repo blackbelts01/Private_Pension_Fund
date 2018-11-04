@@ -5,24 +5,28 @@ class Allocation(models.Model):
 
 
 
-    allocation_id=fields.Char('ID')
+    all_id=fields.Char('ID')
     desc=fields.Text('Description')
     allocation_date=fields.Date('Date')
     currency=fields.Many2one('res.currency')
     amount=fields.Float('Amount')
+    perv_amount=fields.Float('Previous Invested',compute='_compute_perv_amount')
+    os_amount=fields.Float('Outstanding',compute='_compute_os_amount')
     subscription_id = fields.Many2one()
-    allocation_O_S = fields.Float('Cash Pool Outstanding')
-    allocation_line_invest = fields.Many2many('account.invoice')
+    allocation_line_invest = fields.One2many('account.invoice','allocation_id')
 
 
-    # @api.onchange('allocation_line')
-    # def _onchange_subscription(self):
-    #     if self.allocation_line:
-    #         sum=0.0
-    #         for record in self.allocation_line:
-    #             inv = self.env['account.invoice'].search([('id', '=', record.sub.id)])
-    #             sum=inv.allocated+record.allocated
-    #             inv.write({'allocated': sum})
+    @api.one
+    @api.depends('allocation_line_invest')
+    def _compute_perv_amount(self):
+        self.perv_amount =0.0
+        for record in self.allocation_line_invest:
+            self.perv_amount += record.totalamount
+
+    @api.one
+    @api.depends('perv_amount')
+    def _compute_os_amount(self):
+        self.os_amount=self.amount - self.perv_amount
     #
     #
     #

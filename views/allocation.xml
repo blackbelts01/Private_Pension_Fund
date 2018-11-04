@@ -60,7 +60,7 @@
             <field name="view_mode">tree</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="allocation_id"/>
+                    <field name="all_id"/>
                     <field name="desc"/>
                     <field name="allocation_date"/>
                     <field name="currency"/>
