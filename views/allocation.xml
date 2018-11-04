@@ -1,98 +1,95 @@
 <odoo>
     <data>
-        <record model="ir.ui.view" id="action_allocation_form1">
-            <field name="name">Allocation</field>
-            <field name="model">allocation</field>
-            <field name="view_type">form,tree</field>
-            <field name="view_mode">form</field>
-            <field name="arch" type="xml">
-                <form>
-                    <group>
-                        <group>
-                            <field name="allocation_id"/>
-                            <field name="desc"/>
-                            <field name="allocation_date"/>
-                        </group>
-                        <group >
-                            <field name="allocation_total"/>
-                            <!--<field name="allocation_invested"/>-->
-                            <field name="allocation_O_S"/>
-                        </group>
-                    </group>
+        <!--<record model="ir.ui.view" id="action_allocation_form1">-->
+            <!--<field name="name">Allocation</field>-->
+            <!--<field name="model">allocation</field>-->
+            <!--<field name="view_type">form,tree</field>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form>-->
+                    <!--<group>-->
+                        <!--<group>-->
+                            <!--<field name="allocation_id"/>-->
+                            <!--<field name="desc"/>-->
+                            <!--<field name="allocation_date"/>-->
+                        <!--</group>-->
+                        <!--<group >-->
+                            <!--<field name="allocation_total"/>-->
+                            <!--&lt;!&ndash;<field name="allocation_invested"/>&ndash;&gt;-->
+                            <!--<field name="allocation_O_S"/>-->
+                        <!--</group>-->
+                    <!--</group>-->
 
-                    <notebook>
-                        <page string="Subscription Batches">
-                            <field name="allocation_line">
-                                <tree editable="bottom">
-                                    <field name="sub"/>
-                                    <field name="sub_date"/>
-                                    <field name="sub_total_ammount"/>
-                                    <field name="allocated"/>
-                                    <field name="out_standing"/>
+                    <!--<notebook>-->
+                        <!--<page string="Subscription Batches">-->
+                            <!--<field name="allocation_line">-->
+                                <!--<tree editable="bottom">-->
+                                    <!--<field name="sub"/>-->
+                                    <!--<field name="sub_date"/>-->
+                                    <!--<field name="sub_total_ammount"/>-->
+                                    <!--<field name="allocated"/>-->
+                                    <!--<field name="out_standing"/>-->
 
-                                </tree>
-                            </field>
-                        </page>
-                        <page string="Investment Lines">
-                            <field name="allocation_line_invest"  widget="many2many" >
-                                <tree string="Investment lines">
-                                    <field name="number"/>
-                                    <!--<field name="date_invoice"/>-->
-                                    <field name="totalamount"/>
-                                    <field name="state"/>
-                                </tree>
-                            </field>
+                                <!--</tree>-->
+                            <!--</field>-->
+                        <!--</page>-->
+                        <!--<page string="Investment Lines">-->
+                            <!--<field name="allocation_line_invest"  widget="many2many" >-->
+                                <!--<tree string="Investment lines">-->
+                                    <!--<field name="number"/>-->
+                                    <!--&lt;!&ndash;<field name="date_invoice"/>&ndash;&gt;-->
+                                    <!--<field name="totalamount"/>-->
+                                    <!--<field name="state"/>-->
+                                <!--</tree>-->
+                            <!--</field>-->
 
-                        </page>
-                    </notebook>
+                        <!--</page>-->
+                    <!--</notebook>-->
 
 
-                </form>
-                <!--<field name="view_id" ref="view_invoice_form_inhert_ppf"/>-->
+                <!--</form>-->
+                <!--&lt;!&ndash;<field name="view_id" ref="view_invoice_form_inhert_ppf"/>&ndash;&gt;-->
 
-            </field>
-        </record>
+            <!--</field>-->
+        <!--</record>-->
 
-        <record model="ir.ui.view" id="action_allocation_tree">
-            <field name="name">Allocation</field>
-            <field name="model">allocation</field>
+        <record model="ir.ui.view" id="cash_pool_tree">
+            <field name="name">Cash.Pool.tree</field>
+            <field name="model">cash.pool</field>
             <field name="view_type">form,tree</field>
             <field name="view_mode">tree</field>
             <field name="arch" type="xml">
                 <tree>
-
                     <field name="allocation_id"/>
                     <field name="desc"/>
                     <field name="allocation_date"/>
                     <field name="currency"/>
-                    <field name="allocation_total"/>
-                    <field name="allocation_O_S"/>
-
+                    <field name="amount"/>
                 </tree>
             </field>
         </record>
-        <record model="ir.actions.act_window" id="action_ppf_allocation">
-            <field name="name">Allocations</field>
+        <record model="ir.actions.act_window" id="action_ppf_cash_pool">
+            <field name="name">Cash Pool</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">allocation</field>
+            <field name="res_model">cash.pool</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Allocation.</p></field>
+            <field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Cash Pool.</p></field>
         </record>
 
-        <record model="ir.actions.act_window.view" id="action_ppf_allocation_tree">
-            <field name="sequence" eval="1"/>
-            <field name="view_mode">tree</field>
-            <!--<field name="view_id" ref="subscription_tree"/>-->
-            <field name="act_window_id" ref="action_ppf_allocation"/>
-        </record>
+        <!--<record model="ir.actions.act_window.view" id="action_ppf_allocation_tree">-->
+            <!--<field name="sequence" eval="1"/>-->
+            <!--<field name="view_mode">tree</field>-->
+            <!--&lt;!&ndash;<field name="view_id" ref="subscription_tree"/>&ndash;&gt;-->
+            <!--<field name="act_window_id" ref="action_ppf_allocation"/>-->
+        <!--</record>-->
 
-        <record model="ir.actions.act_window.view" id="action_ppf_allocation_form">
-            <field name="sequence" eval="2"/>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="action_allocation_form1"/>
-            <field name="act_window_id" ref="action_ppf_allocation"/>
-        </record>
+        <!--<record model="ir.actions.act_window.view" id="action_ppf_allocation_form">-->
+            <!--<field name="sequence" eval="2"/>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="view_id" ref="action_allocation_form1"/>-->
+            <!--<field name="act_window_id" ref="action_ppf_allocation"/>-->
+        <!--</record>-->
 
 
     </data>

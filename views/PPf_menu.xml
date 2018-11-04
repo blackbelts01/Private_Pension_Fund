@@ -36,10 +36,10 @@
                   name="Investment Management"
                   sequence="2"
                   parent="main_ppf_menu"/>
-        <menuitem id="allocation_view_menu"
-                  name="Money Allocation"
-                  parent="investment_view_menu"
-                  action="action_ppf_allocation"/>
+        <!--<menuitem id="allocation_view_menu"-->
+                  <!--name="Money Allocation"-->
+                  <!--parent="investment_view_menu"-->
+                  <!--action="action_ppf_allocation"/>-->
         <menuitem id="buy_investment_view_menu"
                   name="Buy Investment"
                   parent="investment_view_menu"
