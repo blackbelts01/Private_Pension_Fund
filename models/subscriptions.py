@@ -1,26 +1,38 @@
 # -*- coding: utf-8 -*-
-
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 
 class ppfInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    allocated=fields.Float('Cash Pool')
-
-    # allocated=fields.Float('Cash Pools',compute='_compute_os',store=True)
-    o_s=fields.Float('Outstanding',compute='_compute_os')
+    o_s = fields.Float('Outstanding',compute='_compute_os')
     ref_id = fields.Many2one('account.invoice', string="Invoice")
     total_amount = fields.Float(string='Batch Amount',compute='_compute_total_amount')
+    cash_pool_ids = fields.One2many('cash.pool','subscription_id', string="Cash Pool Lines")
+    total_cash = fields.Float('Total Cash Pool',compute='_compute_total_cashpool',store=True)
 
     @api.one
+    @api.depends('amount_total_signed')
     def _compute_total_amount(self):
         self.total_amount = self.amount_total_signed
 
+    @api.one
+    @api.depends('cash_pool_ids')
+    def _compute_total_cashpool(self):
+        self.total_cash = 0.0
+        for record in self.cash_pool_ids:
+            self.total_cash += record.amount
 
     @api.one
+    @api.depends('total_cash')
     def _compute_os(self):
-        self.o_s = self.amount_total_signed - self.allocated
+        self.o_s = self.amount_total_signed - self.total_cash
+
+    @api.constrains('total_cash')
+    def _constrain_total_cashpool(self):
+        if self.total_cash > self.total_amount:
+            raise ValidationError(_('Error! Total Cash Pool invalid'))
 
 class invoiceLine(models.Model):
     _inherit = 'account.invoice.line'
