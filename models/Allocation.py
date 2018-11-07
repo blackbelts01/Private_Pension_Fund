@@ -3,19 +3,26 @@ class Allocation(models.Model):
     _name='cash.pool'
 
 
-
-
     all_id=fields.Char('ID')
     desc=fields.Text('Description')
     allocation_date=fields.Date('Date')
     currency=fields.Many2one('res.currency')
-    amount=fields.Float('Amount')
+    perc=fields.Float('Perc %')
+    type = fields.Selection([('Fixed Interest', 'Fixed Interest'),
+                                ('Equity', 'Equity'),
+                                ('Money Market', 'Money Market'),],
+                               'Type', track_visibility='onchange')
+    amount=fields.Float('Amount',compute='_compute_amount',store=True)
     perv_amount=fields.Float('Previous Invested',compute='_compute_perv_amount')
     os_amount=fields.Float('Outstanding',compute='_compute_os_amount')
     subscription_id = fields.Many2one('account.invoice')
     allocation_line_invest = fields.One2many('account.invoice','allocation_id')
 
+    @api.one
+    @api.depends('perc')
+    def _compute_amount(self):
 
+        self.amount =(self.perc*(self.subscription_id.total_amount))/100
     @api.one
     @api.depends('allocation_line_invest')
     def _compute_perv_amount(self):

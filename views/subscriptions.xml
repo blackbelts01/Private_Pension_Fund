@@ -78,13 +78,13 @@
                     <attribute name="invisible">True</attribute>
                 </xpath>
                 <xpath expr="//sheet/notebook/page[1]" position="after">
-                    <page string="Cash Pool Lines" attrs="{'invisible': [('state', '!=', 'open')]}">
+                    <page string="Cash Pool Lines" attrs="{'invisible': [('state', '!=', 'paid')]}">
                         <field name="cash_pool_ids">
                             <tree editable="bottom">
                                 <field name="all_id"/>
-                                <field name="desc"/>
+                                <field name="type"/>
                                 <field name="allocation_date"/>
-                                <field name="currency"/>
+                                <field name="perc"/>
                                 <field name="amount"/>
                             </tree>
                         </field>

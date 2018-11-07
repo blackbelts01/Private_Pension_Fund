@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <template id="report_invoice_inherit_demo" inherit_id="sale.report_saleorder_document">
+</template>
+    </data>
+</odoo>
+
