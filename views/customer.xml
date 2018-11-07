@@ -15,7 +15,6 @@
                         <field name = "benef" />
                          <field name = "martiual_status" />
                     </group>
-
                 </xpath>
             </field>
         </record>

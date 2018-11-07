@@ -3,15 +3,10 @@ class Allocation(models.Model):
     _name='cash.pool'
 
 
-    all_id=fields.Char('ID')
-    desc=fields.Text('Description')
+    name=fields.Char('ID')
     allocation_date=fields.Date('Date')
-    currency=fields.Many2one('res.currency')
-    perc=fields.Float('Perc %')
-    type = fields.Selection([('Fixed Interest', 'Fixed Interest'),
-                                ('Equity', 'Equity'),
-                                ('Money Market', 'Money Market'),],
-                               'Type', track_visibility='onchange')
+    perc=fields.Float('Percentage')
+    type = fields.Many2one('product.category',string='Type')
     amount=fields.Float('Amount',compute='_compute_amount',store=True)
     perv_amount=fields.Float('Previous Invested',compute='_compute_perv_amount')
     os_amount=fields.Float('Outstanding',compute='_compute_os_amount')
