@@ -77,6 +77,12 @@
                 <xpath expr="//notebook/page[1]/group" position="attributes">
                     <attribute name="invisible">True</attribute>
                 </xpath>
+                <xpath expr="//button[@name='invoice_print']" position="replace">
+                    <button name="sub_print" string="Print Sub" type="object"  attrs="{'invisible':['|', ('state', 'not in', ('open','paid'))]}" />
+                </xpath>
+                 <xpath expr="//button[@name='action_invoice_sent']" position="replace">
+                    <button name="send_mail_sub" string="Send By mail " type="object"  attrs="{'invisible':['|', ('state', 'not in', ('open','paid'))]}" />
+                </xpath>
                 <xpath expr="//sheet/notebook/page[1]" position="after">
                     <page string="Cash Pool Lines" attrs="{'invisible': [('state', '!=', 'paid')]}">
                         <field name="cash_pool_ids">

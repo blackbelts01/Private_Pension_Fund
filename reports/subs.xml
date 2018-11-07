@@ -1,7 +1,68 @@
 <odoo>
     <data>
-        <template id="report_invoice_inherit_demo" inherit_id="sale.report_saleorder_document">
-</template>
+        <report
+                id="subs"
+                model="account.invoice"
+                string="Subscriptions"
+                report_type="qweb-pdf"
+                name="Private_Pension_Fund.report_sub_view"
+                file="Private_Pension_Fund.report_sub_view"
+        />
+        <template id="report_sub_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <p><h4><strong>Sub : <span t-field="doc.number"/></strong></h4></p>
+                            <p><h4><strong>Company : <span t-field="doc.partner_id"/></strong></h4></p>
+                            <br/>
+                            <br/>
+                              <div class="col-xs-2" t-if="doc.date_invoice">
+                                <strong>Sub Date:</strong>
+                                <p t-field="doc.date_invoice"/>
+                            </div>
+                            <div class="col-xs-2" t-if="doc.total_amount">
+                                <strong>Batch Amount:</strong>
+                                <p t-field="doc.total_amount"/>
+                            </div>
+                             <div class="col-xs-2" t-if="doc.total_cash">
+                                <strong>Cash Pool Amount:</strong>
+                                <p t-field="doc.total_cash"/>
+                            </div>
+                              <div class="col-xs-2" t-if="doc.o_s">
+                                <strong>Outstanding:</strong>
+                                <p t-field="doc.o_s"/>
+                            </div>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+        <!--<template id="report_invoice_inherit_demo" inherit_id="account.report_invoice_document">-->
+        <!--<xpath expr="//div/h2/span[1]" position="replace">-->
+        <!--<span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Sub </span>-->
+
+        <!--</xpath>-->
+        <!--<xpath expr="//div/div[@class='row mt32 mb32']/div[2]" position="after">-->
+        <!--<div class="col-xs-2" t-if="o.total_amount">-->
+        <!--<strong>Batch Amount:</strong>-->
+        <!--<p t-field="o.total_amount"/>-->
+        <!--</div>-->
+        <!--<div class="col-xs-2" t-if="o.total_cash">-->
+        <!--<strong>Cash Pool Amount:</strong>-->
+        <!--<p t-field="o.total_cash"/>-->
+        <!--</div>-->
+        <!--<div class="col-xs-2" t-if="o.o_s">-->
+        <!--<strong>Cash Pool Amount:</strong>-->
+        <!--<p t-field="o.o_s"/>-->
+        <!--</div>-->
+        <!--</xpath>-->
+        <!--<xpath expr="//div/div[@class='clearfix']/div[@id='total']" position="replace"></xpath>-->
+        <!--<xpath expr="//table[@class='table table-condensed']" position="replace">-->
+
+        <!--</xpath>-->
+        <!--</template>-->
     </data>
 </odoo>
 

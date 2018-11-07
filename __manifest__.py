@@ -33,6 +33,8 @@
         'views/PPf_menu.xml',
         'reports/member_subscription_report.xml',
         'reports/member_investment_report.xml',
+        'reports/subs.xml',
+        'data/mail_template.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
