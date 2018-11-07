@@ -58,22 +58,22 @@
         </record>
 
         <record id="investment_tree" model="ir.ui.view">
-            <field name="name">account.invoice.supplier.tree</field>
+            <field name="name">investment.tree</field>
             <field name="model">account.invoice</field>
             <field name="arch" type="xml">
                 <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" string="Investment">
-                    <field name="partner_id" groups="base.group_user" string="Vendor"/>
-                    <field name="date_invoice" string="Bill Date"/>
-                    <field name="number"/>
-                    <field name="reference"/>
+                    <field name="partner_id" groups="base.group_user" string="Asset Manager"/>
+                    <field name="date_invoice" string="Trx Date"/>
+                    <field name="number" string="ITX/ID"/>
+                    <field name="allocation_id" string="Cash Pool"/>
                     <field name="commercial_partner_id" invisible="1"/>
                     <field name="name" invisible="1"/>
                     <field name="journal_id" invisible="1"/>
-                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
-                    <field name="date_due"/>
-                    <field name="origin"/>
-                    <field name="amount_total_signed" string="Total" sum="Total"/>
+                    <field name="totalamount" string="Total Invested" sum="Total Invested"/>
                     <field name="residual_signed" string="To Pay" sum="To pay"/>
+                    <field name="cashpool_amount" string="Cash-P Amount" sum="Cash-P Amount"/>
+                    <field name="perv_amount" string="Previous Invested"/>
+                    <field name="os_amount" string="Outstanding"/>
                     <field name="currency_id" invisible="1"/>
                     <field name="company_currency_id" invisible="1"/>
                     <field name="state"/>

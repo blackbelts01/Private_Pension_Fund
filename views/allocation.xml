@@ -1,58 +1,5 @@
 <odoo>
     <data>
-        <!--<record model="ir.ui.view" id="action_allocation_form1">-->
-            <!--<field name="name">Allocation</field>-->
-            <!--<field name="model">allocation</field>-->
-            <!--<field name="view_type">form,tree</field>-->
-            <!--<field name="view_mode">form</field>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<form>-->
-                    <!--<group>-->
-                        <!--<group>-->
-                            <!--<field name="allocation_id"/>-->
-                            <!--<field name="desc"/>-->
-                            <!--<field name="allocation_date"/>-->
-                        <!--</group>-->
-                        <!--<group >-->
-                            <!--<field name="allocation_total"/>-->
-                            <!--&lt;!&ndash;<field name="allocation_invested"/>&ndash;&gt;-->
-                            <!--<field name="allocation_O_S"/>-->
-                        <!--</group>-->
-                    <!--</group>-->
-
-                    <!--<notebook>-->
-                        <!--<page string="Subscription Batches">-->
-                            <!--<field name="allocation_line">-->
-                                <!--<tree editable="bottom">-->
-                                    <!--<field name="sub"/>-->
-                                    <!--<field name="sub_date"/>-->
-                                    <!--<field name="sub_total_ammount"/>-->
-                                    <!--<field name="allocated"/>-->
-                                    <!--<field name="out_standing"/>-->
-
-                                <!--</tree>-->
-                            <!--</field>-->
-                        <!--</page>-->
-                        <!--<page string="Investment Lines">-->
-                            <!--<field name="allocation_line_invest"  widget="many2many" >-->
-                                <!--<tree string="Investment lines">-->
-                                    <!--<field name="number"/>-->
-                                    <!--&lt;!&ndash;<field name="date_invoice"/>&ndash;&gt;-->
-                                    <!--<field name="totalamount"/>-->
-                                    <!--<field name="state"/>-->
-                                <!--</tree>-->
-                            <!--</field>-->
-
-                        <!--</page>-->
-                    <!--</notebook>-->
-
-
-                <!--</form>-->
-                <!--&lt;!&ndash;<field name="view_id" ref="view_invoice_form_inhert_ppf"/>&ndash;&gt;-->
-
-            <!--</field>-->
-        <!--</record>-->
-
         <record model="ir.ui.view" id="cash_pool_tree">
             <field name="name">Cash.Pool.tree</field>
             <field name="model">cash.pool</field>
@@ -60,21 +7,23 @@
             <field name="view_mode">tree</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="all_id"/>
-                    <field name="desc"/>
+                    <field name="name"/>
+                    <field name="type"/>
                     <field name="allocation_date"/>
-                    <field name="currency"/>
-                    <field name="amount"/>
+                    <field name="amount" string="Amount" sum="Amount"/>
+                    <field name="perc"/>
+                    <field name="perv_amount" string="Previous Invested" sum="Previous Invested"/>
+                    <field name="os_amount" string="Outstanding" sum="Outstanding"/>
                 </tree>
             </field>
         </record>
-        <record model="ir.actions.act_window" id="action_ppf_cash_pool">
+        <record model="ir.actions.act_window" id="cash_pool_action">
             <field name="name">Cash Pool</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cash.pool</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Cash Pool.</p></field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'create': False,'edit':False}</field>
         </record>
 
         <!--<record model="ir.actions.act_window.view" id="action_ppf_allocation_tree">-->

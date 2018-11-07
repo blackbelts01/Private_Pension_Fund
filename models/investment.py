@@ -17,6 +17,17 @@ class ppfInvestment(models.Model):
         self.totalamount = self.amount_untaxed
 
 
+
+class ppfInvestmentProduction(models.Model):
+    _inherit = 'account.invoice.line'
+
+    @api.onchange('invoice_id')
+    def _onchange_prduct(self):
+      if self.invoice_id.allocation_id:
+          return {'domain': {'product_id': [('categ_id', '=',self.invoice_id.allocation_id.type)]}}
+
+
+
     # @api.one
     # @api.depends('allocation_id')
     # def _compute_cash_pool(self):
