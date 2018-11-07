@@ -70,10 +70,12 @@ class Partners(models.Model):
     def search_invest(self):
         sub = self.env['account.invoice.line'].search([('member_name', '=', self.id)])
         inv = self.env['account.invoice'].search([('invoice_line_ids', 'in', sub.ids)])
-        all_lines=self.env['allocation.lines'].search([('sub', 'in', inv.ids)])
-        allocation = self.env['allocation'].search([('allocation_line', 'in', all_lines.ids)])
-        investment = self.env['account.invoice'].search([('allocation_id', 'in', allocation.ids)])
-        return investment
+        invest1=[]
+        for data in inv:
+              allocation = self.env['cash.pool'].search([('subscription_id', 'in', data.ids)])
+              investment = self.env['account.invoice'].search([('allocation_id', 'in', allocation.ids)])
+              # invest1.append(investment)
+              return investment
 
 
 

@@ -29,10 +29,10 @@ class ppfInvoice(models.Model):
     def _compute_os(self):
         self.o_s = self.amount_total_signed - self.total_cash
 
-    @api.constrains('total_cash')
-    def _constrain_total_cashpool(self):
-        if self.total_cash > self.total_amount:
-            raise ValidationError(_('Error! Total Cash Pool invalid'))
+    # @api.constrains('total_cash')
+    # def _constrain_total_cashpool(self):
+    #     if self.total_cash > self.total_amount:
+    #         raise ValidationError(('Error! Total Cash Pool invalid'))
 
 class invoiceLine(models.Model):
     _inherit = 'account.invoice.line'

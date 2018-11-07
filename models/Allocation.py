@@ -12,7 +12,7 @@ class Allocation(models.Model):
     amount=fields.Float('Amount')
     perv_amount=fields.Float('Previous Invested',compute='_compute_perv_amount')
     os_amount=fields.Float('Outstanding',compute='_compute_os_amount')
-    subscription_id = fields.Many2one()
+    subscription_id = fields.Many2one('account.invoice')
     allocation_line_invest = fields.One2many('account.invoice','allocation_id')
 
 
