@@ -2,6 +2,7 @@ from odoo import models, fields, api
 class Allocation(models.Model):
     _name='cash.pool'
 
+    _rec_name = 'name'
 
     name=fields.Char('ID')
     allocation_date=fields.Date('Date')
