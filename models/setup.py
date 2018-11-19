@@ -36,7 +36,7 @@ class Partners(models.Model):
 
     DOB = fields.Date('Date of Birth')
     hiring_date = fields.Date('Hiring Date')
-    member_id=fields.Char('Membership_ID')
+    member_id=fields.Char('Membership ID')
     job_title=fields.Char('Job Tilte')
     grade = fields.Char('Grade')
     benef = fields.Char('Beneficiary')
@@ -46,36 +46,36 @@ class Partners(models.Model):
                                         ('Married', 'Married'), ],
                                        'Marital Status', track_visibility='onchange')
 
-    @api.multi
-    def search_sub(self):
-        sub=self.env['account.invoice.line'].search([('member_name', '=', self.id)])
-        inv=self.env['account.invoice'].search([('invoice_line_ids','in',sub.ids)])
-        return inv
-
-
-
-    @api.multi
-    def search_cash_pool(self):
-        sub = self.env['account.invoice.line'].search([('member_name', '=', self.id)])
-        inv = self.env['account.invoice'].search([('invoice_line_ids', 'in', sub.ids)])
-        all_lines = self.env['allocation.lines'].search([('sub', 'in', inv.ids)])
-        allocation = self.env['allocation'].search([('allocation_line', 'in', all_lines.ids)])
-        # investment = self.env['account.invoice'].search([('allocation_id', 'in', allocation.ids)])
-
-        return allocation
-
-
-
-    @api.multi
-    def search_invest(self):
-        sub = self.env['account.invoice.line'].search([('member_name', '=', self.id)])
-        inv = self.env['account.invoice'].search([('invoice_line_ids', 'in', sub.ids)])
-        invest1=[]
-        for data in inv:
-              allocation = self.env['cash.pool'].search([('subscription_id', 'in', data.ids)])
-              investment = self.env['account.invoice'].search([('allocation_id', 'in', allocation.ids)])
-              # invest1.append(investment)
-              return investment
+    # @api.multi
+    # def search_sub(self):
+    #     sub=self.env['account.invoice.line'].search([('member_name', '=', self.id)])
+    #     inv=self.env['account.invoice'].search([('invoice_line_ids','in',sub.ids)])
+    #     return inv
+    #
+    #
+    #
+    # @api.multi
+    # def search_cash_pool(self):
+    #     sub = self.env['account.invoice.line'].search([('member_name', '=', self.id)])
+    #     inv = self.env['account.invoice'].search([('invoice_line_ids', 'in', sub.ids)])
+    #     all_lines = self.env['allocation.lines'].search([('sub', 'in', inv.ids)])
+    #     allocation = self.env['allocation'].search([('allocation_line', 'in', all_lines.ids)])
+    #     # investment = self.env['account.invoice'].search([('allocation_id', 'in', allocation.ids)])
+    #
+    #     return allocation
+    #
+    #
+    #
+    # @api.multi
+    # def search_invest(self):
+    #     sub = self.env['account.invoice.line'].search([('member_name', '=', self.id)])
+    #     inv = self.env['account.invoice'].search([('invoice_line_ids', 'in', sub.ids)])
+    #     invest1=[]
+    #     for data in inv:
+    #           allocation = self.env['cash.pool'].search([('subscription_id', 'in', data.ids)])
+    #           investment = self.env['account.invoice'].search([('allocation_id', 'in', allocation.ids)])
+    #           # invest1.append(investment)
+    #           return investment
 
 
 

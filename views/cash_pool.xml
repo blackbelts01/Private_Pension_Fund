@@ -2,16 +2,16 @@
     <data>
         <record model="ir.ui.view" id="cash_pool_tree">
             <field name="name">Cash.Pool.tree</field>
-            <field name="model">cash.pool</field>
+            <field name="model">ppf.cash.pool</field>
             <field name="view_type">form,tree</field>
             <field name="view_mode">tree</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
                     <field name="type"/>
-                    <field name="allocation_date"/>
+                    <field name="cash_date"/>
+                    <field name="percentage"/>
                     <field name="amount" string="Amount" sum="Amount"/>
-                    <field name="perc"/>
                     <field name="perv_amount" string="Previous Invested" sum="Previous Invested"/>
                     <field name="os_amount" string="Outstanding" sum="Outstanding"/>
                 </tree>
@@ -20,7 +20,7 @@
         <record model="ir.actions.act_window" id="cash_pool_action">
             <field name="name">Cash Pool</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">cash.pool</field>
+            <field name="res_model">ppf.cash.pool</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
             <field name="context">{'create': False,'edit':False}</field>

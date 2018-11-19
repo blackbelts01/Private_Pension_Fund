@@ -1,143 +1,94 @@
 <odoo>
     <data>
-        <record id="view_subscription_form" model="ir.ui.view">
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_form"/>
-            <field name="mode">primary</field>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='date_invoice']" position="after">
-                    <field name="total_amount" readonly="1" force_save="1"/>
-                    <field name="total_cash" readonly="1" force_save="1"/>
-                    <field name="o_s" readonly="1" force_save="1"/>
-                </xpath>
-                <xpath expr="//field[@name='date_invoice']" position="attributes">
-                    <attribute name="string">Batch Date</attribute>
-                </xpath>
-                <xpath expr="//field[@name='partner_id']" position="attributes">
-                    <attribute name="string">Company</attribute>
-                </xpath>
-                <xpath expr="//field[@name='team_id']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="//form" position="attributes">
-                    <attribute name="string">Subscriptions</attribute>
-                </xpath>
-                <xpath expr="//sheet/group/group/field[@name='date_due']" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-                <xpath expr="//sheet/group/group/field[@name='user_id']" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-                <xpath expr="//sheet/group/group/field[@name='payment_term_id']" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-                <xpath expr="//sheet/h1/div[2]/label" position="attributes">
-                    <attribute name="string">Subscription Number:</attribute>
-                </xpath>
-                <xpath expr="//sheet/h1/div[1]/label" position="attributes">
-                    <attribute name="string">Draft Subscription</attribute>
-                </xpath>
-                <xpath expr="//sheet/h1/div[2]" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-                <xpath expr="//notebook/page[1]" position="attributes">
-                    <attribute name="string">Subscription Lines</attribute>
-                </xpath>
-                <xpath expr="//notebook/page[1]/field/tree/field[@name='product_id']" position="after">
-                    <field name="member_id"/>
-                    <field name="member_name"/>
-                    <field name="salary"/>
-                    <field name="perc_salary"/>
-                    <field name="own"/>
-                    <field name="company"/>
-                    <field name="booster"/>
-                    <field name="total" readonly="1" force_save="1"/>
-                </xpath>
-                <xpath expr="//notebook/page[1]/field/tree/field[@name='quantity']" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-                <xpath expr="//notebook/page[1]/field/tree/field[@name='price_unit']" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-                <xpath expr="//notebook/page[1]/field/tree/field[@name='product_id']" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-                <xpath expr="//notebook/page[1]/field/tree/field[@name='account_id']" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-                <xpath expr="//notebook/page[1]/field/tree/field[@name='name']" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-                <xpath expr="//notebook/page[1]/field/tree/field[@name='invoice_line_tax_ids']" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-                <xpath expr="//notebook/page[1]/field/tree/field[@name='price_subtotal']" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-                <xpath expr="//notebook/page[1]/group" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-                <xpath expr="//button[@name='invoice_print']" position="replace">
-                    <button name="sub_print" string="Print Sub" type="object"  attrs="{'invisible':['|', ('state', 'not in', ('open','paid'))]}" />
-                </xpath>
-                 <xpath expr="//button[@name='action_invoice_sent']" position="replace">
-                    <button name="send_mail_sub" string="Send By mail " type="object"  attrs="{'invisible':['|', ('state', 'not in', ('open','paid'))]}" />
-                </xpath>
-                <xpath expr="//sheet/notebook/page[1]" position="after">
-                    <page string="Cash Pool Lines" attrs="{'invisible': [('state', '!=', 'paid')]}">
-                        <field name="cash_pool_ids">
-                            <tree editable="bottom">
-                                <field name="name"/>
-                                <field name="type"/>
-                                <field name="allocation_date"/>
-                                <field name="amount" string="Amount" sum="Amount"/>
-                                <field name="perc"/>
-                                <field name="perv_amount" string="Previous Invested" sum="Previous Invested"/>
-                                <field name="os_amount" string="Outstanding" sum="Outstanding"/>
-                            </tree>
-                        </field>
-                    </page>
-                </xpath>
+    <record model="ir.ui.view" id="form_subscription">
+        <field name="name">Subscription.Form</field>
+        <field name="model">ppf.subscription</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button  string="Create Invoice" type="object"  class="oe_highlight" states="open"/>
+                        <button name="validate" string="Validate" type="object"  class="oe_highlight" states="draft"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="company" attrs="{'readonly': [('state', '=', 'open')]}"/>
+                                <field name="batch_date" attrs="{'readonly': [('state', '=', 'open')]}"/>
+                            </group>
+                            <group>
+                                <field name="total_amount"/>
+                                <field name="total_cash"/>
+                                <field name="o_s"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Subscription Lines">
+                                <field name="subscription_line" attrs="{'readonly': [('state', '=', 'open')]}">
+                                    <tree editable="1">
+                                        <field name="member_name"/>
+                                        <field name="member_id"/>
+                                        <field name="salary"/>
+                                        <field name="perc_salary"/>
+                                        <field name="own"/>
+                                        <field name="company"/>
+                                        <field name="booster"/>
+                                        <field name="side"/>
+                                        <field name="total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Cash Pool Lines" attrs="{'invisible': [('state', '!=', 'open')]}">
+                                <field name="cash_pool_ids">
+                                    <tree editable="1">
+                                        <field name="name"/>
+                                        <field name="type"/>
+                                        <field name="cash_date"/>
+                                        <field name="percentage"/>
+                                        <field name="amount" string="Amount" sum="Amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
             </field>
         </record>
-        <record id="seq_subscription_details" model="ir.sequence">
-            <field name="name">Customer Invoices</field>
-            <field name="code">account.invoice</field>
-            <field name="prefix">SUB/%(range_year)s/</field>
+        <record id="seq_subcription" model="ir.sequence">
+            <field name="name">Subscription</field>
+            <field name="code">ppf.subscription</field>
+            <field name="prefix">SUB/</field>
             <field name="padding">3</field>
             <field name="company_id" eval="False"/>
         </record>
-
         <record id="subscription_tree" model="ir.ui.view">
             <field name="name">subscription.tree</field>
-            <field name="model">account.invoice</field>
+            <field name="model">ppf.subscription</field>
             <field name="arch" type="xml">
-                <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" string="Subscription">
-                    <field name="partner_id" groups="base.group_user" string="Partner"/>
-                    <field name="date_invoice" string="Batch Date"/>
-                    <field name="number"/>
-                    <field name="commercial_partner_id" invisible="1"/>
-                    <field name="reference" invisible="1"/>
-                    <field name="name" invisible="1"/>
-                    <field name="journal_id" invisible="1"/>
-                    <field name="total_amount" string="Batch Amount" sum="Batch Amount"/>
-                    <field name="residual_signed" string="Amount Due" sum="Amount Due"/>
-                    <field name="o_s" string="Outstanding" sum="Outstanding"/>
-                    <field name="currency_id" invisible="1"/>
-                    <field name="company_currency_id" invisible="1"/>
+                <tree decoration-info="state == 'draft'"  string="Subscription">
+                    <field name="name" />
+                    <field name="company"/>
+                    <field name="batch_date"/>
+                    <field name="total_amount"/>
+                    <field name="total_cash"/>
+                    <field name="o_s"/>
                     <field name="state"/>
-                    <field name="type" invisible="context.get('type',True)"/>
                 </tree>
             </field>
         </record>
         <record model="ir.actions.act_window" id="action_ppf_subscription">
             <field name="name">Subscription</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">account.invoice</field>
+            <field name="res_model">ppf.subscription</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('type','=','out_invoice')]</field>
-            <field name="context">{'type':'out_invoice', 'journal_type': 'sale'}</field>
             <field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Subscription.</p></field>
         </record>
 
@@ -151,7 +102,7 @@
         <record model="ir.actions.act_window.view" id="action_ppf_subscription_form">
             <field name="sequence" eval="2"/>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="view_subscription_form"/>
+            <field name="view_id" ref="form_subscription"/>
             <field name="act_window_id" ref="action_ppf_subscription"/>
         </record>
     </data>
