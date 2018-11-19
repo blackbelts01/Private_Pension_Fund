@@ -7,7 +7,7 @@ class product_fund(models.Model):
     product_id=fields.Char('Product id')
     Assest_manger=fields.Many2one('res.partner','Assest Manger')
     issuer=fields.Many2one('res.partner','Issuer')
-    product_unit=fields.Char('Product_unit')
+    product_unit=fields.Char('Product Unit')
     face_value=fields.Many2one('res.currency','Face Value')
 
 
