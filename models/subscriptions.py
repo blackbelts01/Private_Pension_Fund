@@ -28,9 +28,15 @@ class ppfSubscription(models.Model):
     @api.multi
     def validate(self):
         if self.subscription_line:
+            self.env['ppf.cash.pool'].create({
+                'name': 'Cash Pool of ' + str(self.name),
+                'cash_date': self.batch_date,
+                'subscription_id': self.id,
+            })
             self.state = 'open'
         else:
             raise ValidationError(_('Please create some Subscription Lines'))
+
 
     @api.multi
     def create_invoice(self):
