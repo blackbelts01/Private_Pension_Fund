@@ -4,13 +4,13 @@ class cashPool(models.Model):
     _rec_name = 'name'
 
 
-    name=fields.Char('ID',required=True)
-    cash_date=fields.Date('Date')
-    percentage=fields.Float('Percentage',default=100,required=True)
+    name = fields.Char('ID',required=True)
+    cash_date = fields.Date('Date')
+    percentage = fields.Float('Percentage',default=100,required=True)
     type = fields.Many2one('product.category',string='Type')
-    amount=fields.Float('Amount',compute='_compute_amount',store=True)
-    perv_amount=fields.Float('Previous Invested')
-    os_amount=fields.Float('Outstanding',compute='_compute_os_amount')
+    amount = fields.Float('Amount',compute='_compute_amount',store=True)
+    perv_amount = fields.Float('Previous Invested')
+    os_amount = fields.Float('Outstanding',compute='_compute_os_amount')
     subscription_id = fields.Many2one('ppf.subscription',string='Sub')
     # allocation_line_invest = fields.One2many('account.invoice','allocation_id')
 

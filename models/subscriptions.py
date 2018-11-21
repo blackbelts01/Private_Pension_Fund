@@ -72,7 +72,7 @@ class ppfSubscription(models.Model):
         self.o_s = self.total_amount - self.total_cash
 
 
-class invoiceLine(models.Model):
+class subscriptionLine(models.Model):
     _name = 'ppf.subscription.line'
 
     @api.multi

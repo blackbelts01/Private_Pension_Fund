@@ -14,6 +14,7 @@
                     <field name="amount" string="Amount" sum="Amount"/>
                     <field name="perv_amount" string="Previous Invested" sum="Previous Invested"/>
                     <field name="os_amount" string="Outstanding" sum="Outstanding"/>
+                    <field name="subscription_id"/>
                 </tree>
             </field>
         </record>

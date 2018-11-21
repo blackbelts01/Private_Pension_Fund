@@ -75,13 +75,13 @@
             <field name="name">subscription.tree</field>
             <field name="model">ppf.subscription</field>
             <field name="arch" type="xml">
-                <tree decoration-info="state == 'draft'"  string="Subscription">
+                <tree decoration-info="state == 'draft'" decoration-muted="state == 'paid'" string="Subscription">
                     <field name="name" />
                     <field name="company"/>
                     <field name="batch_date"/>
-                    <field name="total_amount"/>
-                    <field name="total_cash"/>
-                    <field name="o_s"/>
+                    <field name="total_amount" string="Amount" sum="Amount"/>
+                    <field name="total_cash" string="Cash Pool" sum="Cash Pool"/>
+                    <field name="o_s" string="Outstanding" sum="Outstanding"/>
                     <field name="state"/>
                 </tree>
             </field>
