@@ -14,10 +14,12 @@ class cashPool(models.Model):
     subscription_id = fields.Many2one('ppf.subscription',string='Sub')
     allocation_line_invest = fields.One2many('ppf.investment','cash_pool_id')
 
+
     @api.one
     @api.depends('percentage')
     def _compute_amount(self):
         self.amount = (self.percentage * (self.subscription_id.total_amount)) / 100
+
 
 
     @api.one
@@ -26,6 +28,8 @@ class cashPool(models.Model):
         self.perv_amount =0.0
         for record in self.allocation_line_invest:
             self.perv_amount += record.total_amount
+
+
 
     @api.one
     @api.depends('perv_amount')

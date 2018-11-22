@@ -32,9 +32,10 @@ class ppfInvestment(models.Model):
     state = fields.Selection([('draft', 'Draft'), ('open', 'Open'), ('paid', 'Paid')],
                              required=True, default='draft')
     company = fields.Many2one('res.partner', string='Partner', required=True)
-    invested_date = fields.Date('Invested Date')
+    invested_date = fields.Date('Investment Date')
     total_amount = fields.Float(store=True, readonly=True,string='Total Invested',compute='_compute_amount')
     cash_pool_id = fields.Many2one('ppf.cash.pool', string="Cash Pool")
+
     cash_pool_amount = fields.Float(related='cash_pool_id.amount',string='Cash Account Amount')
     cash_poo_perv_amount = fields.Float(related='cash_pool_id.perv_amount',string='Previous Invested')
     cash_pool_os_amount = fields.Float(related='cash_pool_id.os_amount',string='Outstanding')
@@ -55,6 +56,9 @@ class ppfInvestment(models.Model):
             self.validate_cash_pool = False
             self.validate_invest_lines = True
             return True
+
+
+
 
     @api.model
     def create(self, vals):
@@ -95,6 +99,7 @@ class ppfInvestment(models.Model):
         bill.action_invoice_open()
         self.state = 'paid'
 
+
     @api.multi
     def invest_print(self):
         return self.env.ref('Private_Pension_Fund.invest').report_action(self)
@@ -133,11 +138,14 @@ class ppfInvestment(models.Model):
         }
 
 
+
 class investmentLine(models.Model):
     _name = 'ppf.investment.line'
 
+
     type_line=fields.Many2one(related='investment_id.type_categ')
     product = fields.Many2one('product.product',string='Product',domain="[('categ_id','=',type_line)]")
+
     quantity = fields.Integer('Quantity')
     unit_price = fields.Float('Unit Price')
     amount = fields.Float('Amount',compute='_compute_amount')

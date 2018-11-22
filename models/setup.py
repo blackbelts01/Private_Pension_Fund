@@ -40,9 +40,11 @@ class Partners(models.Model):
     job_title=fields.Char('Job Tilte')
     grade = fields.Char('Grade')
     benef = fields.Char('Beneficiary')
+
     martiual_status = fields.Selection([('Single', 'Single'),
                                         ('Married', 'Married'), ],
                                        'Marital Status', track_visibility='onchange')
+
 
     sub_count = fields.Integer(compute='_compute_sub_count')
 
@@ -78,6 +80,16 @@ class Partners(models.Model):
         inv = self.env['ppf.subscription'].search([('subscription_line', 'in', sub.ids)])
         return inv
 
+
+
+    # @api.multi
+    # def search_sub(self):
+    #     sub=self.env['account.invoice.line'].search([('member_name', '=', self.id)])
+    #     inv=self.env['account.invoice'].search([('invoice_line_ids','in',sub.ids)])
+    #     return inv
+    #
+    #
+    #
 
     # @api.multi
     # def search_cash_pool(self):

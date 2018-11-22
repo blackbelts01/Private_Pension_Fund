@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # from odoo import models, fields,  api, _
 from odoo.exceptions import ValidationError
 
@@ -7,6 +8,10 @@ from odoo import xlrd
 from xlrd import open_workbook
 from tempfile import TemporaryFile
 import base64
+
+
+
+
 
 class ppfSubscription(models.Model):
     _name = 'ppf.subscription'
@@ -23,8 +28,9 @@ class ppfSubscription(models.Model):
     o_s = fields.Float('Outstanding',compute='_compute_os')
     subscription_line = fields.One2many('ppf.subscription.line','subscription_id',string='Subscription Line')
     cash_pool_ids = fields.One2many('ppf.cash.pool','subscription_id', string="Cash Pool Lines")
+
     data= fields.Binary('File')
-    # d64i = base64.b64encode(bytes(data, 'utf-8'))
+
 
     @api.model
     def create(self, vals):
@@ -83,6 +89,7 @@ class ppfSubscription(models.Model):
     @api.depends('total_cash')
     def _compute_os(self):
         self.o_s = self.total_amount - self.total_cash
+
 
 
 
@@ -160,7 +167,6 @@ class ppfSubscription(models.Model):
 
 
 class subscriptionLine(models.Model):
-
     _name = 'ppf.subscription.line'
 
     @api.multi
@@ -170,14 +176,15 @@ class subscriptionLine(models.Model):
         self.account_id=account.id
         self.name="aya 7aga"
 
+
     member_name = fields.Many2one('res.partner',string='Employee Name',domain="[('company_type','=','person')]",required=True)
     member_id = fields.Char(related='member_name.member_id',string='Employee ID',readonly=True,store=True)
+
     salary = fields.Float(string='Salary',required=True)
     perc_salary = fields.Integer(' % of Salary',required=True)
     own = fields.Float('Own')
     company = fields.Float('Company')
     booster = fields.Float('Booster')
-    # side = fields.Float('Side')
     total=fields.Float('Total',store=True, readonly=True,compute='_compute_total')
     subscription_id = fields.Many2one('ppf.subscription')
 
@@ -186,6 +193,7 @@ class subscriptionLine(models.Model):
     @api.depends('salary','perc_salary','own','company','booster')
     def _compute_total(self):
         self.total = (self.salary * (self.perc_salary/100))+self.own+self.company+self.booster
+
 
 
 

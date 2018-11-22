@@ -1,6 +1,7 @@
 <odoo>
     <data>
         <!--<record id="view_investment_form" model="ir.ui.view">-->
+
         <!--<field name="model">account.invoice</field>-->
         <!--<field name="inherit_id" ref="account.invoice_supplier_form"/>-->
         <!--<field name="mode">primary</field>-->
@@ -114,6 +115,120 @@
         <!--<field name="view_mode">form</field>-->
         <!--<field name="view_id" ref="view_investment_form"/>-->
         <!--<field name="act_window_id" ref="action_ppf_investment"/>-->
+            <!--<field name="model">account.invoice</field>-->
+            <!--<field name="inherit_id" ref="account.invoice_supplier_form"/>-->
+            <!--<field name="mode">primary</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//field[@name='date_invoice']" position="after">-->
+                    <!--<field name="totalamount" readonly="1" force_save="1" string="Total Invested"/>-->
+                    <!--<field name="allocation_id"/>-->
+                    <!--<field name="type_categ"  force_save="1"/>-->
+                    <!--<field name="cashpool_amount"/>-->
+                    <!--<field name="perv_amount"/>-->
+                    <!--<field name="os_amount"/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='date_invoice']" position="attributes">-->
+                    <!--<attribute name="string">Trx Date</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='partner_id']" position="attributes">-->
+                    <!--<attribute name="string">Asset Manager</attribute>-->
+                <!--</xpath>-->
+
+                <!--<xpath expr="//field[@name='reference']" position="attributes">-->
+                    <!--<attribute name="invisible">True</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='purchase_id']" position="attributes">-->
+                    <!--<attribute name="invisible">True</attribute>-->
+                <!--</xpath>-->
+
+                <!--<xpath expr="//sheet" position="attributes">-->
+                    <!--<attribute name="string">Investment Trx</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//sheet/div/label[1]" position="attributes">-->
+                    <!--<attribute name="string">ITX/ID:</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//sheet/div/label[4]" position="attributes">-->
+                    <!--<attribute name="string">Investment</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//notebook/page[1]" position="attributes">-->
+                    <!--<attribute name="string">Investments</attribute>-->
+                <!--</xpath>-->
+                 <!--<xpath expr="//notebook/page[1]/field/tree/field[@name='quantity']" position="attributes">-->
+                    <!--<attribute name="string">Units</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//notebook/page[1]/field/tree/field[@name='product_id']" position="attributes">-->
+                    <!--<attribute name="string">Investment Product</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//notebook/page[1]/group" position="attributes">-->
+                    <!--<attribute name="invisible">True</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//sheet/notebook/page[1]/field/tree/field[@name='product_id']" position="after">-->
+                    <!--<field name="type_categ"  force_save="1"/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//sheet/notebook/page[1]/field[@name='invoice_line_ids']" position="attributes">-->
+                    <!--<attribute name="context">{'type': type, 'journal_id': journal_id,'type_categ':'sdfsdgsdfg'}</attribute>-->
+                <!--</xpath>-->
+                <!--&lt;!&ndash;<xpath expr="//sheet/notebook/page[1]/field/tree/field[@name='product_id']" position="attributes">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<attribute name="domain">[('categ_id','=',type_categ)]</attribute>&ndash;&gt;-->
+                <!--&lt;!&ndash;</xpath>&ndash;&gt;-->
+            <!--</field>-->
+        <!--</record>-->
+        <!--<record id="seq_investment_details" model="ir.sequence">-->
+            <!--<field name="name">Investment</field>-->
+            <!--<field name="code">account.invoice</field>-->
+            <!--<field name="prefix">ITX/%(range_year)s/</field>-->
+            <!--<field name="padding">3</field>-->
+            <!--<field name="company_id" eval="False"/>-->
+        <!--</record>-->
+
+        <!--<record id="investment_tree" model="ir.ui.view">-->
+            <!--<field name="name">investment.tree</field>-->
+            <!--<field name="model">account.invoice</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" string="Investment">-->
+                    <!--<field name="partner_id" groups="base.group_user" string="Asset Manager"/>-->
+                    <!--<field name="date_invoice" string="Trx Date"/>-->
+                    <!--<field name="number" string="ITX/ID"/>-->
+                    <!--<field name="allocation_id" string="Cash Pool"/>-->
+                    <!--<field name="commercial_partner_id" invisible="1"/>-->
+                    <!--<field name="name" invisible="1"/>-->
+                    <!--<field name="journal_id" invisible="1"/>-->
+                    <!--<field name="totalamount" string="Total Invested" sum="Total Invested"/>-->
+                    <!--<field name="residual_signed" string="To Pay" sum="To pay"/>-->
+                    <!--<field name="cashpool_amount" string="Cash-P Amount" sum="Cash-P Amount"/>-->
+                    <!--<field name="perv_amount" string="Previous Invested"/>-->
+                    <!--<field name="os_amount" string="Outstanding"/>-->
+                    <!--<field name="currency_id" invisible="1"/>-->
+                    <!--<field name="company_currency_id" invisible="1"/>-->
+                    <!--<field name="state"/>-->
+                    <!--<field name="type" invisible="context.get('type',True)"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+        <!--<record model="ir.actions.act_window" id="action_ppf_investment">-->
+            <!--<field name="name">Investment</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">account.invoice</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('type','=','in_invoice')]</field>-->
+            <!--<field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase'}</field>-->
+            <!--<field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Investment.</p></field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.actions.act_window.view" id="action_ppf_investment_tree">-->
+            <!--<field name="sequence" eval="1"/>-->
+            <!--<field name="view_mode">tree</field>-->
+            <!--<field name="view_id" ref="investment_tree"/>-->
+            <!--<field name="act_window_id" ref="action_ppf_investment"/>-->
+        <!--</record>-->
+
+        <!--<record model="ir.actions.act_window.view" id="action_ppf_investment_form">-->
+            <!--<field name="sequence" eval="2"/>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="view_id" ref="view_investment_form"/>-->
+            <!--<field name="act_window_id" ref="action_ppf_investment"/>-->
+
         <!--</record>-->
         <record model="ir.ui.view" id="form_investment">
             <field name="name">Investment.Form</field>
@@ -136,6 +251,8 @@
                                 var buttonsList = buttonsMenu.getElementsByClassName("o_invisible_modifier")[0].style="display: inline-block !important;background:#fff;color:#777;border: 1px solid #ddd;border-bottom: none; ";
                             </script>
                         </template>
+
+
 
                         <div class="oe_title">
                             <label for="name" string="Investment ID:"/>
@@ -197,6 +314,7 @@
                         <!--<field name="invoice_ids"/>-->
                         <!--</page>-->
                         <!--</notebook>-->
+
                     </sheet>
                 </form>
             </field>
