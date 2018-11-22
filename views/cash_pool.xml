@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="cash_pool_tree">
+            <field name="name">Cash.Pool.tree</field>
+            <field name="model">ppf.cash.pool</field>
+            <field name="view_type">form,tree</field>
+            <field name="view_mode">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="cash_date"/>
+                    <field name="percentage"/>
+                    <field name="amount" string="Amount" sum="Amount"/>
+                    <field name="perv_amount" string="Previous Invested" sum="Previous Invested"/>
+                    <field name="os_amount" string="Outstanding" sum="Outstanding"/>
+                    <field name="subscription_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="cash_pool_action">
+            <field name="name">Cash Pool</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ppf.cash.pool</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'create': False,'edit':False}</field>
+        </record>
+
+        <!--<record model="ir.actions.act_window.view" id="action_ppf_allocation_tree">-->
+            <!--<field name="sequence" eval="1"/>-->
+            <!--<field name="view_mode">tree</field>-->
+            <!--&lt;!&ndash;<field name="view_id" ref="subscription_tree"/>&ndash;&gt;-->
+            <!--<field name="act_window_id" ref="action_ppf_allocation"/>-->
+        <!--</record>-->
+
+        <!--<record model="ir.actions.act_window.view" id="action_ppf_allocation_form">-->
+            <!--<field name="sequence" eval="2"/>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="view_id" ref="action_allocation_form1"/>-->
+            <!--<field name="act_window_id" ref="action_ppf_allocation"/>-->
+        <!--</record>-->
+
+
+    </data>
+</odoo>

@@ -1,0 +1,123 @@
+<odoo>
+    <data>
+        <report
+                id="invest"
+                model="ppf.investment"
+                string="Investment"
+                report_type="qweb-pdf"
+                name="Private_Pension_Fund.report_invest_view"
+                file="Private_Pension_Fund.report_invest_view"
+        />
+        <template id="report_invest_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                                <p><h4><strong>Trx : <span t-field="doc.name"/></strong></h4></p>
+                                <p><h4><strong>Vendor : <span t-field="doc.company"/></strong></h4></p>
+                                <br/>
+                                <br/>
+                                <div class="row">
+                                <div class="col-xs-2 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1" t-if="doc.invested_date">
+                                    <strong>Trx Date:</strong>
+                                    <p t-field="doc.invested_date"/>
+                                </div>
+                                <div class="col-xs-2" t-if="doc.total_amount">
+                                    <strong>Total Amount:</strong>
+                                    <p t-field="doc.total_amount"/>
+                                </div>
+                                <div class="col-xs-2" t-if="doc.cash_pool_id.name">
+                                    <strong>Cash Pool :</strong>
+                                    <p t-field="doc.cash_pool_id.name"/>
+                                </div>
+                                <div class="col-xs-2" t-if="doc.cash_pool_amount">
+                                    <strong>Cash Pool Amount:</strong>
+                                    <p t-field="doc.cash_pool_amount"/>
+                                </div>
+                                <div class="col-xs-2" t-if="doc.cash_poo_perv_amount">
+                                    <strong>Previous Invested:</strong>
+                                    <p t-field="doc.cash_poo_perv_amount"/>
+                                </div>
+                                <br/>
+                                <br/>
+                                </div>
+                            <div>
+                                <h4>Investment Lines</h4>
+                                <table class="table table-bordered" >
+                                    <thead>
+                                        <tr >
+                                            <th>Product</th>
+                                            <th class="text-center">Units</th>
+                                            <th class="text-center">Price</th>
+                                            <th class="text-center">Amount</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="att_own" t-value="0"/>
+                                        <t t-set="att_company" t-value="0"/>
+                                        <t t-set="att_booster" t-value="0"/>
+                                        <t t-set="att_total" t-value="0"/>
+
+
+
+                                            <tr t-foreach="doc.investment_line_ids" t-as="li">
+                                                <!--<t t-if="li.member_name.id == doc.id" >-->
+                                                    <!--<t t-set="att_counter" t-value="(li.total/inv.totalamount)*100"/>-->
+                                                    <td > <span t-esc="li.product.name"/></td>
+                                                    <!--<t t-set="att_own" t-value="(att_own+li.own)"/>-->
+                                                    <td align="right"><span t-esc="li.quantity"/></td>
+                                                    <!--<t t-set="att_company" t-value="(att_company+li.company)"/>-->
+                                                    <td align="right"><span t-esc="li.unit_price"/></td>
+                                                    <!--<t t-set="att_booster" t-value="(att_booster+li.booster)"/>-->
+                                                    <td align="right"><span t-esc="li.amount"/></td>
+                                                    <!--<t t-set="att_total" t-value="(att_total+li.total)"/>-->
+                                                    <!--<span t-esc="li.booster"/>-->
+
+                                            </tr>
+
+                                        <!--<tr>-->
+                                            <!--<td> <span/></td>-->
+                                            <!--<td> <span/></td>-->
+                                            <!--<td align="right"> <span t-esc="att_own"/></td>-->
+                                            <!--<td align="right"> <span t-esc="att_company"/></td>-->
+                                            <!--<td align="right"> <span t-esc="att_booster"/></td>-->
+                                            <!--<td align="right"> <span t-esc="att_total"/></td>-->
+
+                                        <!--</tr>-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+
+        </template>
+        <!--<template id="report_invoice_inherit_demo" inherit_id="account.report_invoice_document">-->
+        <!--<xpath expr="//div/h2/span[1]" position="replace">-->
+        <!--<span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Sub </span>-->
+
+        <!--</xpath>-->
+        <!--<xpath expr="//div/div[@class='row mt32 mb32']/div[2]" position="after">-->
+        <!--<div class="col-xs-2" t-if="o.total_amount">-->
+        <!--<strong>Batch Amount:</strong>-->
+        <!--<p t-field="o.total_amount"/>-->
+        <!--</div>-->
+        <!--<div class="col-xs-2" t-if="o.total_cash">-->
+        <!--<strong>Cash Pool Amount:</strong>-->
+        <!--<p t-field="o.total_cash"/>-->
+        <!--</div>-->
+        <!--<div class="col-xs-2" t-if="o.o_s">-->
+        <!--<strong>Cash Pool Amount:</strong>-->
+        <!--<p t-field="o.o_s"/>-->
+        <!--</div>-->
+        <!--</xpath>-->
+        <!--<xpath expr="//div/div[@class='clearfix']/div[@id='total']" position="replace"></xpath>-->
+        <!--<xpath expr="//table[@class='table table-condensed']" position="replace">-->
+
+        <!--</xpath>-->
+        <!--</template>-->
+    </data>
+</odoo>
+

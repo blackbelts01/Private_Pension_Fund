@@ -1,0 +1,107 @@
+<odoo>
+    <data>
+        <report
+                id="member_fund_investment"
+                model="res.partner"
+                string="Investments"
+                report_type="qweb-pdf"
+                name="Private_Pension_Fund.report_fund_investment_view"
+                file="Private_Pension_Fund.report_fund_investment_view"
+        />
+        <template id="report_fund_investment_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <p><h4><strong>Member ID : <span t-field="doc.member_id"/></strong></h4></p>
+                            <p><h4><strong>Member Name : <span t-field="doc.name"/></strong></h4></p>
+                            <br/>
+                            <table class="table table-condensed" >
+                                <h4>Member Invsetments</h4>
+                                <thead>
+                                    <tr >
+
+                                        <th>Date of Investments</th>
+                                        <th>Invest Trx</th>
+                                        <th align="right">Invested Amount</th>
+                                        <th align="right">Invested Product</th>
+                                        <th align="right">Purchased Price</th>
+                                        <th>Number Units</th>
+                                        <th>Today Price</th>
+                                        <th>Investment Value</th>
+                                        <th>ROI</th>
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="number_units" t-value="1"/>
+                                    <t t-set="invest_amount" t-value="1"/>
+                                    <t t-set="invest_value" t-value="1"/>
+                                    <t t-set="att_company" t-value="0"/>
+                                    <t t-set="att_booster" t-value="0"/>
+                                    <t t-set="att_total" t-value="0"/>
+                                    <t t-set="att_counter" t-value="1"/>
+                                    <t t-set="today_price" t-value="0"/>
+                                    <t t-set="time_today" t-value="time.strftime('%Y-%m-%d')"/>
+                                    <t t-foreach="doc.search_invest()" t-as="invest">
+                                        <!--<td>  <span t-esc="invest.date_invoice"/></td>-->
+                                        <!--<td>  <span t-esc="invest.number"/></td>-->
+                                        <!--<td align="right">  <span t-esc="invest.cashpool_amount"/></td>-->
+
+                                        <tr t-foreach="invest.invoice_line_ids" t-as="line">
+                                            <t t-foreach="invest.allocation_id.subscription_id" t-as="subs">
+
+                                            <t t-foreach="invest.allocation_id.subscription_id.invoice_line_ids" t-as="li">
+                                                <!--<t t-foreach="invest.allocation_id.subscription_id" t-as="sub">-->
+                                                <!--<t t-foreach="sub.invoice_line_ids" t-as="li">-->
+                                                <!--&lt;!&ndash;<t t-foreach="subs.invoice_line_ids" t-as="li">&ndash;&gt;-->
+                                                <t t-if="li.member_name.id == doc.id" >
+                                                    <t t-set="att_counter" t-value="(li.total/subs.totalamount)"/>
+                                                    <td>  <span t-esc="invest.date_invoice"/></td>
+                                                    <td>  <span t-esc="invest.number"/></td>
+                                                    <!--<td>  <span t-esc="att_counter"/></td>-->
+                                                    <t t-set="invest_amount" t-value="(line.price_subtotal)*(att_counter)"/>
+                                                    <td align="right">  <span t-esc="round(invest_amount,2)"/></td>
+                                                    <td align="right">  <span t-esc="line.product_id.name"/></td>
+                                                    <td align="right">  <span t-esc="line.price_unit"/></td>
+                                                    <t t-set="number_units" t-value="((line.price_subtotal)*(att_counter))/(line.price_unit)"/>
+                                                    <td align="right">  <span t-esc="round(number_units,2)"/></td>
+                                                    <t t-foreach="line.product_id.seller_ids" t-as="price">
+                                                        <t t-if="price.date_start &lt; time_today and price.date_end &gt; time_today " >
+                                                            <t t-set="today_price" t-value="price.price"/>
+                                                        </t>
+                                                    </t>
+                                                    <td align="right">  <span t-esc="today_price"/></td>
+                                                    <t t-set="invest_value" t-value="(today_price)*(number_units)"/>
+
+                                                    <td align="right">  <span t-esc="round(invest_value,2)"/></td>
+                                                    <t t-if="invest_amount !=0 " >
+                                                        <td align="right">  <span t-esc="round((invest_value-invest_amount)/(invest_amount),2)*100"/> %</td>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <td align="right">  <span t-esc="round(invest_value,2)"/></td>
+
+                                                    </t>
+                                                </t>
+                                            </t>
+
+                                            </t>
+
+                                        </tr>
+                                    </t>
+
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

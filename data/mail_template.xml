@@ -1,0 +1,46 @@
+<odoo>
+    <data noupdate="0">
+        <record id="sub_email_template" model="mail.template">
+            <field name="name">Sub</field>
+            <field name="email_from">${object.company.id and object.company.email/ or ''}</field>
+            <field name="subject">Sub ${object.number}</field>
+            <field name="email_to">${object.company.email|safe}</field>
+            <field name="lang">${object.lang}</field>
+            <field name="report_template" ref="Private_Pension_Fund.subs"/>
+            <field name="model_id" ref="Private_Pension_Fund.model_ppf_subscription"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html">
+                <![CDATA[
+<p>Dear ${object.company.name}
+</p>
+</br>
+<p>The attached file is Sub for yours
+</p>
+
+
+	    ]]>
+            </field>
+        </record>
+         <record id="invest_email_template" model="mail.template">
+            <field name="name">Sub</field>
+            <field name="email_from">${object.company.id and object.company.email/ or ''}</field>
+            <field name="subject">Sub ${object.number}</field>
+            <field name="email_to">${object.company.email|safe}</field>
+            <field name="lang">${object.lang}</field>
+            <field name="report_template" ref="Private_Pension_Fund.invest"/>
+            <field name="model_id" ref="Private_Pension_Fund.model_ppf_investment"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html">
+                <![CDATA[
+<p>Dear ${object.company.name}
+</p>
+</br>
+<p>The attached file is invest for yours
+</p>
+
+
+	    ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

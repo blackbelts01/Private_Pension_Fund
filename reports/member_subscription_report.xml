@@ -1,0 +1,143 @@
+<odoo>
+    <data>
+        <report
+                id="member_fund"
+                model="res.partner"
+                string="Subscriptions"
+                report_type="qweb-pdf"
+                name="Private_Pension_Fund.report_fund_view"
+                file="Private_Pension_Fund.report_fund_view"
+        />
+        <template id="report_fund_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <p><h4><strong>Member ID : <span t-field="doc.member_id"/></strong></h4></p>
+                            <p><h4><strong>Member Name : <span t-field="doc.name"/></strong></h4></p>
+                            <br/>
+                            <table class="table table-condensed" >
+                                <h4>Member Subscribtion</h4>
+                                <thead>
+                                    <tr >
+
+                                        <th>Subscription</th>
+                                        <th>Date</th>
+                                        <th>Salary</th>
+                                        <th>Salary %</th>
+                                        <th align="right">Own Contribution</th>
+                                        <th align="right">Company Contribution</th>
+                                        <th align="right">Booster</th>
+                                        <th align="right">SubTotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="att_own" t-value="0"/>
+                                    <t t-set="att_company" t-value="0"/>
+                                    <t t-set="att_booster" t-value="0"/>
+                                    <t t-set="att_total" t-value="0"/>
+                                    <t t-set="att_salary" t-value="0"/>
+
+                                    <tr t-foreach="doc.search_sub()" t-as="inv">
+                                        <td>  <span t-esc="inv.name"/></td>
+                                        <td>  <span t-esc="inv.batch_date"/></td>
+
+                                        <t t-foreach="inv.subscription_line" t-as="li">
+                                            <t t-if="li.member_name.id == doc.id" >
+                                                <td align="right"> <span t-esc="li.salary"/></td>
+                                                <t t-set="att_salary" t-value="(att_salary+li.salary)"/>
+                                                <!--<t t-set="att_counter" t-value="(li.total/inv.totalamount)*100"/>-->
+                                                <td align="right"> <span t-esc="li.perc_salary"/></td>
+                                                <td align="right"> <span t-esc="li.own"/></td>
+                                                <t t-set="att_own" t-value="(att_own+li.own)"/>
+                                                <td align="right"><span t-esc="li.company"/></td>
+                                                <t t-set="att_company" t-value="(att_company+li.company)"/>
+                                                <td align="right"><span t-esc="li.booster"/></td>
+                                                <t t-set="att_booster" t-value="(att_booster+li.booster)"/>
+                                                <td align="right"><span t-esc="li.total"/></td>
+                                                <t t-set="att_total" t-value="(att_total+li.total)"/>
+                                                <!--<span t-esc="li.booster"/>-->
+                                            </t>
+                                        </t>
+                                    </tr>
+                                    <tr>
+                                        <td> <span/></td>
+                                        <td> <span/></td>
+                                        <td align="right"> <span t-esc="att_salary"/></td>
+                                        <td> <span/></td>
+                                        <td align="right"> <span t-esc="att_own"/></td>
+                                        <td align="right"> <span t-esc="att_company"/></td>
+                                        <td align="right"> <span t-esc="att_booster"/></td>
+                                        <td align="right"> <span t-esc="att_total"/></td>
+
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+
+
+
+        <!--<td>-->
+        <!--<table class="table table-condensed">-->
+        <!--<h4> Cash Pools:</h4>-->
+        <!--<thead>-->
+        <!--<tr>-->
+        <!--<th>Cash Date</th>-->
+        <!--<th>Cash Total</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr>-->
+        <!--<t t-foreach="doc.search_cash_pool()" t-as="cash">-->
+        <!--<td>  <span t-esc="cash.allocation_date"/></td>-->
+        <!--<td>  <span t-esc="(cash.allocation_total)*(att_counter)"/></td>-->
+        <!--</t>-->
+        <!--<td>-->
+        <!--<table class="table table-condensed">-->
+        <!--<h4> Member Investments:</h4>-->
+        <!--<thead>-->
+        <!--<tr>-->
+
+        <!--<th>Unit Price</th>-->
+        <!--<th>Quantity</th>-->
+        <!--<th>Fund</th>-->
+        <!--<th>Sales Price</th>-->
+        <!--<th>Total Price</th>-->
+        <!--<th>ROI</th>-->
+
+        <!--&lt;!&ndash;<th>Date</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;<th>Percentage</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;<th>Unit Price</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;<th>units</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;<th>Fund</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;<th>Sales Price</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;<th>Total Price</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;<th>ROI</th>&ndash;&gt;-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr>-->
+        <!--<t t-foreach="doc.search_invest()" t-as="invest">-->
+
+        <!--<t t-foreach="invest.invoice_line_ids" t-as="line">-->
+        <!--<td>  <span t-esc="line.price_unit"/></td>-->
+        <!--<td>  <span t-esc="line.quantity"/></td>-->
+        <!--<td>  <span t-esc="line.product_id.name"/></td>-->
+        <!--<td>  <span t-esc="line.product_id.list_price"/></td>-->
+        <!--<td>  <span t-esc="line.price_unit*line.quantity"/></td>-->
+        <!--<td>  <span t-esc="line.price_unit-line.product_id.list_price"/></td>-->
+
+        <!--</t>-->
+        <!--</t>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+        <!--</table>-->
+
+        <!--</td>-->

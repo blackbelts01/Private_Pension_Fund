@@ -1,0 +1,147 @@
+<odoo>
+    <data>
+        <report
+                id="subs"
+                model="ppf.subscription"
+                string="Subscriptions"
+                report_type="qweb-pdf"
+                name="Private_Pension_Fund.report_sub_view"
+                file="Private_Pension_Fund.report_sub_view"
+        />
+        <template id="report_sub_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                                <p><h4><strong>Sub : <span t-field="doc.name"/></strong></h4></p>
+                                <p><h4><strong>Company : <span t-field="doc.company"/></strong></h4></p>
+                                <br/>
+                                <br/>
+                                <div class="col-xs-3" t-if="doc.batch_date">
+                                    <strong>Sub Date:</strong>
+                                    <p t-field="doc.batch_date"/>
+                                </div>
+                                <div class="col-xs-3" t-if="doc.total_amount">
+                                    <strong>Batch Amount:</strong>
+                                    <p t-field="doc.total_amount"/>
+                                </div>
+                                <div class="col-xs-3" t-if="doc.total_cash">
+                                    <strong>Cash Pool Amount:</strong>
+                                    <p t-field="doc.total_cash"/>
+                                </div>
+                                <div class="col-xs-3" t-if="doc.o_s">
+                                    <strong>Outstanding:</strong>
+                                    <p t-field="doc.o_s"/>
+                                </div>
+
+                            <!--<t t-if ="doc.type == 'in_invoice'" >-->
+                                <!--<p><h4><strong>Trx : <span t-field="doc.number"/></strong></h4></p>-->
+                                <!--<p><h4><strong>Vendor : <span t-field="doc.partner_id"/></strong></h4></p>-->
+                                <!--<br/>-->
+                                <!--<br/>-->
+                                <!--<div class="row">-->
+                                <!--<div class="col-xs-2 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1" t-if="doc.date_invoice">-->
+                                    <!--<strong>Trx Date:</strong>-->
+                                    <!--<p t-field="doc.date_invoice"/>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-2" t-if="doc.totalamount">-->
+                                    <!--<strong>Total Amount:</strong>-->
+                                    <!--<p t-field="doc.totalamount"/>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-2" t-if="doc.allocation_id.name">-->
+                                    <!--<strong>Cash Pool :</strong>-->
+                                    <!--<p t-field="doc.allocation_id.name"/>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-2" t-if="doc.cashpool_amount">-->
+                                    <!--<strong>Cash Pool Amount:</strong>-->
+                                    <!--<p t-field="doc.cashpool_amount"/>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-2" t-if="doc.perv_amount">-->
+                                    <!--<strong>Previous Invested:</strong>-->
+                                    <!--<p t-field="doc.perv_amount"/>-->
+                                <!--</div>-->
+                                <!--<br/>-->
+                                <!--<br/>-->
+                                <!--</div>-->
+                            <!--<div>-->
+                                <!--<h4>Investment Lines</h4>-->
+                                <!--<table class="table table-bordered" >-->
+                                    <!--<thead>-->
+                                        <!--<tr >-->
+                                            <!--<th>Product</th>-->
+                                            <!--<th class="text-center">Units</th>-->
+                                            <!--<th class="text-center">Price</th>-->
+                                            <!--<th class="text-center">Amount</th>-->
+
+                                        <!--</tr>-->
+                                    <!--</thead>-->
+                                    <!--<tbody>-->
+                                        <!--<t t-set="att_own" t-value="0"/>-->
+                                        <!--<t t-set="att_company" t-value="0"/>-->
+                                        <!--<t t-set="att_booster" t-value="0"/>-->
+                                        <!--<t t-set="att_total" t-value="0"/>-->
+
+
+
+                                            <!--<tr t-foreach="doc.invoice_line_ids" t-as="li">-->
+                                                <!--&lt;!&ndash;<t t-if="li.member_name.id == doc.id" >&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<t t-set="att_counter" t-value="(li.total/inv.totalamount)*100"/>&ndash;&gt;-->
+                                                    <!--<td > <span t-esc="li.product_id.name"/></td>-->
+                                                    <!--&lt;!&ndash;<t t-set="att_own" t-value="(att_own+li.own)"/>&ndash;&gt;-->
+                                                    <!--<td align="right"><span t-esc="li.quantity"/></td>-->
+                                                    <!--&lt;!&ndash;<t t-set="att_company" t-value="(att_company+li.company)"/>&ndash;&gt;-->
+                                                    <!--<td align="right"><span t-esc="li.price_unit"/></td>-->
+                                                    <!--&lt;!&ndash;<t t-set="att_booster" t-value="(att_booster+li.booster)"/>&ndash;&gt;-->
+                                                    <!--<td align="right"><span t-esc="li.price_subtotal"/></td>-->
+                                                    <!--&lt;!&ndash;<t t-set="att_total" t-value="(att_total+li.total)"/>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<span t-esc="li.booster"/>&ndash;&gt;-->
+
+                                            <!--</tr>-->
+
+                                        <!--&lt;!&ndash;<tr>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td> <span/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td> <span/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td align="right"> <span t-esc="att_own"/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td align="right"> <span t-esc="att_company"/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td align="right"> <span t-esc="att_booster"/></td>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<td align="right"> <span t-esc="att_total"/></td>&ndash;&gt;-->
+
+                                        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                    <!--</tbody>-->
+                                <!--</table>-->
+                            <!--</div>-->
+                            <!--</t>-->
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+
+        </template>
+        <!--<template id="report_invoice_inherit_demo" inherit_id="account.report_invoice_document">-->
+        <!--<xpath expr="//div/h2/span[1]" position="replace">-->
+        <!--<span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Sub </span>-->
+
+        <!--</xpath>-->
+        <!--<xpath expr="//div/div[@class='row mt32 mb32']/div[2]" position="after">-->
+        <!--<div class="col-xs-2" t-if="o.total_amount">-->
+        <!--<strong>Batch Amount:</strong>-->
+        <!--<p t-field="o.total_amount"/>-->
+        <!--</div>-->
+        <!--<div class="col-xs-2" t-if="o.total_cash">-->
+        <!--<strong>Cash Pool Amount:</strong>-->
+        <!--<p t-field="o.total_cash"/>-->
+        <!--</div>-->
+        <!--<div class="col-xs-2" t-if="o.o_s">-->
+        <!--<strong>Cash Pool Amount:</strong>-->
+        <!--<p t-field="o.o_s"/>-->
+        <!--</div>-->
+        <!--</xpath>-->
+        <!--<xpath expr="//div/div[@class='clearfix']/div[@id='total']" position="replace"></xpath>-->
+        <!--<xpath expr="//table[@class='table table-condensed']" position="replace">-->
+
+        <!--</xpath>-->
+        <!--</template>-->
+    </data>
+</odoo>
+
