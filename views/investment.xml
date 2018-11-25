@@ -270,14 +270,10 @@
                                 <field name="validate_invest_lines" invisible="1"/>
                                 <field name="validate_bills" invisible="1"/>
                                 <field name="validate_bills_button" invisible="1"/>
-
                             </group>
-
-
                         </group>
 
                         <div class="btn-group btn-group-justified" id="menu">
-
                             <div class="btn-group">
                                 <button name="validate_cash" string="Cash Account" type="object"
                                         style="color: #337AB7; background: white;border-bottom: 1px solid #ddd;" attrs="{'invisible': [('validate_cash_pool', '=', True)]}" />
@@ -316,9 +312,7 @@
                                 <field name="amount" string="Total Amount" sum="Total Amount"/>
                             </tree>
                         </field>
-
                         <field name="invoice_ids"  attrs="{'invisible': [('validate_bills', '!=', True)]}"/>
-
                     </sheet>
                 </form>
             </field>
