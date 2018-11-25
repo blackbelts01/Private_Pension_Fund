@@ -29,6 +29,7 @@
         'reports/subs.xml',
         'reports/invest.xml',
         'reports/member_subscription_report.xml',
+        'reports/member_investment_report.xml',
         'data/mail_template.xml',
     ],
     # only loaded in demonstration mode
