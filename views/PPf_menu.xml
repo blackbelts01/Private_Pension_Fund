@@ -33,9 +33,13 @@
                   parent="subscriptions_view_menu"
                   action="action_ppf_subscription"/>
         <menuitem id="Cashpool_view_menu"
-                  name="Cash Pool"
+                  name="Cash Accounts"
                   parent="subscriptions_view_menu"
                   action="cash_pool_action"/>
+        <menuitem id="Cashpool_trans_view_menu"
+                  name="Cash Account Transactions"
+                  parent="subscriptions_view_menu"
+                  action="action_cash_pool_trans"/>
         <menuitem id="investment_view_menu"
                   name="Investment Management"
                   sequence="2"

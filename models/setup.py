@@ -34,7 +34,7 @@ class Product_Price(models.Model):
 class Partners(models.Model):
     _inherit='res.partner'
 
-    DOB = fields.Date('Date of Birth')
+    birth_date = fields.Date('Date of Birth')
     hiring_date = fields.Date('Hiring Date')
     member_id=fields.Char('Membership ID')
     job_title=fields.Char('Job Tilte')

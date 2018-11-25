@@ -15,7 +15,7 @@
     'version': '0.1',
     'license': 'AGPL-3',
     # any module necessary for this one to work correctly
-    'depends': ['base','sale','purchase','account'],
+    'depends': ['base','sale','crm','purchase','account'],
 
     # always loaded
     'data': [
@@ -25,6 +25,7 @@
         'views/cash_pool.xml',
         'views/subscriptions.xml',
         'views/investment.xml',
+        'views/cash_account_trans.xml',
         'views/PPf_menu.xml',
         'reports/subs.xml',
         'reports/invest.xml',

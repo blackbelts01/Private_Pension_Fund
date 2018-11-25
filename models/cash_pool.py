@@ -36,3 +36,13 @@ class cashPool(models.Model):
     def _compute_os_amount(self):
         self.os_amount = self.amount - self.perv_amount
 
+class cashPooltrans(models.Model):
+    _name='cash.pool.trans'
+    _rec_name = 'cash_pool_id'
+
+    state = fields.Selection([('buying', 'Buying'), ('selling', 'Selling')],required=True)
+    investment_id = fields.Many2one('ppf.investment',string='Investment')
+    date = fields.Date(string='Date')
+    amount = fields.Float(string='Amount')
+    cash_pool_id =fields.Many2one('ppf.cash.pool',string='Cash Pool')
+
