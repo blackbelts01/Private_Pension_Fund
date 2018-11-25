@@ -19,9 +19,11 @@ class ppfInvestment(models.Model):
     type_categ =fields.Many2one(related='cash_pool_id.type',store=True)
     investment_line_ids= fields.One2many('ppf.investment.line','investment_id')
     invoice_ids = fields.One2many('account.invoice', 'investment_id', string='Invoices', readonly=True)
-    validate_cash_pool=fields.Boolean(default=True)
-    validate_invest_lines = fields.Boolean()
+    validate_cash_pool=fields.Boolean('',default=True)
+    validate_bills_button=fields.Boolean('',default=False)
+    validate_bills = fields.Boolean('', default=False)
 
+    validate_invest_lines = fields.Boolean('')
     @api.multi
     def validate_cash(self):
         self.validate_cash_pool = True
@@ -34,6 +36,14 @@ class ppfInvestment(models.Model):
             self.validate_cash_pool = False
             self.validate_invest_lines = True
             return True
+
+    @api.multi
+    def validate_bill(self):
+        self.validate_cash_pool = False
+        self.validate_invest_lines = False
+        self.validate_bills=True
+
+        return True
 
 
 
@@ -83,6 +93,7 @@ class ppfInvestment(models.Model):
         })
         bill.action_invoice_open()
         self.state = 'paid'
+        self.validate_bills_button=True
 
 
     @api.multi

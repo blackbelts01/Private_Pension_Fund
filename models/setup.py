@@ -93,20 +93,20 @@ class Partners(models.Model):
 
     # @api.multi
     # def search_cash_pool(self):
-    #     sub = self.env['account.invoice.line'].search([('member_name', '=', self.id)])
-    #     inv = self.env['account.invoice'].search([('invoice_line_ids', 'in', sub.ids)])
+    #     sub = self.env['ppf.subscription.line'].search([('member_name', '=', self.id)])
+    #     inv = self.env['ppf.subscription'].search([('subscription_line', 'in', sub.ids)])
     #     all_lines = self.env['allocation.lines'].search([('sub', 'in', inv.ids)])
     #     allocation = self.env['allocation'].search([('allocation_line', 'in', all_lines.ids)])
     #     # investment = self.env['account.invoice'].search([('allocation_id', 'in', allocation.ids)])
     #
     #     return allocation
-    #
+
     #
     #
     # @api.multi
     # def search_invest(self):
-    #     sub = self.env['account.invoice.line'].search([('member_name', '=', self.id)])
-    #     inv = self.env['account.invoice'].search([('invoice_line_ids', 'in', sub.ids)])
+    #     sub = self.env['ppf.subscription.line'].search([('member_name', '=', self.id)])
+    #     inv = self.env['ppf.subscription'].search([('subscription_line', 'in', sub.ids)])
     #     invest1=[]
     #     for data in inv:
     #           allocation = self.env['cash.pool'].search([('subscription_id', 'in', data.ids)])
@@ -114,8 +114,23 @@ class Partners(models.Model):
     #           # invest1.append(investment)
     #           return investment
 
+    @api.multi
+    def search_invest(self):
+        sub = self.env['ppf.subscription.line'].search([('member_name', '=', self.id)])
+        inv = self.env['ppf.subscription'].search([('subscription_line', 'in', sub.ids)])
+        print(inv)
+        # invest1 = self.env['account.invoice']
+        invest2 = []
+        for data in inv:
+            allocation = self.env['ppf.cash.pool'].search([('subscription_id', 'in', data.ids)])
+            for cash in allocation:
+                investment = self.env['ppf.investment'].search([('cash_pool_id', 'in', cash.ids)])
+                for i in investment:
+                    invest2.append(i.id)
 
-
+        invest = self.env['ppf.investment'].search([('id', 'in', invest2)])
+        print(invest)
+        return invest
 
 
 
