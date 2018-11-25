@@ -57,13 +57,6 @@ class ppfInvestment(models.Model):
     @api.multi
     def validate(self):
         if self.investment_line_ids:
-            self.env['cash.pool.trans'].create({
-                'state': 'buying',
-                'investment_id': self.id,
-                'date': self.invested_date,
-                'amount': self.total_amount,
-                'cash_pool_id': self.cash_pool_id.id,
-            })
             self.state = 'open'
         else:
             raise ValidationError(_('Please create some Investment Lines'))
