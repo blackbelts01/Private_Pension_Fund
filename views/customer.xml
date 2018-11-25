@@ -9,7 +9,7 @@
 
                 <xpath expr="//group[1]" position="inside">
                     <group>
-                        <field name="DOB"/>
+                        <field name="birth_date"/>
                         <field name = "hiring_date" />
                         <field name = "member_id" />
 

@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <record id="cash_pool_trans_tree" model="ir.ui.view">
+            <field name="name">Cash.Account.Transaction.tree</field>
+            <field name="model">cash.pool.trans</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'buying'" decoration-muted="state == 'selling'">
+                    <field name="cash_pool_id" />
+                    <field name="investment_id"/>
+                    <field name="date"/>
+                    <field name="amount" string="Amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_cash_pool_trans_search" model="ir.ui.view">
+            <field name="name">Cash.Account.Transaction.Search</field>
+            <field name="model">cash.pool.trans</field>
+            <field name="arch" type="xml">
+                <search>
+                   <group string="Group By">
+                        <filter name="group_by_cash_pool_id" string="Cash Account"
+                                context="{'group_by': 'cash_pool_id'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_cash_pool_trans">
+            <field name="name">Cash Account Transaction</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cash.pool.trans</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'search_default_group_by_cash_pool_id': 1}</field>
+        </record>
+    </data>
+</odoo>
