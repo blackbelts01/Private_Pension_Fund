@@ -26,6 +26,7 @@
         'views/subscriptions.xml',
         'views/investment.xml',
         'views/cash_account_trans.xml',
+        'views/investment_fund.xml',
         'views/PPf_menu.xml',
         'reports/subs.xml',
         'reports/invest.xml',

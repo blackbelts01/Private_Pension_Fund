@@ -4,6 +4,10 @@ from odoo.exceptions import ValidationError
 class ppfInvestment(models.Model):
     _name = 'ppf.investment'
 
+    @api.model
+    def _default_currency(self):
+        return self.env.user.company_id.currency_id
+
     name = fields.Char(string='Name', required=True, copy=False, readonly=True, index=True,
                        default=lambda self: _('New'))
     state = fields.Selection([('draft', 'Draft'), ('open', 'Open'), ('paid', 'Paid')],
@@ -22,6 +26,9 @@ class ppfInvestment(models.Model):
     validate_cash_pool=fields.Boolean('',default=True)
     validate_bills_button=fields.Boolean('',default=False)
     validate_bills = fields.Boolean('', default=False)
+    currency_id = fields.Many2one('res.currency', string='Currency',
+        required=True, readonly=True,
+        default=_default_currency, track_visibility='always')
 
     validate_invest_lines = fields.Boolean('')
     @api.multi
@@ -134,11 +141,11 @@ class investmentLine(models.Model):
 
     type_line=fields.Many2one(related='investment_id.type_categ')
     product = fields.Many2one('product.product',string='Product',domain="[('categ_id','=',type_line)]")
-
     quantity = fields.Integer('Quantity')
     unit_price = fields.Float('Unit Price')
     amount = fields.Float('Amount',compute='_compute_amount')
     investment_id = fields.Many2one('ppf.investment')
+    currency_id = fields.Many2one(related='investment_id.currency_id')
 
     @api.one
     @api.depends('unit_price')
