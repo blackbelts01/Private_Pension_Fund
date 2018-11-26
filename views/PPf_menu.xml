@@ -32,17 +32,22 @@
                   name="Subscriptions"
                   parent="subscriptions_view_menu"
                   action="action_ppf_subscription"/>
+        <menuitem id="cash_view_menu"
+                  name="Cash Account Management"
+                  sequence="2"
+                  parent="main_ppf_menu"/>
+
         <menuitem id="Cashpool_view_menu"
                   name="Cash Accounts"
-                  parent="subscriptions_view_menu"
+                  parent="cash_view_menu"
                   action="cash_pool_action"/>
         <menuitem id="Cashpool_trans_view_menu"
                   name="Cash Account Transactions"
-                  parent="subscriptions_view_menu"
+                  parent="cash_view_menu"
                   action="action_cash_pool_trans"/>
         <menuitem id="investment_view_menu"
                   name="Investment Management"
-                  sequence="2"
+                  sequence="3"
                   parent="main_ppf_menu"/>
         <menuitem id="buy_investment_view_menu"
                   name="Buy Investment"

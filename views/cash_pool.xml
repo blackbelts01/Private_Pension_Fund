@@ -15,7 +15,7 @@
                     <field name="perv_amount" string="Previous Invested" sum="Previous Invested" invisible="1"/>
                     <field name="os_amount" string="Outstanding" sum="Outstanding"/>
                     <field name="subscription_id" string="Contribution"/>
-                    <field name="cash_trxs" invisible="1"/>
+                    <!--<field name="cash_trxs" invisible="1"/>-->
 
                 </tree>
             </field>

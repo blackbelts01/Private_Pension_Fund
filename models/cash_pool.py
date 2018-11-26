@@ -13,7 +13,7 @@ class cashPool(models.Model):
     os_amount = fields.Float('Outstanding',compute='_compute_os_amount')
     subscription_id = fields.Many2one('ppf.subscription',string='Sub')
     allocation_line_invest = fields.One2many('ppf.investment','cash_pool_id')
-    cash_trxs = fields.One2many('cash.pool.trans','trx_id')
+    # cash_trxs = fields.One2many('cash.pool.trans','trx_id')
 
 
     @api.one
@@ -37,15 +37,5 @@ class cashPool(models.Model):
     def _compute_os_amount(self):
         self.os_amount = self.amount - self.perv_amount
 
-class cashPooltrans(models.Model):
-    _name='cash.pool.trans'
-    # _rec_name = 'cash_pool_id'
 
-    # state = fields.Selection([('buying', 'Buying'), ('selling', 'Selling')],required=True)
-    investment_id = fields.One2many(related='trx_id.allocation_line_invest',string='Investment')
-    trx_id =fields.Many2one('ppf.cash.pool',string='Cash Pool')
-
-    # date = fields.Date(string='Date')
-    # amount = fields.Float(string='Amount')
-    # cash_pool_id =fields.Many2one('ppf.cash.pool',string='Cash Pool')
 
