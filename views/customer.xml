@@ -14,7 +14,7 @@
                         <field name = "member_id" />
 
                         <!--<field name = "job_title" />-->
-                        <field name = "grade" />
+                        <!--<field name = "grade" />-->
                         <field name = "benef" />
                         <field name = "martiual_status" />
                     </group>

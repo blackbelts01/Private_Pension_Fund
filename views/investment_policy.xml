@@ -1,0 +1,68 @@
+<odoo>
+
+    <menuitem id="new_ppf_id" name="Private pension Fund"/>
+
+
+
+    <record model="ir.ui.view" id="policy_form_view">
+        <field name="name">policy.form</field>
+        <field name="model">ppf.policy</field>
+        <field name="arch" type="xml">
+            <form string="Policy Form">
+                <sheet>
+                    <group >
+                        <field name="policy_id"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="description"/>
+                        <!--<field name="fund_from_one2many_field" invisible="1"/>-->
+                        <!--<field name="allocation_from_one2many_field" invisible="1"/>-->
+                    </group>
+
+                    <notebook>
+                        <page string="Policy Cash Accounts">
+                            <field name="cash_type">
+                                <tree editable="bottom">
+                                    <field name="type"/>
+                                    <field name="allocation"/>
+                                    <!--<field name="description"/>-->
+
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="policy_tree_view">
+        <field name="name">policy.tree</field>
+        <field name="model">ppf.policy</field>
+        <field name="arch" type="xml">
+            <tree string="policy Tree">
+                <field name="policy_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="description"/>
+                <!--<field name="fund_from_one2many_field"/>-->
+                <!--<field name="allocation_from_one2many_field"/>-->
+                <!--<field name="fund_ids"  invisible="1"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="policy_list_action">
+        <field name="name">Policy</field>
+        <field name="res_model">ppf.policy</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the first Policy
+            </p>
+        </field>
+    </record>
+    <menuitem id="policy_menu" name="Investment Policy" parent="Setup_view_menu"
+              action="policy_list_action"/>
+</odoo>

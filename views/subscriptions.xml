@@ -31,6 +31,8 @@
                             <group>
                                 <field name="company" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                 <field name="batch_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="policy" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
                             </group>
                             <group>
                                 <field name="total_amount"/>
@@ -107,7 +109,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">ppf.subscription</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
             <field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Subscription.</p></field>
         </record>
 

@@ -1,0 +1,48 @@
+<odoo>
+
+
+
+    <record model="ir.ui.view" id="type_form_view">
+        <field name="name">ppf.types.form</field>
+        <field name="model">ppf.types</field>
+        <field name="arch" type="xml">
+            <form string="Category Form">
+                <sheet>
+                    <group >
+                        <field name="type"/>
+                        <field name="disc"/>
+
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="type_tree_view">
+        <field name="name">ppf.types.tree</field>
+        <field name="model">ppf.types</field>
+        <field name="arch" type="xml">
+            <tree string="Fundraise Tree">
+                <field name="type"/>
+                <field name="disc"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="type_list_action">
+        <field name="name">Category</field>
+        <field name="res_model">ppf.types</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the first Fundraise
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="type_menu" name="Categories" parent="Setup_view_menu"
+              action="type_list_action"/>
+</odoo>

@@ -16,6 +16,11 @@ import base64
 class ppfSubscription(models.Model):
     _name = 'ppf.subscription'
 
+
+    @api.model
+    def _default_currency(self):
+        return self.env.user.company_id.currency_id
+
     name = fields.Char(string='Name', required=True, copy=False, readonly=True, index=True,
                        default=lambda self: _('New'))
     state = fields.Selection([('draft', 'Draft'), ('open', 'Open'), ('paid', 'Paid')],
@@ -28,8 +33,11 @@ class ppfSubscription(models.Model):
     o_s = fields.Float('Outstanding',compute='_compute_os')
     subscription_line = fields.One2many('ppf.subscription.line','subscription_id',string='Subscription Line')
     cash_pool_ids = fields.One2many('ppf.cash.pool','subscription_id', string="Cash Pool Lines")
-
+    currency_id = fields.Many2one('res.currency', string='Currency',
+        required=True, readonly=True,
+        default=_default_currency, track_visibility='always')
     data= fields.Binary('File')
+    policy=fields.Many2one('ppf.policy')
 
 
     @api.model
@@ -41,11 +49,15 @@ class ppfSubscription(models.Model):
     @api.multi
     def validate(self):
         if self.subscription_line:
-            self.env['ppf.cash.pool'].create({
-                'name': 'Cash Pool of ' + str(self.name),
-                'cash_date': self.batch_date,
-                'subscription_id': self.id,
-            })
+            for rec in self.policy.cash_type:
+                self.env['ppf.cash.pool'].create({
+                    'name': self.env['ir.sequence'].next_by_code('ppf.cash.pool')+'/'+ str(self.name),
+                    'cash_date': self.batch_date,
+                    'type':rec.type.id,
+                    'percentage':rec.allocation,
+                    'amount': (rec.allocation*self.total_amount)/100,
+                    'subscription_id': self.id,
+                })
             self.state = 'open'
         else:
             raise ValidationError(_('Please create some Subscription Lines'))
@@ -110,10 +122,11 @@ class ppfSubscription(models.Model):
 
                     value = (s.cell(row, col).value)
 
-                    try:
-                        value = str(int(value))
-                    except:
-                        pass
+                    # try:
+                    #     value = str(int(value))
+                    #     value=float(value)
+                    # except:
+                    #     pass
 
                     col_value.append(value)
                 # print(col_value)

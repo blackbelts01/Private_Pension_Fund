@@ -53,6 +53,10 @@
                   name="Buy Investment"
                   parent="investment_view_menu"
                   action="action_ppf_investment"/>
+        <menuitem id="fund_view_menu"
+                  name="Funds"
+                  parent="investment_view_menu"
+                  action="action_funds"/>
         <menuitem id="performance_view_menu"
                   name="Performance Management"
                   parent="main_ppf_menu"

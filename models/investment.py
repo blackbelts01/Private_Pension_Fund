@@ -1,8 +1,12 @@
 from odoo import models, fields,  api, _
 from odoo.exceptions import ValidationError
-
+from datetime import datetime
 class ppfInvestment(models.Model):
     _name = 'ppf.investment'
+
+    @api.model
+    def _default_currency(self):
+        return self.env.user.company_id.currency_id
 
     name = fields.Char(string='Name', required=True, copy=False, readonly=True, index=True,
                        default=lambda self: _('New'))
@@ -24,6 +28,9 @@ class ppfInvestment(models.Model):
     validate_cash_pool=fields.Boolean('',default=True)
     validate_bills_button=fields.Boolean('',default=False)
     validate_bills = fields.Boolean('', default=False)
+    currency_id = fields.Many2one('res.currency', string='Currency',
+        required=True, readonly=True,
+        default=_default_currency, track_visibility='always')
 
     validate_invest_lines = fields.Boolean('')
     @api.multi
@@ -137,17 +144,32 @@ class investmentLine(models.Model):
 
     type_line=fields.Many2one(related='investment_id.type_categ')
     product = fields.Many2one('product.product',string='Product',domain="[('categ_id','=',type_line)]")
-
-    quantity = fields.Integer('Quantity')
+    quantity = fields.Integer('Units',compute='_compute_quantity')
     unit_price = fields.Float('Unit Price')
+    invest_amount = fields.Float('Invest Amount')
     amount = fields.Float('Amount',compute='_compute_amount')
     investment_id = fields.Many2one('ppf.investment')
+    currency_id = fields.Many2one(related='investment_id.currency_id')
+
+    @api.onchange('product')
+    def _compute_unit_price(self):
+        for rec in self.product.seller_ids:
+            today=datetime.today().strftime('%Y-%m-%d')
+            if rec.date_start <=today and today<=rec.date_end:
+                self.unit_price=rec.price
+
+
 
     @api.one
-    @api.depends('unit_price')
+    @api.depends('unit_price','invest_amount')
     def _compute_amount(self):
         self.amount = self.quantity * self.unit_price
 
+    @api.one
+    @api.depends('invest_amount')
+    def _compute_quantity(self):
+        if self.unit_price !=0:
+         self.quantity = self.invest_amount / self.unit_price
 
 class AccountInvoiceRelate(models.Model):
     _inherit = 'account.invoice'

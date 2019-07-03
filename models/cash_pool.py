@@ -3,6 +3,9 @@ class cashPool(models.Model):
     _name='ppf.cash.pool'
     _rec_name = 'name'
 
+    @api.model
+    def _default_currency(self):
+        return self.env.user.company_id.currency_id
 
     name = fields.Char('ID',required=True)
     cash_date = fields.Date('Date')
@@ -13,7 +16,10 @@ class cashPool(models.Model):
     os_amount = fields.Float('Outstanding',compute='_compute_os_amount')
     subscription_id = fields.Many2one('ppf.subscription',string='Sub')
     allocation_line_invest = fields.One2many('ppf.investment','cash_pool_id')
-    # cash_trxs = fields.One2many('cash.pool.trans','trx_id')
+
+    currency_id = fields.Many2one('res.currency', string='Currency',
+        required=True, readonly=True,default=_default_currency, track_visibility='always')
+
 
 
     @api.one

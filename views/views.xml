@@ -31,17 +31,6 @@
                 <!--<xpath expr="//page[4]/group[1]/field/tree/field[@name='price']" position="attributes">-->
                 <!--<attribute name="string">Asset</attribute>-->
                 <!--</xpath>-->
-                <xpath expr="//page[1]" position="after"   >
-                    <page string="Product Composition">
-                        <field name="product_compos">
-                            <tree>
-                                <field name="item"/>
-                                <field name="perc"/>
-                                <field name="cat"/>
-                            </tree>
-                        </field>
-                    </page>
-                </xpath>
 
 
 

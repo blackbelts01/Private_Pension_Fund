@@ -73,6 +73,7 @@
                             <tree editable="1">
                                 <field name="product"/>
                                 <field name="type_line" invisible="1"/>
+                                <field name="invest_amount"/>
 
                                 <field name="quantity"/>
                                 <field name="unit_price"/>
@@ -123,7 +124,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">ppf.investment</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
             <field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Investment.</p></field>
         </record>
 
