@@ -2,18 +2,18 @@
     <data>
 
         <record model="ir.ui.view" id="form_subscription">
-            <field name="name">Contributions</field>
+            <field name="name">Subscription</field>
             <field name="model">ppf.subscription</field>
             <field name="priority" eval="16"/>
             <field name="arch" type="xml">
                 <form>
                     <header>
                         <!--<button  string="Create Invoice" type="object"  class="oe_highlight" states="open"/>-->
-                        <button  name="create_invoice" string="Create Invoice" type="object"  class="oe_highlight" states="open"/>
+                        <button  name="create_invoice" attrs="{'invisible': [('invoice_created', '=', True)]}" string="Create Invoice" type="object"  class="oe_highlight"/>
                         <button name="sub_print" string="Print Sub" type="object"  attrs="{'invisible':['|', ('state', 'not in', ('open','paid'))]}" />
                         <button name="send_mail_sub" string="Send By mail " type="object"  attrs="{'invisible':['|', ('state', 'not in', ('open','paid'))]}" />
                         <button name="validate" string="Validate" type="object"  class="oe_highlight" states="draft"/>
-                        <button name="import_file" string="Upload Lines" type="object"  class="oe_highlight"   attrs="{'invisible': ['|',('data', '=', False),('state', 'in', ('open','paid'))]}"/>
+                        <button name="import_file" string="Upload Subscription" type="object"  class="oe_highlight"   attrs="{'invisible': ['|',('data', '=', False),('state', 'in', ('open','paid'))]}"/>
                         <field name="data"  attrs="{'invisible': [('state', '!=', 'draft')]}"  string ='upload lines'/>
                         <field name="state" widget="statusbar"/>
 
@@ -21,7 +21,7 @@
                     </header>
                     <sheet>
                         <div class="oe_title">
-                            <label for="name" string="Contribution ID:"/>
+                            <label for="name" string="Subscription ID:"/>
 
                             <h1>
                                 <field name="name" />
@@ -29,9 +29,10 @@
                         </div>
                         <group>
                             <group>
-                                <field name="company" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="department" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                 <field name="batch_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                 <field name="policy" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="invoice_created" invisible="1" />
 
                             </group>
                             <group>
@@ -41,7 +42,7 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Employees Contributions">
+                            <page string="Employees Subscriptions">
 
                                 <field name="subscription_line" attrs="{'readonly': [('state', '!=', 'draft')]}">
                                     <tree editable="1">
@@ -58,7 +59,7 @@
                                 </field>
                             </page>
 
-                            <page string="Cash Accounts" attrs="{'invisible': [('state', '=', 'draft')],'readonly':[('state', '!=', 'open')]}">
+                            <page string="Cash Pools" attrs="{'invisible': [('state', '=', 'draft')],'readonly':[('state', '!=', 'open')]}">
 
                                 <field name="cash_pool_ids">
                                     <tree editable="1">
@@ -82,7 +83,7 @@
             <field name="name">Subscription</field>
             <field name="code">ppf.subscription</field>
 
-            <field name="prefix">Cont/</field>
+            <field name="prefix">Sub/</field>
 
             <field name="padding">3</field>
             <field name="company_id" eval="False"/>
@@ -93,18 +94,17 @@
             <field name="arch" type="xml">
                 <tree decoration-info="state == 'draft'" decoration-muted="state == 'paid'" string="Subscription">
                     <field name="name" />
-                    <field name="company"/>
+                    <field name="department"/>
                     <field name="batch_date"/>
-                    <field name="total_amount" string="Amount" sum="Amount"/>
-                    <field name="total_cash" string="Cash Pool" sum="Cash Pool"/>
-                    <field name="o_s" string="Outstanding" sum="Outstanding"/>
+                    <field name="total_amount" string="Batch Amount" sum="Amount"/>
+                    <field name="number_of_subscriptions"/>
                     <field name="state"/>
                 </tree>
             </field>
         </record>
         <record model="ir.actions.act_window" id="action_ppf_subscription">
 
-            <field name="name">Contribution</field>
+            <field name="name">Subscription</field>
 
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">ppf.subscription</field>

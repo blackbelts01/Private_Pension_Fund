@@ -1,0 +1,57 @@
+<odoo>
+
+    <!-- Add a custom form view -->
+    <record id="yearly_balance_view_form" model="ir.ui.view">
+		<field name="name">Yearly Balance Form</field>
+		<field name="model">ppf.yearly.balance</field>
+		<field name="arch" type="xml">
+			<form>
+                 <header>
+                        <button name="compute_total_amount" attrs="{'invisible': [('yearly_balance_created', '=', True)]}" string="Validate" type="object"  class="oe_highlight"/>
+                 </header>
+                <sheet>
+                    <group>
+                        <field name="from_date"/>
+                        <field name="to"/>
+                        <field name="department"/>
+                        <field name="yearly_balance_created" invisible="1" />
+                    </group>
+                    <notebook>
+                            <page string="Yearly Balance">
+
+                                <field name="yearly_balance">
+                                    <tree editable="1">
+                                        <field name="name"/>
+                                        <field name="employee_share"/>
+                                        <field name="company_share"/>
+                                        <field name="booster"/>
+                                    </tree>
+                                </field>
+                            </page>
+                    </notebook>
+                </sheet>
+			</form>
+		</field>
+	</record>
+    <!-- Add a custom Tree (List) view -->
+    <record id="yearly_balance_view_tree" model="ir.ui.view">
+		<field name="name">Yearly Balance List</field>
+		<field name="model">ppf.yearly.balance</field>
+		<field name="arch" type="xml">
+			<tree>
+                <field name="department"/>
+                <field name="from_date"/>
+                <field name="to"/>
+			</tree>
+		</field>
+	</record>
+    <record model="ir.actions.act_window" id="yearly_balance_action">
+            <field name="name">Yearly Balance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ppf.yearly.balance</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="yearly_balance_view_tree"/>
+            <field name="view_mode">form,tree</field>
+    </record>
+
+</odoo>

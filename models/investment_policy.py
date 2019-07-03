@@ -8,7 +8,7 @@ class policy(models.Model):
     _rec_name='policy_id'
 
 
-    policy_id=fields.Char('ID')
+    policy_id=fields.Char('Name')
     date_from = fields.Date()
     date_to = fields.Date()
     description = fields.Text(string='Investment Policy Description')

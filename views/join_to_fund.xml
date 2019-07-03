@@ -1,0 +1,48 @@
+<odoo>
+
+    <!-- Add a custom form view -->
+    <record id="join_to_fund_view_form" model="ir.ui.view">
+		<field name="name">Join To Fund Form</field>
+		<field name="model">ppf.join</field>
+		<field name="arch" type="xml">
+			<form>
+                <header>
+                    <button  name="approve" attrs="{'invisible': [('state', '!=', 'pending')]}"  string="Approve" type="object"  class="oe_highlight"/>
+                    <button  name="reject" attrs="{'invisible': [('state', '!=', 'pending')]}"  string="Reject" type="object"  class="oe_highlight"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="birth_date"/>
+                        <field name="job_position"/>
+                        <field name="department"/>
+                        <field name="subscription_fees"/>
+                    </group>
+                </sheet>
+			</form>
+		</field>
+	</record>
+    <!-- Add a custom Tree (List) view -->
+    <record id="join_to_fund_view_tree" model="ir.ui.view">
+		<field name="name">Join To Fund List</field>
+		<field name="model">ppf.join</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+                <field name="birth_date"/>
+                <field name="job_position"/>
+                <field name="department"/>
+			</tree>
+		</field>
+	</record>
+    <record model="ir.actions.act_window" id="join_to_fund_action">
+            <field name="name">Join To Fund</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ppf.join</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="join_to_fund_view_tree"/>
+            <field name="view_mode">form,tree</field>
+    </record>
+
+</odoo>

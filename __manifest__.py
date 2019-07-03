@@ -20,6 +20,12 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'views/fund.xml',
+        'views/fund_report.xml',
+        'views/departments.xml',
+        'views/join_to_fund.xml',
+        'views/yearly_balance.xml',
+        'views/PPf_menu.xml',
         'views/views.xml',
         'views/customer.xml',
         'views/cash_pool.xml',
@@ -29,7 +35,6 @@
         'views/investment.xml',
         'views/cash_account_trans.xml',
         'views/investment_fund.xml',
-        'views/PPf_menu.xml',
         'reports/subs.xml',
         'reports/invest.xml',
         'reports/member_subscription_report.xml',

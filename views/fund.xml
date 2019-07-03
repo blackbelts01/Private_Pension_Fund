@@ -1,0 +1,53 @@
+<odoo>
+
+    <!-- Add a custom form view -->
+    <record id="fund_view_form" model="ir.ui.view">
+		<field name="name">Fund Form</field>
+		<field name="model">ppf.fund</field>
+		<field name="arch" type="xml">
+			<form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="manager"/>
+                            <field name="release_date"/>
+                            <field name="employees"/>
+
+                        </group>
+                        <group>
+                            <field name="total_value"/>
+                        </group>
+                    </group>
+                </sheet>
+			</form>
+		</field>
+	</record>
+    <!-- Add a custom Tree (List) view -->
+    <record id="fund_view_tree" model="ir.ui.view">
+		<field name="name">Fund List</field>
+		<field name="model">ppf.fund</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="manager"/>
+				<field name="release_date"/>
+				<field name="employees"/>
+                <field name="total_value"/>
+                <field name="percentage"/>
+                <field name="company_share"/>
+                <field name="employee_share"/>
+                <field name="boosters"/>
+			</tree>
+		</field>
+	</record>
+    <record model="ir.actions.act_window" id="fund_action">
+            <field name="name">Fund</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ppf.fund</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="fund_view_tree"/>
+            <field name="view_mode">form,tree</field>
+    </record>
+
+</odoo>

@@ -13,13 +13,13 @@ class ppfInvestment(models.Model):
     state = fields.Selection([('draft', 'Draft'), ('open', 'Open'), ('paid', 'Paid')],
                              required=True, default='draft')
     company = fields.Many2one('res.partner', string='Partner', required=True)
-    invested_date = fields.Date('Investment Date')
+    invested_date = fields.Date('Investment Date', default=datetime.today())
     total_amount = fields.Float(store=True, readonly=True,string='Total Invested',compute='_compute_amount')
     cash_pool_id = fields.Many2one('ppf.cash.pool', string="Cash Pool")
     # trx_id = fields.Many2one('cash.pool.trans', string="Cash Pool")
 
 
-    cash_pool_amount = fields.Float(related='cash_pool_id.amount',string='Cash Account Amount')
+    cash_pool_amount = fields.Float(related='cash_pool_id.amount',string='Cash Pool Amount')
     cash_poo_perv_amount = fields.Float(related='cash_pool_id.perv_amount',string='Previous Invested')
     cash_pool_os_amount = fields.Float(related='cash_pool_id.os_amount',string='Outstanding')
     type_categ =fields.Many2one(related='cash_pool_id.type',store=True)
@@ -91,7 +91,7 @@ class ppfInvestment(models.Model):
                 'name': 'Bill For Investment',
                 'quantity': 1,
                 'price_unit': self.total_amount,
-                'account_id': 1,
+                'account_id': self.company.property_account_receivable_id.id,
             })],
         })
         bill.action_invoice_open()

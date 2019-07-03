@@ -1,0 +1,23 @@
+<odoo>
+
+    <record id="graph_project_task_pivot" model="ir.ui.view">
+        <field name="model">ppf.fund.report</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="member_name" type="row" />
+                <field name="batch_date" type="col" />
+                <field name="own" type="measure" />
+                <field name="company" type="measure" />
+            </pivot>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="fund_pivot_action">
+            <field name="name">Fund Yearly</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ppf.fund.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,pivot</field>
+            <field name="view_id" ref="graph_project_task_pivot"/>
+
+    </record>
+</odoo>

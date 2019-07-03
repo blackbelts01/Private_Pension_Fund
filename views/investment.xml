@@ -42,7 +42,7 @@
 
                         <div class="btn-group btn-group-justified" id="menu">
                             <div class="btn-group">
-                                <button name="validate_cash" string="Cash Account" type="object"
+                                <button name="validate_cash" string="Cash Pool" type="object"
                                         style="color: #337AB7; background: white;border-bottom: 1px solid #ddd;" attrs="{'invisible': [('validate_cash_pool', '=', True)]}" />
                             </div>
                             <div class="btn-group">

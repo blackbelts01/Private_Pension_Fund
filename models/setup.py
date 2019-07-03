@@ -1,43 +1,46 @@
 from odoo import models, fields, api
-from odoo.exceptions import  ValidationError
+from odoo.exceptions import ValidationError
 from datetime import datetime
+
+
 class product_fund(models.Model):
-    _inherit='product.template'
+    _inherit = 'product.template'
 
-    product_id=fields.Char('Product id')
-    Assest_manger=fields.Many2one('res.partner','Assest Manger')
-    issuer=fields.Many2one('res.partner','Issuer')
-    product_unit=fields.Char('Product Unit')
-    face_value=fields.Many2one('res.currency','Face Value')
+    product_id = fields.Char('Product id')
+    Assest_manger = fields.Many2one('res.partner', 'Assest Manger')
+    issuer = fields.Many2one('res.partner', 'Issuer')
+    product_unit = fields.Char('Product Unit')
+    face_value = fields.Many2one('res.currency', 'Face Value')
 
+    product_compos = fields.One2many('product.composition', 'product')
+    product_pricing = fields.One2many('product.pricing', 'product_price')
 
-    product_compos=fields.One2many('product.composition','product')
-    product_pricing=fields.One2many('product.pricing','product_price')
 
 class Product_Composition(models.Model):
-    _name='product.composition'
-    item=fields.Char('Item')
-    perc=fields.Integer('Percentage')
-    cat=fields.Many2one('product.category')
-    product=fields.Many2one('product.template')
+    _name = 'product.composition'
+    item = fields.Char('Item')
+    perc = fields.Integer('Percentage')
+    cat = fields.Many2one('product.category')
+    product = fields.Many2one('product.template')
 
 
 class Product_Price(models.Model):
-    _name='product.pricing'
-    date_from=fields.Date('Date From')
+    _name = 'product.pricing'
+    date_from = fields.Date('Date From')
     date_to = fields.Date('Date To')
-    price=fields.Float('Price')
-    product_price=fields.Many2one('product.template')
-
+    price = fields.Float('Price')
+    product_price = fields.Many2one('product.template')
 
 
 class Partners(models.Model):
-    _inherit='res.partner'
+    _inherit = 'res.partner'
 
     birth_date = fields.Date('Date of Birth')
     hiring_date = fields.Date('Hiring Date')
-    member_id=fields.Char('Membership ID')
-    job_title=fields.Char('Job Tilte')
+    subscription_date = fields.Date('Subscription Date')
+    pension_date = fields.Date('Pension Date')
+    member_id = fields.Char('Employee ID')
+    job_title = fields.Char('Job Title')
     grade = fields.Char('Grade')
     benef = fields.Char('Beneficiary')
 
@@ -45,8 +48,14 @@ class Partners(models.Model):
                                         ('Married', 'Married'), ],
                                        'Marital Status', track_visibility='onchange')
 
-
     sub_count = fields.Integer(compute='_compute_sub_count')
+    department = fields.Many2one('ppf.department', string='Sub Company')
+    total_value = fields.Float('Total Value')
+    ratio = fields.Float('percentage')
+    company_share = fields.Float('Company Share')
+    employee_share = fields.Float('Employee Share')
+    boosters = fields.Float('Boosters')
+
 
     @api.one
     def _compute_sub_count(self):
@@ -84,13 +93,14 @@ class Partners(models.Model):
     def compute_total_sub(self):
         sub = self.env['ppf.subscription.line'].search([('member_name', '=', self.id)])
         print(sub)
-        sum=0.0
+        sum = 0.0
         for rec in sub:
-            print (555555555555)
-            sum+=rec.total
+            print(555555555555)
+            sum += rec.total
         # inv = self.env['ppf.subscription'].search([('subscription_line', 'in', sub.ids)])
         print(sum)
         return sum
+
     # @api.multi
     # def search_sub(self):
     #     sub=self.env['account.invoice.line'].search([('member_name', '=', self.id)])
@@ -156,15 +166,10 @@ class Partners(models.Model):
 
         invest = self.env['ppf.investment'].search([('id', 'in', invest2)])
         for rec2 in invest:
-            units=0
+            units = 0
             for rec in rec2.investment_line_ids:
                 print(55555555555555555555)
-                units+=rec.quantity
-
+                units += rec.quantity
 
         print(units)
         return units
-
-
-
-

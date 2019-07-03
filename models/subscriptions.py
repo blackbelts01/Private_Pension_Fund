@@ -8,6 +8,8 @@ from odoo import xlrd
 from xlrd import open_workbook
 from tempfile import TemporaryFile
 import base64
+from psycopg2.extensions import AsIs
+
 
 
 
@@ -21,23 +23,31 @@ class ppfSubscription(models.Model):
     def _default_currency(self):
         return self.env.user.company_id.currency_id
 
-    name = fields.Char(string='Name', required=True, copy=False, readonly=True, index=True,
+    name = fields.Char(string='Id', required=True, copy=False, readonly=True, index=True,
                        default=lambda self: _('New'))
     state = fields.Selection([('draft', 'Draft'), ('open', 'Open'), ('paid', 'Paid')],
                              required=True, default='draft')
-    company = fields.Many2one('res.partner',string='Company',required=True)
+
     batch_date = fields.Date('Batch Date')
     invoice_ids = fields.One2many('account.invoice', 'subscription_id', string='Invoices', readonly=True)
-    total_amount = fields.Float(string='Batch Amount',compute='_compute_total_amount')
+    total_amount = fields.Float(string='Batch Amount', compute='_compute_total_amount')
+    total_own_amount = fields.Float('Total Own Amount', compute='_compute_total_own_amount')
+    total_company_amount = fields.Float('Total Company Amount', compute='_compute_total_company_amount')
+    total_boosters_amount = fields.Float('Total Boosters Amount', compute='_compute_total_boosters_amount')
     total_cash = fields.Float('Total Cash Pool',compute='_compute_total_cashpool',store=True)
     o_s = fields.Float('Outstanding',compute='_compute_os')
-    subscription_line = fields.One2many('ppf.subscription.line','subscription_id',string='Subscription Line')
+    subscription_line = fields.One2many('ppf.subscription.line','subscription_id', ondelete='cascade', string='Subscription Line')
     cash_pool_ids = fields.One2many('ppf.cash.pool','subscription_id', string="Cash Pool Lines")
     currency_id = fields.Many2one('res.currency', string='Currency',
         required=True, readonly=True,
         default=_default_currency, track_visibility='always')
     data= fields.Binary('File')
     policy=fields.Many2one('ppf.policy')
+    department = fields.Many2one('ppf.department', string='Sub Company')
+    invoice_created = fields.Boolean('is invoice created ?', default=False)
+    number_of_subscriptions = fields.Integer('Num.Subscription', compute='_compute_total_subscriptions')
+
+
 
 
     @api.model
@@ -66,22 +76,32 @@ class ppfSubscription(models.Model):
     @api.multi
     def create_invoice(self):
         inv = self.env['account.invoice'].create({
-            'type': 'out_invoice',
-            'partner_id': self.company.id,
-            'user_id': self.env.user.id,
+            #'type': 'out_invoice',
+            'partner_id': self.department.id,
+            #'account_id': self.
+            #'user_id': self.env.user.id,
             'subscription_id': self.id,
-            'origin': self.name,
+            #'origin': self.name,
             'date_due': self.batch_date,
             'invoice_line_ids': [(0, 0, {
                 'name': 'Invoice For Subscription',
                 'quantity': 1,
                 'price_unit': self.total_amount,
-                'account_id': 1,
+                'account_id': self.department.account_payable.id,
             })],
         })
         inv.action_invoice_open()
-        self.state = 'paid'
+        #self.state = 'paid'
+        self.invoice_created = True
 
+    @api.one
+    @api.depends('invoice_ids')
+    def _compute_state(self):
+        for record in self.invoice_ids:
+            if record.id == self.id:
+                self.state = record.state
+            else:
+                return ('false')
 
     @api.one
     @api.depends('subscription_line')
@@ -91,6 +111,27 @@ class ppfSubscription(models.Model):
             self.total_amount += record.total
 
     @api.one
+    @api.depends('subscription_line')
+    def _compute_total_own_amount(self):
+        self.total_own_amount = 0.0
+        for record in self.subscription_line:
+            self.total_own_amount += record.own
+
+    @api.one
+    @api.depends('subscription_line')
+    def _compute_total_company_amount(self):
+        self.total_company_amount = 0.0
+        for record in self.subscription_line:
+            self.total_company_amount += record.company
+
+    @api.one
+    @api.depends('subscription_line')
+    def _compute_total_boosters_amount(self):
+        self.total_boosters_amount = 0.0
+        for record in self.subscription_line:
+            self.total_company_amount += record.booster
+
+    @api.one
     @api.depends('cash_pool_ids')
     def _compute_total_cashpool(self):
         self.total_cash = 0.0
@@ -98,13 +139,17 @@ class ppfSubscription(models.Model):
             self.total_cash += record.amount
 
     @api.one
+    @api.depends('subscription_line')
+    def _compute_total_subscriptions(self):
+        self.number_of_subscriptions = len(self.subscription_line)
+
+
+    @api.one
     @api.depends('total_cash')
     def _compute_os(self):
         self.o_s = self.total_amount - self.total_cash
 
-
-
-
+    @api.model_cr
     @api.multi
     def import_file(self):
         wb = open_workbook(file_contents=base64.decodestring(self.data))
@@ -129,11 +174,19 @@ class ppfSubscription(models.Model):
                     #     pass
 
                     col_value.append(value)
-                # print(col_value)
-                self.update({
-                'subscription_line': [(0, 0, {'member_name':(self.env['res.partner'].search([('name', '=',col_value[0])]).id), 'salary': col_value[1],'perc_salary': col_value[2],
-                                              'own':col_value[3],'company':col_value[4],'booster':col_value[5]})],
-                })
+                print('20202020202020')
+                print(col_value)
+                #name = self.env['res.partner'].search([('name', '=',col_value[0])]).id
+                #total = (col_value[1] *(col_value[2]/100))+col_value[3]+col_value[4]+col_value[5]
+                self.env.cr.execute("INSERT INTO  ppf_subscription_line (member_name, salary, perc_salary,"
+                                    " own, company, " \
+                                        "booster, total, subscription_id) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+                                    ,(self.env['res.partner'].search([('name', '=',col_value[0])]).id, col_value[1], col_value[2], col_value[3],
+                                     col_value[4], col_value[5], (col_value[1] * (col_value[2]/100))+col_value[3]+col_value[4]+col_value[5], self.id))
+                # self.update({
+                # 'subscription_line': [(0, 0, {'member_name':(self.env['res.partner'].search([('name', '=',col_value[0])]).id), 'salary': col_value[1],'perc_salary': col_value[2],
+                #                               'own':col_value[3],'company':col_value[4],'booster':col_value[5]})],
+                # })
 
 
             values.append(col_value)
@@ -198,9 +251,8 @@ class subscriptionLine(models.Model):
     own = fields.Float('Own')
     company = fields.Float('Company')
     booster = fields.Float('Booster')
-    total=fields.Float('Total',store=True, readonly=True,compute='_compute_total')
+    total = fields.Float('Total',store=True, readonly=True,compute='_compute_total')
     subscription_id = fields.Many2one('ppf.subscription')
-
 
     @api.one
     @api.depends('salary','perc_salary','own','company','booster')

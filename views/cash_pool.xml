@@ -23,14 +23,14 @@
                     <field name="amount" string="Amount" sum="Amount"/>
                     <field name="perv_amount" string="Previous Invested" sum="Previous Invested" invisible="1"/>
                     <field name="os_amount" string="Outstanding" sum="Outstanding"/>
-                    <field name="subscription_id" string="Contribution"/>
+                    <field name="subscription_id" string="Subscription"/>
                     <!--<field name="cash_trxs" invisible="1"/>-->
 
                 </tree>
             </field>
         </record>
         <record model="ir.ui.view" id="form_cash_pool">
-            <field name="name">Cash Account</field>
+            <field name="name">Cash Pool</field>
             <field name="model">ppf.cash.pool</field>
             <field name="priority" eval="16"/>
             <field name="arch" type="xml">
@@ -105,7 +105,7 @@
             </field>
         </record>
         <record model="ir.actions.act_window" id="cash_pool_action">
-            <field name="name">Cash Account</field>
+            <field name="name">Cash Pool</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">ppf.cash.pool</field>
             <field name="view_type">form</field>

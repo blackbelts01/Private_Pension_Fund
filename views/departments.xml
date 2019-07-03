@@ -1,0 +1,54 @@
+<odoo>
+
+    <!-- Add a custom form view -->
+    <record id="department_view_form" model="ir.ui.view">
+		<field name="name">Department Form</field>
+		<field name="model">ppf.department</field>
+		<field name="arch" type="xml">
+			<form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="department_number"/>
+                            <field name="employees"/>
+                            <!--<field name="fund"/>-->
+                        </group>
+                        <group>
+                            <field name="account_payable"/>
+                            <field name="account_receivable"/>
+                            <field name="total_value"/>
+                        </group>
+                    </group>
+                </sheet>
+			</form>
+		</field>
+	</record>
+    <!-- Add a custom Tree (List) view -->
+    <record id="department_view_tree" model="ir.ui.view">
+		<field name="name">Department List</field>
+		<field name="model">ppf.department</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="department_number"/>
+				<field name="employees"/>
+                <field name="total_value"/>
+                <field name="percentage"/>
+                <field name="company_share"/>
+                <field name="employee_share"/>
+                <field name="boosters"/>
+			</tree>
+		</field>
+	</record>
+    <record model="ir.actions.act_window" id="department_action">
+            <field name="name">Sub Company</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ppf.department</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="department_view_tree"/>
+            <field name="view_mode">form,tree</field>
+
+
+    </record>
+</odoo>

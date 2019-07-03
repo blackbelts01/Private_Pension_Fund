@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <record id="view_partner_form_inherit_customer" model="ir.ui.view">
-            <field name="name">res.partner.form</field>
+            <field name="name">Employees</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
@@ -11,14 +11,29 @@
                     <group>
                         <field name="birth_date"/>
                         <field name = "hiring_date" />
+                        <field name="subscription_date"/>
+                        <field name="pension_date"/>
                         <field name = "member_id" />
 
                         <!--<field name = "job_title" />-->
                         <!--<field name = "grade" />-->
                         <field name = "benef" />
                         <field name = "martiual_status" />
+                        <field name = "department"/>
+
                     </group>
                 </xpath>
+                <xpath expr="//field[@name='category_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='website']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='function']" position="after">
+                    <field name = "department"/>
+                </xpath>
+
 
             </field>
         </record>
@@ -41,7 +56,7 @@
             </field>
         </record>
         <record id="res_partner_view_remove1" model="ir.ui.view">
-            <field name="name">res.partner.inherit11</field>
+            <field name="name">Employees</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
@@ -49,14 +64,31 @@
                     <field name="member_id"/>
                 </xpath>
                 <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="hiring_date"/>
+                    <field name="birth_date"/>
+                    <field name="subscription_date"/>
+                    <field name="pension_date"/>
                     <field name="function"/>
                     <field name="grade"/>
-                    <field name="hiring_date"/>
+                    <field name="total_value"/>
+                    <field name="ratio"/>
+                    <field name="company_share"/>
+                    <field name="employee_share"/>
+                    <field name="boosters"/>
+
 
                 </xpath>
+
                 <xpath expr="//field[@name='phone']" position="attributes">
-                    <attribute name="invisible">1</attribute>>
+                    <attribute name="invisible">1</attribute>
                 </xpath>
+                <xpath expr="//field[@name='write_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='email']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
 
                 <!--<xpath expr="//button[@name='action_view_partner_invoices']" position="attributes">-->
                 <!--<attribute name="attrs">{'invisible': [('insurer_type','=',True)]}</attribute>>-->
@@ -83,6 +115,36 @@
                 <xpath expr="//field[@name='vat']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
+                <xpath expr="//button[@name='schedule_meeting']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='815']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='show_partner_policies']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+               <!--<xpath expr="//button[@name='show_partner_claim']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                 <xpath expr="//button[@name='show_partner_opp']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>-->
+                <xpath expr="//page[@name='sales_purchases']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='internal_notes']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='internal_notes']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='accounting']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+
+
 
 
             </field>

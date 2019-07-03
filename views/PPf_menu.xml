@@ -17,11 +17,13 @@
                   sequence="0"
                   parent="main_ppf_menu"/>
         <menuitem id="customers_view_menu"
-                  name="Membership"
+                  name="Employees"
+                  sequence="4"
                   parent="Setup_view_menu"
                   action="action_customer_view"/>
         <menuitem id="product_view_menu"
                   name="Investment Product"
+                  sequence="5"
                   parent="Setup_view_menu"
                   action="product.product_template_action"/>
         <menuitem id="subscriptions_view_menu"
@@ -32,23 +34,47 @@
                   name="Subscriptions"
                   parent="subscriptions_view_menu"
                   action="action_ppf_subscription"/>
-        <menuitem id="cash_view_menu"
-                  name="Cash Account Management"
-                  sequence="2"
+        <menuitem id="yearly_balance_view_menu"
+                  name="Yearly Balance"
+                  action="yearly_balance_action"
+                  sequence="3"
                   parent="main_ppf_menu"/>
 
+
+
+
         <menuitem id="Cashpool_view_menu"
-                  name="Cash Accounts"
-                  parent="cash_view_menu"
+                  name="Cash Pools"
+                  parent="subscriptions_view_menu"
                   action="cash_pool_action"/>
         <menuitem id="Cashpool_trans_view_menu"
-                  name="Cash Account Transactions"
-                  parent="cash_view_menu"
+                  name="Cash Pool Transactions"
+                  parent="subscriptions_view_menu"
                   action="action_cash_pool_trans"/>
         <menuitem id="investment_view_menu"
                   name="Investment Management"
                   sequence="3"
                   parent="main_ppf_menu"/>
+         <menuitem id="join_to_fund_view_menu"
+                   name="Join To Fund"
+                   action="join_to_fund_action"
+                   sequence="2"
+                   parent="Setup_view_menu"/>
+        <menuitem id="fund_pivot_view_menu"
+                  name="Reporting"
+                  action="fund_pivot_action"
+                  sequence="4"
+                  parent="main_ppf_menu"/>
+        <menuitem id="fund_menu"
+                  name="Funds"
+                  action="fund_action"
+                  sequence="1"
+                  parent="Setup_view_menu"/>
+        <menuitem id="department_menu"
+                  name="Sub Company"
+                  action="department_action"
+                  sequence="3"
+                  parent="Setup_view_menu"/>
         <menuitem id="buy_investment_view_menu"
                   name="Buy Investment"
                   parent="investment_view_menu"
@@ -61,6 +87,7 @@
                   name="Performance Management"
                   parent="main_ppf_menu"
                   sequence="3"/>
+
 
     </data>
 </odoo>
