@@ -23,16 +23,16 @@
 
                     </group>
                 </xpath>
-                <xpath expr="//field[@name='category_id']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="//field[@name='website']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
+<!--                <xpath expr="//field[@name='category_id']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='website']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
 
-                <xpath expr="//field[@name='function']" position="after">
-                    <field name = "department"/>
-                </xpath>
+<!--                <xpath expr="//field[@name='function']" position="after">-->
+<!--                    <field name = "department"/>-->
+<!--                </xpath>-->
 
 
             </field>
@@ -79,20 +79,20 @@
 
                 </xpath>
 
-                <xpath expr="//field[@name='phone']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="//field[@name='write_date']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="//field[@name='email']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
+<!--                <xpath expr="//field[@name='phone']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='write_date']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='email']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
 
 
-                <!--<xpath expr="//button[@name='action_view_partner_invoices']" position="attributes">-->
-                <!--<attribute name="attrs">{'invisible': [('insurer_type','=',True)]}</attribute>>-->
-                <!--</xpath>-->
+<!--                <xpath expr="//button[@name='action_view_partner_invoices']" position="attributes">-->
+<!--                <attribute name="attrs">{'invisible': [('insurer_type','=',True)]}</attribute>>-->
+<!--                </xpath>-->
 
             </field>
         </record>
@@ -115,33 +115,33 @@
                 <xpath expr="//field[@name='vat']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
-                <xpath expr="//button[@name='schedule_meeting']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="//button[@name='815']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="//button[@name='show_partner_policies']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
+<!--                <xpath expr="//button[@name='schedule_meeting']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//button[@name='815']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//button[@name='show_partner_policies']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
                <!--<xpath expr="//button[@name='show_partner_claim']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
                  <xpath expr="//button[@name='show_partner_opp']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>-->
-                <xpath expr="//page[@name='sales_purchases']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="//page[@name='internal_notes']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="//page[@name='internal_notes']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="//page[@name='accounting']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
+<!--                <xpath expr="//page[@name='sales_purchases']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//page[@name='internal_notes']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//page[@name='internal_notes']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//page[@name='accounting']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
 
 
 
