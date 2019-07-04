@@ -34,7 +34,6 @@
 				<field name="department_number"/>
 				<field name="employees"/>
                 <field name="total_value"/>
-                <field name="percentage"/>
                 <field name="company_share"/>
                 <field name="employee_share"/>
                 <field name="boosters"/>

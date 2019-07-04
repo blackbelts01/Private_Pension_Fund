@@ -70,11 +70,11 @@
                     <field name="pension_date"/>
                     <field name="function"/>
                     <field name="grade"/>
-                    <field name="total_value"/>
-                    <field name="ratio"/>
-                    <field name="company_share"/>
-                    <field name="employee_share"/>
-                    <field name="boosters"/>
+<!--                    <field name="total_value"/>-->
+<!--                    <field name="ratio"/>-->
+<!--                    <field name="company_share"/>-->
+<!--                    <field name="employee_share"/>-->
+<!--                    <field name="boosters"/>-->
 
 
                 </xpath>
