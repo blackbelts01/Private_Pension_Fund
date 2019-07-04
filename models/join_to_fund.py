@@ -29,7 +29,7 @@ class ppfJoin(models.Model):
                 'name': 'Invoice For Joining Fund',
                 'quantity': 1,
                 'price_unit': self.subscription_fees,
-                'account_id': self.department.account_payable.id,
+                'account_id': self.env['res.partner'].search([('display_name','=',self.name)]).property_account_payable_id.id,
             })],
         })
 
