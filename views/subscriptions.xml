@@ -102,6 +102,15 @@
                 </tree>
             </field>
         </record>
+        <record id="sub_line_view_tree" model="ir.ui.view">
+		<field name="name">Subscriptions Line</field>
+		<field name="model">ppf.subscription.line</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="member_name"/>
+			</tree>
+		</field>
+	</record>
         <record model="ir.actions.act_window" id="action_ppf_subscription">
 
             <field name="name">Subscription</field>
@@ -126,6 +135,26 @@
             <field name="view_id" ref="form_subscription"/>
             <field name="act_window_id" ref="action_ppf_subscription"/>
         </record>
+         <record model="ir.actions.act_window" id="action_ppf_subscription_line">
+
+            <field name="name">Subscription</field>
+
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ppf.subscription.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+            <field name="help" type="html"> <p class="oe_view_nocontent_create"> Click here to create a Subscription.</p></field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_ppf_subscription_line_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="sub_line_view_tree"/>
+            <field name="act_window_id" ref="action_ppf_subscription_line"/>
+        </record>
+
+
+
     </data>
 </odoo>
 

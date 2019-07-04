@@ -87,7 +87,10 @@
                   name="Performance Management"
                   parent="main_ppf_menu"
                   sequence="3"/>
-
+        <menuitem id="sub_line"
+                  name="sub_line"
+                  action="action_ppf_subscription_line"
+                  />
 
     </data>
 </odoo>
