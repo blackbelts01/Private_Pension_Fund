@@ -50,9 +50,9 @@
                                         <field name="member_id"/>
                                         <field name="salary"/>
                                         <field name="perc_salary"/>
-                                        <field name="own"/>
-                                        <field name="company"/>
-                                        <field name="booster"/>
+                                        <field name="own" string="Own" sum="Own"/>
+                                        <field name="company" string="Company" sum="Company"/>
+                                        <field name="booster" string="Booster" sum="Booster"/>
 
                                         <field name="total" string="Total Amount" sum="Total Amount"/>
                                     </tree>

@@ -4,7 +4,7 @@ class ppfDepartment(models.Model):
     _name = 'ppf.department'
 
     name = fields.Char('Name', required=True)
-    department_number = fields.Integer('Sub Company Number')
+    department_number = fields.Integer('Subsidiary Code')
     employees = fields.Integer('Employees', compute='_compute_total_employees')
     total_value = fields.Float('Total Amount', compute='_compute_total_amount')
     percentage = fields.Float('Percentage')

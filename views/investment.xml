@@ -11,7 +11,7 @@
                         <button name="validate" string="Validate" type="object"  class="oe_highlight" states="draft"/>
                         <button name="invest_print" string="Print invest" type="object"  attrs="{'invisible':['|', ('state', 'not in', ('open','paid'))]}" />
                         <button name="send_mail_invest" string="Send By mail " type="object"  attrs="{'invisible':['|', ('state', 'not in', ('open','paid'))]}" />
-
+                        <button name="compute_unit" attrs="{'invisible': [('units_allocated', '=', True)]}" string="Allocate Members" type="object"  class="oe_highlight"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -37,6 +37,7 @@
                                 <field name="validate_invest_lines" invisible="1"/>
                                 <field name="validate_bills" invisible="1"/>
                                 <field name="validate_bills_button" invisible="1"/>
+                                <field name="units_allocated" invisible="1"/>
                             </group>
                         </group>
 

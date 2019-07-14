@@ -33,6 +33,9 @@ class ppfInvestment(models.Model):
         default=_default_currency, track_visibility='always')
 
     validate_invest_lines = fields.Boolean('')
+    unit = fields.One2many('ppf.unit', 'investment_id', string='Unit')
+    units_allocated = fields.Boolean('is Units Allocated ?', default=False)
+
     @api.multi
     def validate_cash(self):
         self.validate_cash_pool = True
@@ -135,6 +138,56 @@ class ppfInvestment(models.Model):
             'target': 'new',
             'context': ctx,
         }
+
+    @api.multi
+    def compute_unit(self):
+        res = []
+        own = 0.0
+        company = 0.0
+        booster = 0.0
+        own_units = 0.0
+        company_units = 0.0
+        booster_units = 0.0
+        for rec in self.cash_pool_id.subscription_id.subscription_line:
+            own = (rec.own/self.cash_pool_id.subscription_id.total_amount)*self.total_amount
+            company = (rec.company / self.cash_pool_id.subscription_id.total_amount) * self.total_amount
+            booster = (rec.booster / self.cash_pool_id.subscription_id.total_amount) * self.total_amount
+            own_units = own / self.investment_line_ids.unit_price
+            company_units = company / self.investment_line_ids.unit_price
+            booster_units = booster / self.investment_line_ids.unit_price
+            date = self.invested_date
+
+            res.append({"name": rec.member_name.name, "date": date, "own": own, "own_units": own_units, "company": company
+                        , "company_units": company_units, "booster": booster, "booster_units": booster_units})
+
+        for record in res:
+            self.env['ppf.unit'].create({
+                'name': record['name'],
+                'own': record['own'],
+                'own_units': record['own_units'],
+                'company': record['company'],
+                'company_units': record['company_units'],
+                'booster': record['booster'],
+                'booster_units': record['booster_units'],
+                'date': record['date'],
+                'investment_id': self.id,
+            })
+
+        return {
+            'name': ('Unit'),
+            'view_type': 'form',
+            'view_mode': 'tree',
+            'res_model': 'ppf.unit',
+            'view_id': (self.env.ref('Private_Pension_Fund.unit_tree').id),
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+
+        }
+
+        self.units_allocated = True
+
+
+
 
 
 

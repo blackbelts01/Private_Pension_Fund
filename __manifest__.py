@@ -29,6 +29,7 @@
         'views/customer.xml',
         'views/cash_pool.xml',
         'views/subscriptions.xml',
+        'views/unit.xml',
         'views/PPf_menu.xml',
         'views/fundraise.xml',
         'views/investment_policy.xml',

@@ -11,8 +11,7 @@
                  </header>
                 <sheet>
                     <group>
-                        <field name="from_date"/>
-                        <field name="to"/>
+                        <field name="year"/>
                         <field name="department"/>
                         <field name="yearly_balance_created" invisible="1" />
                     </group>
@@ -22,9 +21,43 @@
                                 <field name="yearly_balance">
                                     <tree editable="1">
                                         <field name="name"/>
-                                        <field name="employee_share"/>
-                                        <field name="company_share"/>
-                                        <field name="booster"/>
+                                        <field name="jan_employee_share"/>
+                                        <field name="jan_company_share"/>
+                                        <field name="jan_booster"/>
+                                        <field name="feb_employee_share"/>
+                                        <field name="feb_company_share"/>
+                                        <field name="feb_booster"/>
+                                        <field name="mar_employee_share"/>
+                                        <field name="mar_company_share"/>
+                                        <field name="mar_booster"/>
+                                        <field name="apr_employee_share"/>
+                                        <field name="apr_company_share"/>
+                                        <field name="apr_booster"/>
+                                        <field name="may_employee_share"/>
+                                        <field name="may_company_share"/>
+                                        <field name="may_booster"/>
+                                        <field name="jun_employee_share"/>
+                                        <field name="jun_company_share"/>
+                                        <field name="jun_booster"/>
+                                        <field name="jul_employee_share"/>
+                                        <field name="jul_company_share"/>
+                                        <field name="jul_booster"/>
+                                        <field name="aug_employee_share"/>
+                                        <field name="aug_company_share"/>
+                                        <field name="aug_booster"/>
+                                        <field name="sep_employee_share"/>
+                                        <field name="sep_company_share"/>
+                                        <field name="sep_booster"/>
+                                        <field name="oct_employee_share"/>
+                                        <field name="oct_company_share"/>
+                                        <field name="oct_booster"/>
+                                        <field name="nov_employee_share"/>
+                                        <field name="nov_company_share"/>
+                                        <field name="nov_booster"/>
+                                        <field name="dec_employee_share"/>
+                                        <field name="dec_company_share"/>
+                                        <field name="dec_booster"/>
+                                        <field name="total"/>
                                     </tree>
                                 </field>
                             </page>
@@ -40,8 +73,7 @@
 		<field name="arch" type="xml">
 			<tree>
                 <field name="department"/>
-                <field name="from_date"/>
-                <field name="to"/>
+                <field name="year"/>
 			</tree>
 		</field>
 	</record>

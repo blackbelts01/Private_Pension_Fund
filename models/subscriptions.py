@@ -43,7 +43,7 @@ class ppfSubscription(models.Model):
         default=_default_currency, track_visibility='always')
     data= fields.Binary('File')
     policy=fields.Many2one('ppf.policy')
-    department = fields.Many2one('ppf.department', string='Sub Company')
+    department = fields.Many2one('ppf.department', string='Subsidiary')
     invoice_created = fields.Boolean('is invoice created ?', default=False)
     number_of_subscriptions = fields.Integer('Num.Subscription', compute='_compute_total_subscriptions')
 

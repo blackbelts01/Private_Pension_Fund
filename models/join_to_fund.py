@@ -7,7 +7,7 @@ class ppfJoin(models.Model):
     birth_date = fields.Date('Date of Birth')
     job_position = fields.Char('Job Position')
     subscription_fees = fields.Float('Subscription Fees', default=100)
-    department = fields.Many2one('ppf.department', string='Sub Company')
+    department = fields.Many2one('ppf.department', string='Subsidiary')
     invoice_ids = fields.One2many('account.invoice', 'join_id', string='Invoices', readonly=True)
     state = fields.Selection([('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')],
                              required=True, default='pending')

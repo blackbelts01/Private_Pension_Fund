@@ -49,7 +49,7 @@ class Partners(models.Model):
                                        'Marital Status', track_visibility='onchange')
 
     sub_count = fields.Integer(compute='_compute_sub_count')
-    department = fields.Many2one('ppf.department', string='Sub Company')
+    department = fields.Many2one('ppf.department', string='Subsidiary')
     total_value = fields.Float('Total Value')
     ratio = fields.Float('percentage')
     company_share = fields.Float('Company Share')

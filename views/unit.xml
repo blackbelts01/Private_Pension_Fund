@@ -1,0 +1,42 @@
+<odoo>
+     <record id="unit_tree" model="ir.ui.view">
+		<field name="name">ppf_unit.Unit</field>
+		<field name="model">ppf.unit</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+                <field name="date"/>
+				<field name="own"/>
+				<field name="own_units"/>
+                <field name="company"/>
+				<field name="company_units"/>
+                <field name="booster"/>
+				<field name="booster_units"/>
+			</tree>
+		</field>
+	</record>
+<!--    <record model="ir.actions.act_window" id="action_ppf_unit">-->
+
+<!--            <field name="name">Units</field>-->
+
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">ppf.unit</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">tree,form,pivot,graph</field>-->
+
+<!--    </record>-->
+    <record id="action_ppf_unit" model="ir.actions.act_window">
+            <field name="name">Units</field>
+            <field name="res_model">ppf.unit</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+<!--    <record model="ir.actions.act_window.view" id="action_ppf_unit_tree">-->
+<!--            <field name="sequence" eval="1"/>-->
+<!--            <field name="view_mode">tree</field>-->
+<!--            <field name="view_id" ref="unit_tree"/>-->
+<!--            <field name="act_window_id" ref="action_ppf_unit"/>-->
+<!--    </record>-->
+
+</odoo>
