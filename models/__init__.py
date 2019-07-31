@@ -11,3 +11,5 @@ from . import departments
 from . import join_to_fund
 from . import yearly_balance
 from . import unit
+from . import unit_balance
+from . import loan

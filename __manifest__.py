@@ -21,10 +21,12 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/fund.xml',
+        'views/loan.xml',
         'views/fund_report.xml',
         'views/departments.xml',
         'views/join_to_fund.xml',
         'views/yearly_balance.xml',
+        'views/units_balance.xml',
         'views/views.xml',
         'views/customer.xml',
         'views/cash_pool.xml',

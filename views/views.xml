@@ -31,9 +31,61 @@
                 <xpath expr="//page[@name='inventory']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
-                 <xpath expr="//button[@name='action_view_stock_move_lines']" position="attributes">
+                <xpath expr="//button[@name='action_view_stock_move_lines']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
+
+                <xpath expr="//page[4]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[5]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[6]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='notes']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='toggle_active']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='113']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_sales']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_open_quants']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='889']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_orderpoints']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_routes']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_routes']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='954']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sale_ok']/parent::div" position="attributes">
+                    <attribute name="invisible">1</attribute>>
+                </xpath>
+                <xpath expr="//field[@name='purchase_ok']/parent::div" position="attributes">
+                    <attribute name="invisible">1</attribute>>
+                </xpath>
+                <xpath expr="//field[@name='can_be_expensed']/parent::div" position="attributes">
+                    <attribute name="invisible">1</attribute>>
+                </xpath>
+
+
+
 
 
                 <!--<xpath expr="//page[4]/group[1]/field/tree/field[@name='price']" position="attributes">-->
@@ -43,17 +95,17 @@
 
 
 
-                <xpath expr="//page[1]" position="after"   >
-                    <page string="Product Composition">
-                        <field name="product_compos">
-                            <tree>
-                                <field name="item"/>
-                                <field name="perc"/>
-                                <field name="cat"/>
-                            </tree>
-                        </field>
-                    </page>
-                </xpath>
+<!--                <xpath expr="//page[1]" position="after"   >-->
+<!--                    <page string="Product Composition">-->
+<!--                        <field name="product_compos">-->
+<!--                            <tree>-->
+<!--                                <field name="item"/>-->
+<!--                                <field name="perc"/>-->
+<!--                                <field name="cat"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </page>-->
+<!--                </xpath>-->
                 <xpath expr="//page[2]" position="after"   >
                     <page string="Product Pricing">
                         <field name="product_pricing">

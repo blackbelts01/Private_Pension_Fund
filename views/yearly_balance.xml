@@ -15,53 +15,55 @@
                         <field name="department"/>
                         <field name="yearly_balance_created" invisible="1" />
                     </group>
-                    <notebook>
-                            <page string="Yearly Balance">
+<!--                    <notebook>-->
+<!--                            <page string="Yearly Balance">-->
 
-                                <field name="yearly_balance">
-                                    <tree editable="1">
-                                        <field name="name"/>
-                                        <field name="jan_employee_share"/>
-                                        <field name="jan_company_share"/>
-                                        <field name="jan_booster"/>
-                                        <field name="feb_employee_share"/>
-                                        <field name="feb_company_share"/>
-                                        <field name="feb_booster"/>
-                                        <field name="mar_employee_share"/>
-                                        <field name="mar_company_share"/>
-                                        <field name="mar_booster"/>
-                                        <field name="apr_employee_share"/>
-                                        <field name="apr_company_share"/>
-                                        <field name="apr_booster"/>
-                                        <field name="may_employee_share"/>
-                                        <field name="may_company_share"/>
-                                        <field name="may_booster"/>
-                                        <field name="jun_employee_share"/>
-                                        <field name="jun_company_share"/>
-                                        <field name="jun_booster"/>
-                                        <field name="jul_employee_share"/>
-                                        <field name="jul_company_share"/>
-                                        <field name="jul_booster"/>
-                                        <field name="aug_employee_share"/>
-                                        <field name="aug_company_share"/>
-                                        <field name="aug_booster"/>
-                                        <field name="sep_employee_share"/>
-                                        <field name="sep_company_share"/>
-                                        <field name="sep_booster"/>
-                                        <field name="oct_employee_share"/>
-                                        <field name="oct_company_share"/>
-                                        <field name="oct_booster"/>
-                                        <field name="nov_employee_share"/>
-                                        <field name="nov_company_share"/>
-                                        <field name="nov_booster"/>
-                                        <field name="dec_employee_share"/>
-                                        <field name="dec_company_share"/>
-                                        <field name="dec_booster"/>
-                                        <field name="total"/>
-                                    </tree>
-                                </field>
-                            </page>
-                    </notebook>
+<!--                                <field name="yearly_balance">-->
+<!--                                    <tree editable="1">-->
+<!--                                        <field name="name"/>-->
+<!--                                        <field name="jan_employee_share"/>-->
+<!--                                        <field name="jan_company_share"/>-->
+<!--                                        <field name="jan_booster"/>-->
+<!--                                        <field name="feb_employee_share"/>-->
+<!--                                        <field name="feb_company_share"/>-->
+<!--                                        <field name="feb_booster"/>-->
+<!--                                        <field name="mar_employee_share"/>-->
+<!--                                        <field name="mar_company_share"/>-->
+<!--                                        <field name="mar_booster"/>-->
+<!--                                        <field name="apr_employee_share"/>-->
+<!--                                        <field name="apr_company_share"/>-->
+<!--                                        <field name="apr_booster"/>-->
+<!--                                        <field name="may_employee_share"/>-->
+<!--                                        <field name="may_company_share"/>-->
+<!--                                        <field name="may_booster"/>-->
+<!--                                        <field name="jun_employee_share"/>-->
+<!--                                        <field name="jun_company_share"/>-->
+<!--                                        <field name="jun_booster"/>-->
+<!--                                        <field name="jul_employee_share"/>-->
+<!--                                        <field name="jul_company_share"/>-->
+<!--                                        <field name="jul_booster"/>-->
+<!--                                        <field name="aug_employee_share"/>-->
+<!--                                        <field name="aug_company_share"/>-->
+<!--                                        <field name="aug_booster"/>-->
+<!--                                        <field name="sep_employee_share"/>-->
+<!--                                        <field name="sep_company_share"/>-->
+<!--                                        <field name="sep_booster"/>-->
+<!--                                        <field name="oct_employee_share"/>-->
+<!--                                        <field name="oct_company_share"/>-->
+<!--                                        <field name="oct_booster"/>-->
+<!--                                        <field name="nov_employee_share"/>-->
+<!--                                        <field name="nov_company_share"/>-->
+<!--                                        <field name="nov_booster"/>-->
+<!--                                        <field name="dec_employee_share"/>-->
+<!--                                        <field name="dec_company_share"/>-->
+<!--                                        <field name="dec_booster"/>-->
+<!--                                        <field name="total_emp"/>-->
+<!--                                        <field name="total_comp"/>-->
+<!--                                        <field name="total_booster"/>-->
+<!--                                    </tree>-->
+<!--                                </field>-->
+<!--                            </page>-->
+<!--                    </notebook>-->
                 </sheet>
 			</form>
 		</field>
@@ -72,8 +74,49 @@
 		<field name="model">ppf.yearly.balance</field>
 		<field name="arch" type="xml">
 			<tree>
+                <field name="name"/>
                 <field name="department"/>
                 <field name="year"/>
+                <field name="total_emp"/>
+                <field name="total_comp"/>
+                <field name="total_booster"/>
+                <field name="jan_employee_share"/>
+                <field name="jan_company_share"/>
+                <field name="jan_booster"/>
+                <field name="feb_employee_share"/>
+                <field name="feb_company_share"/>
+                <field name="feb_booster"/>
+                <field name="mar_employee_share"/>
+                <field name="mar_company_share"/>
+                <field name="mar_booster"/>
+                <field name="apr_employee_share"/>
+                <field name="apr_company_share"/>
+                <field name="apr_booster"/>
+                <field name="may_employee_share"/>
+                <field name="may_company_share"/>
+                <field name="may_booster"/>
+                <field name="jun_employee_share"/>
+                <field name="jun_company_share"/>
+                <field name="jun_booster"/>
+                <field name="jul_employee_share"/>
+                <field name="jul_company_share"/>
+                <field name="jul_booster"/>
+                <field name="aug_employee_share"/>
+                <field name="aug_company_share"/>
+                <field name="aug_booster"/>
+                <field name="sep_employee_share"/>
+                <field name="sep_company_share"/>
+                <field name="sep_booster"/>
+                <field name="oct_employee_share"/>
+                <field name="oct_company_share"/>
+                <field name="oct_booster"/>
+                <field name="nov_employee_share"/>
+                <field name="nov_company_share"/>
+                <field name="nov_booster"/>
+                <field name="dec_employee_share"/>
+                <field name="dec_company_share"/>
+                <field name="dec_booster"/>
+
 			</tree>
 		</field>
 	</record>

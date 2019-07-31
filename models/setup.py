@@ -37,7 +37,7 @@ class Partners(models.Model):
 
     birth_date = fields.Date('Date of Birth')
     hiring_date = fields.Date('Hiring Date')
-    subscription_date = fields.Date('Subscription Date')
+    subscription_date = fields.Date('Subscription Date', default=datetime.today())
     pension_date = fields.Date('Pension Date')
     member_id = fields.Char('Employee ID')
     job_title = fields.Char('Job Title')

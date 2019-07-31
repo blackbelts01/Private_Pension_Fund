@@ -39,11 +39,20 @@
                   name="Subscriptions"
                   parent="subscriptions_view_menu"
                   action="action_ppf_subscription"/>
-        <menuitem id="yearly_balance_view_menu"
+        <menuitem id="yearly_view_menu"
                   name="Yearly Balance"
-                  action="yearly_balance_action"
-                  sequence="3"
+                  sequence="4"
                   parent="main_ppf_menu"/>
+        <menuitem id="yearly_balance_view_menu"
+                  name="Sub Yearly Balance"
+                  action="yearly_balance_action"
+                  sequence="1"
+                  parent="yearly_view_menu"/>
+        <menuitem id="unit_yearly_balance_view_menu"
+                  name="Unit Yearly Balance"
+                  action="unit_yearly_balance_action"
+                  sequence="2"
+                  parent="yearly_view_menu"/>
 
 
 
@@ -94,6 +103,11 @@
                   name="Performance Management"
                   parent="main_ppf_menu"
                   sequence="3"/>
+         <menuitem id="loan_view_menu"
+                  name="Loan"
+                  action="loan_action"
+                  sequence="6"
+                  parent="main_ppf_menu"/>
 
 
 

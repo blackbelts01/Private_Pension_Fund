@@ -90,7 +90,7 @@ class ppfSubscription(models.Model):
                 'account_id': self.department.account_payable.id,
             })],
         })
-        inv.action_invoice_open()
+        #inv.action_invoice_open()
         #self.state = 'paid'
         self.invoice_created = True
 
@@ -252,7 +252,7 @@ class subscriptionLine(models.Model):
     company = fields.Float('Company')
     booster = fields.Float('Booster')
     total = fields.Float('Total',store=True, readonly=True,compute='_compute_total')
-    subscription_id = fields.Many2one('ppf.subscription')
+    subscription_id = fields.Many2one('ppf.subscription', ondelete='cascade')
 
     @api.one
     @api.depends('salary','perc_salary','own','company','booster')

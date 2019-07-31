@@ -1,0 +1,170 @@
+<odoo>
+
+    <!-- Add a custom form view -->
+    <record id="unit_yearly_balance_view_form" model="ir.ui.view">
+		<field name="name">Unit Yearly Balance Form</field>
+		<field name="model">ppf.unit.yearly.balance</field>
+		<field name="arch" type="xml">
+			<form>
+                 <header>
+                        <button name="compute_total_units" attrs="{'invisible': [('unit_yearly_balance_created', '=', True)]}" string="Validate" type="object"  class="oe_highlight"/>
+                 </header>
+                <sheet>
+                    <group>
+                        <field name="year"/>
+                        <field name="department"/>
+                        <field name="unit_yearly_balance_created" invisible="1" />
+                    </group>
+<!--                    <notebook>-->
+<!--                            <page string="Unit Yearly Balance">-->
+
+<!--                                <field name="unit_yearly_balance">-->
+<!--                                    <tree editable="1">-->
+<!--                                        <field name="name"/>-->
+
+<!--                                        <field name="jan_employee_units"/>-->
+
+<!--                                        <field name="jan_company_units"/>-->
+
+<!--                                        <field name="jan_booster_units"/>-->
+
+<!--                                        <field name="feb_employee_units"/>-->
+
+<!--                                        <field name="feb_company_units"/>-->
+
+<!--                                        <field name="feb_booster_units"/>-->
+
+<!--                                        <field name="mar_employee_units"/>-->
+
+<!--                                        <field name="mar_company_units"/>-->
+
+<!--                                        <field name="mar_booster_units"/>-->
+
+<!--                                        <field name="apr_employee_units"/>-->
+
+<!--                                        <field name="apr_company_units"/>-->
+
+<!--                                        <field name="apr_booster_units"/>-->
+
+<!--                                        <field name="may_employee_units"/>-->
+
+<!--                                        <field name="may_company_units"/>-->
+
+<!--                                        <field name="may_booster_units"/>-->
+
+<!--                                        <field name="jun_employee_units"/>-->
+
+<!--                                        <field name="jun_company_units"/>-->
+
+<!--                                        <field name="jun_booster_units"/>-->
+
+<!--                                        <field name="jul_employee_units"/>-->
+
+<!--                                        <field name="jul_company_units"/>-->
+
+<!--                                        <field name="jul_booster_units"/>-->
+
+<!--                                        <field name="aug_employee_units"/>-->
+
+<!--                                        <field name="aug_company_units"/>-->
+
+<!--                                        <field name="aug_booster_units"/>-->
+
+<!--                                        <field name="sep_employee_units"/>-->
+
+<!--                                        <field name="sep_company_units"/>-->
+
+<!--                                        <field name="sep_booster_units"/>-->
+
+<!--                                        <field name="oct_employee_units"/>-->
+
+<!--                                        <field name="oct_company_units"/>-->
+
+<!--                                        <field name="oct_booster_units"/>-->
+
+<!--                                        <field name="nov_employee_units"/>-->
+
+<!--                                        <field name="nov_company_units"/>-->
+
+<!--                                        <field name="nov_booster_units"/>-->
+
+<!--                                        <field name="dec_employee_units"/>-->
+
+<!--                                        <field name="dec_company_units"/>-->
+
+<!--                                        <field name="dec_booster_units"/>-->
+
+<!--                                        <field name="total_emp_units"/>-->
+
+<!--                                        <field name="total_comp_units"/>-->
+
+<!--                                        <field name="total_booster_units"/>-->
+<!--                                    </tree>-->
+<!--                                </field>-->
+<!--                            </page>-->
+<!--                    </notebook>-->
+                </sheet>
+			</form>
+		</field>
+	</record>
+    <!-- Add a custom Tree (List) view -->
+    <record id="unit_yearly_balance_view_tree" model="ir.ui.view">
+		<field name="name">Unit Yearly Balance List</field>
+		<field name="model">ppf.unit.yearly.balance</field>
+		<field name="arch" type="xml">
+			<tree>
+                <field name="name"/>
+                <field name="year"/>
+                <field name="department"/>
+                <field name="total_emp_units"/>
+                <field name="total_comp_units"/>
+                <field name="total_booster_units"/>
+                <field name="jan_employee_units"/>
+                <field name="jan_company_units"/>
+                <field name="jan_booster_units"/>
+                <field name="feb_employee_units"/>
+                <field name="feb_company_units"/>
+                <field name="feb_booster_units"/>
+                <field name="mar_employee_units"/>
+                <field name="mar_company_units"/>
+                <field name="mar_booster_units"/>
+                <field name="apr_employee_units"/>
+                <field name="apr_company_units"/>
+                <field name="apr_booster_units"/>
+                <field name="may_employee_units"/>
+                <field name="may_company_units"/>
+                <field name="may_booster_units"/>
+                <field name="jun_employee_units"/>
+                <field name="jun_company_units"/>
+                <field name="jun_booster_units"/>
+                <field name="jul_employee_units"/>
+                <field name="jul_company_units"/>
+                <field name="jul_booster_units"/>
+                <field name="aug_employee_units"/>
+                <field name="aug_company_units"/>
+                <field name="aug_booster_units"/>
+                <field name="sep_employee_units"/>
+                <field name="sep_company_units"/>
+                <field name="sep_booster_units"/>
+                <field name="oct_employee_units"/>
+                <field name="oct_company_units"/>
+                <field name="oct_booster_units"/>
+                <field name="nov_employee_units"/>
+                <field name="nov_company_units"/>
+                <field name="nov_booster_units"/>
+                <field name="dec_employee_units"/>
+                <field name="dec_company_units"/>
+                <field name="dec_booster_units"/>
+			</tree>
+		</field>
+	</record>
+    <record model="ir.actions.act_window" id="unit_yearly_balance_action">
+            <field name="name">Unit Yearly Balance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ppf.unit.yearly.balance</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="unit_yearly_balance_view_tree"/>
+            <field name="view_mode">form,tree</field>
+    </record>
+
+</odoo>

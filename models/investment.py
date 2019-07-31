@@ -148,30 +148,35 @@ class ppfInvestment(models.Model):
         own_units = 0.0
         company_units = 0.0
         booster_units = 0.0
+        department = self.cash_pool_id.subscription_id.department
+        product = self.investment_line_ids.product.id
+        #rate = self.total_amount / self.cash_pool_id.subscription_id.total_amount
         for rec in self.cash_pool_id.subscription_id.subscription_line:
-            own = (rec.own/self.cash_pool_id.subscription_id.total_amount)*self.total_amount
+            own = (rec.own/self.cash_pool_id.subscription_id.total_amount) * self.total_amount
             company = (rec.company / self.cash_pool_id.subscription_id.total_amount) * self.total_amount
             booster = (rec.booster / self.cash_pool_id.subscription_id.total_amount) * self.total_amount
-            own_units = own / self.investment_line_ids.unit_price
-            company_units = company / self.investment_line_ids.unit_price
-            booster_units = booster / self.investment_line_ids.unit_price
-            date = self.invested_date
+            own_units = (rec.own/self.cash_pool_id.subscription_id.total_amount) * self.investment_line_ids.quantity
+            company_units = (rec.company / self.cash_pool_id.subscription_id.total_amount) * self.investment_line_ids.quantity
+            booster_units = (rec.booster / self.cash_pool_id.subscription_id.total_amount) * self.investment_line_ids.quantity
+            #date = self.invested_date
 
-            res.append({"name": rec.member_name.name, "date": date, "own": own, "own_units": own_units, "company": company
-                        , "company_units": company_units, "booster": booster, "booster_units": booster_units})
+
+            res.append({"name": rec.member_name.name, "own": own, "own_units": own_units, "company":  company
+                        , "company_units": company_units, "booster": booster, "booster_units": booster_units,
+                        "product": product})
 
         for record in res:
             self.env['ppf.unit'].create({
                 'name': record['name'],
-                'own': record['own'],
+                'product': record['product'],
                 'own_units': record['own_units'],
-                'company': record['company'],
                 'company_units': record['company_units'],
-                'booster': record['booster'],
                 'booster_units': record['booster_units'],
-                'date': record['date'],
+                'department': department.id,
                 'investment_id': self.id,
             })
+
+        self.units_allocated = True
 
         return {
             'name': ('Unit'),
@@ -184,8 +189,6 @@ class ppfInvestment(models.Model):
 
         }
 
-        self.units_allocated = True
-
 
 
 
@@ -196,19 +199,20 @@ class investmentLine(models.Model):
 
 
     type_line=fields.Many2one(related='investment_id.type_categ')
-    product = fields.Many2one('product.product',string='Product',domain="[('categ_id','=',type_line)]")
+    product = fields.Many2one('product.template',string='Product',domain="[('categ_id','=',type_line)]")
     quantity = fields.Integer('Units',compute='_compute_quantity')
-    unit_price = fields.Float('Unit Price')
+    unit_price = fields.Float('Unit Price',compute='_compute_unit_price')
     invest_amount = fields.Float('Invest Amount')
     amount = fields.Float('Amount',compute='_compute_amount')
     investment_id = fields.Many2one('ppf.investment')
     currency_id = fields.Many2one(related='investment_id.currency_id')
 
+
     @api.onchange('product')
     def _compute_unit_price(self):
-        for rec in self.product.seller_ids:
+        for rec in self.product.product_pricing:
             today=datetime.today().strftime('%Y-%m-%d')
-            if rec.date_start <=today and today<=rec.date_end:
+            if rec.date_from <=today and today<=rec.date_to:
                 self.unit_price=rec.price
 
 

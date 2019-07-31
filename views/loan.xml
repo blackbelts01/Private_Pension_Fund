@@ -1,0 +1,117 @@
+<odoo>
+    <!-- Add a custom form view -->
+    <record id="loan_view_form" model="ir.ui.view">
+		<field name="name">Loan Form</field>
+		<field name="model">ppf.loan</field>
+		<field name="arch" type="xml">
+			<form>
+                <header>
+                    <button name="compute_total_emp_units" string="Validate" type="object"  class="oe_highlight"/>
+                    <button  name="approve" attrs="{'invisible': [('state', '!=', 'pending')]}"  string="Approve" type="object"  class="oe_highlight"/>
+                    <button  name="reject" attrs="{'invisible': [('state', '!=', 'pending')]}"  string="Reject" type="object"  class="oe_highlight"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_name"/>
+                            <field name="subscription_date"/>
+                            <field name="retirement_date"/>
+                            <field name="loan_date"/>
+                        </group>
+                        <group>
+<!--                            <field name="loan_units_taken"/>-->
+<!--                            <field name="loan_amount"/>-->
+<!--                            <field name="total_units_owned"/>-->
+<!--                            <field name="value_of_units_owned"/>-->
+<!--                            <field name="total_units_after_loan"/>-->
+<!--                            <field name="value_of_units_after_loan"/>-->
+                        </group>
+                    </group>
+                    <notebook>
+                            <page string="Prev Years Units Balance">
+
+                                <field name="prev_unit_balance_ids">
+                                    <tree editable="1">
+                                        <field name="year"/>
+<!--                                        <field name="fund_name"/>-->
+                                        <field name="total_emp_units"/>
+                                        <field name="total_company_units"/>
+                                        <field name="total_booster_units"/>
+                                        <field name="total" string="Total" sum="Total"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="This Year Units Balance">
+                                <field name="unit_balance_ids">
+                                    <tree editable="1">
+                                        <field name="year"/>
+<!--                                        <field name="fund_name"/>-->
+                                        <field name="total_emp_units"/>
+                                        <field name="total_company_units"/>
+                                        <field name="total_booster_units"/>
+                                        <field name="total" string="Total" sum="Total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Loans Taken Before">
+                                <field name="loans_taken_ids">
+                                    <tree editable="1">
+                                        <field name="date"/>
+<!--                                        <field name="fund_name"/>-->
+                                        <field name="units_taken"/>
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Loan Entry Items">
+                                <field name="loans_entry_items_ids">
+                                    <tree editable="1">
+                                        <field name="date"/>
+                                        <field name="fund_name"/>
+                                        <field name="units_taken"/>
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Fund Price">
+                                <field name="fund_price_ids">
+                                    <tree editable="1">
+                                        <field name="fund_name"/>
+                                        <field name="current_price"/>
+                                    </tree>
+                                </field>
+                            </page>
+                    </notebook>
+
+
+                </sheet>
+			</form>
+		</field>
+	</record>
+    <record id="loan_view_tree" model="ir.ui.view">
+		<field name="name">Loan List</field>
+		<field name="model">ppf.loan</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="employee_name"/>
+				<field name="loan_date"/>
+                <field name="state"/>
+<!--                <field name="loan_amount"/>-->
+<!--                <field name="total_units_owned"/>-->
+<!--                <field name="value_of_units_owned"/>-->
+
+			</tree>
+		</field>
+	</record>
+    <record model="ir.actions.act_window" id="loan_action">
+            <field name="name">Loan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ppf.loan</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="loan_view_tree"/>
+            <field name="view_mode">form,tree</field>
+    </record>
+
+</odoo>
