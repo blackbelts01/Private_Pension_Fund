@@ -135,105 +135,7 @@ class ppfUnitYearly(models.Model):
         year = datetime.strptime(str(self.year), '%Y').year
         from_date = datetime.strptime('01/01/' + str(year), '%m/%d/%Y').date()
         to_date = datetime.strptime('01/31/' + str(year), '%m/%d/%Y').date()
-        # units_list=[]
-        # units_per_month=[]
-        # for month in range(0, 12):
-        #     add_mon = relativedelta(months=month)
-        #     From = from_date + add_mon
-        #     to = to_date + add_mon
-        #     for x in emp:
-        #         units = self.env['ppf.unit'].search([('name', '=', x.name), ('date', '>=', From),('date', '<=', to)])
-        #         for n in units:
-        #             units_per_month.append(n)
-        #     # units_list.append(units)
-        #     i=0
-        #     print(units_per_month)
-        #     for elem in units_per_month:
-        #         # print(elem)
-        #         employees=[]
-        #         unit = self.env['ppf.unit'].search(['id','=',elem.id])
-        #         employees.append(unit.name)
-
-                # if unit.
-                # self.env['ppf.unit.yearly.balance'].create({
-                #     'name': unit.name,
-                #     'department': self.department.id,
-                #     'year': self.year,
-                #     'jan_employee_units': elem['own_units'][0],
-                #
-                #     'jan_company_units': elem['company_units'][0],
-                #
-                #     'jan_booster_units': elem['booster_units'][0],
-                #
-                #     'feb_employee_units': elem['own_units'][1],
-                #
-                #     'feb_company_units': elem['company_units'][1],
-                #
-                #     'feb_booster_units': elem['booster_units'][1],
-                #
-                #     'mar_employee_units': elem['own_units'][2],
-                #
-                #     'mar_company_units': elem['company_units'][2],
-                #
-                #     'mar_booster_units': elem['booster_units'][2],
-                #
-                #     'apr_employee_units': elem['own_units'][3],
-                #
-                #     'apr_company_units': elem['company_units'][3],
-                #
-                #     'apr_booster_units': elem['booster_units'][3],
-                #
-                #     'may_employee_units': elem['own_units'][4],
-                #
-                #     'may_company_units': elem['company_units'][4],
-                #
-                #     'may_booster_units': elem['booster_units'][4],
-                #
-                #     'jun_employee_units': elem['own_units'][5],
-                #
-                #     'jun_company_units': elem['company_units'][5],
-                #
-                #     'jun_booster_units': elem['booster_units'][5],
-                #
-                #     'jul_employee_units': elem['own_units'][6],
-                #
-                #     'jul_company_units': elem['company_units'][6],
-                #
-                #     'jul_booster_units': elem['booster_units'][6],
-                #
-                #     'aug_employee_units': elem['own_units'][7],
-                #
-                #     'aug_company_units': elem['company_units'][7],
-                #
-                #     'aug_booster_units': elem['booster_units'][7],
-                #
-                #     'sep_employee_units': elem['own_units'][8],
-                #
-                #     'sep_company_units': elem['company_units'][8],
-                #
-                #     'sep_booster_units': elem['booster_units'][8],
-                #
-                #     'oct_employee_units': elem['own_units'][9],
-                #
-                #     'oct_company_units': elem['company_units'][9],
-                #
-                #     'oct_booster_units': elem['booster_units'][9],
-                #
-                #     'nov_employee_units': elem['own_units'][10],
-                #
-                #     'nov_company_units': elem['company_units'][10],
-                #
-                #     'nov_booster_units': elem['booster_units'][10],
-                #
-                #     'dec_employee_units': elem['own_units'][11],
-                #
-                #     'dec_company_units': elem['company_units'][11],
-                #
-                #     'dec_booster_units': elem['booster_units'][11],
-                #
-                # })
-                # i+=1
-        # ahmed
+        
         for rec in emp:
             name = rec.name
 
@@ -290,85 +192,86 @@ class ppfUnitYearly(models.Model):
                 res.append({"name": name, 'product': product,"own": res1, "own_units": res4, "company": res2, "company_units": res5,
                         "booster": res3, "booster_units": res6})
             print(res)
-        #
-        # for elem in res:
-        #     self.env['ppf.unit.yearly.balance'].create({
-        #             'name': elem['name'],
-        #             'department': self.department.id,
-        #             'year': self.year,
-        #             'jan_employee_units': elem['own_units'][0],
-        #
-        #             'jan_company_units': elem['company_units'][0],
-        #
-        #             'jan_booster_units': elem['booster_units'][0],
-        #
-        #             'feb_employee_units': elem['own_units'][1],
-        #
-        #             'feb_company_units': elem['company_units'][1],
-        #
-        #             'feb_booster_units': elem['booster_units'][1],
-        #
-        #             'mar_employee_units': elem['own_units'][2],
-        #
-        #             'mar_company_units': elem['company_units'][2],
-        #
-        #             'mar_booster_units': elem['booster_units'][2],
-        #
-        #             'apr_employee_units': elem['own_units'][3],
-        #
-        #             'apr_company_units': elem['company_units'][3],
-        #
-        #             'apr_booster_units': elem['booster_units'][3],
-        #
-        #             'may_employee_units': elem['own_units'][4],
-        #
-        #             'may_company_units': elem['company_units'][4],
-        #
-        #             'may_booster_units': elem['booster_units'][4],
-        #
-        #             'jun_employee_units': elem['own_units'][5],
-        #
-        #             'jun_company_units': elem['company_units'][5],
-        #
-        #             'jun_booster_units': elem['booster_units'][5],
-        #
-        #             'jul_employee_units': elem['own_units'][6],
-        #
-        #             'jul_company_units': elem['company_units'][6],
-        #
-        #             'jul_booster_units': elem['booster_units'][6],
-        #
-        #             'aug_employee_units': elem['own_units'][7],
-        #
-        #             'aug_company_units': elem['company_units'][7],
-        #
-        #             'aug_booster_units': elem['booster_units'][7],
-        #
-        #             'sep_employee_units': elem['own_units'][8],
-        #
-        #             'sep_company_units': elem['company_units'][8],
-        #
-        #             'sep_booster_units': elem['booster_units'][8],
-        #
-        #             'oct_employee_units': elem['own_units'][9],
-        #
-        #             'oct_company_units': elem['company_units'][9],
-        #
-        #             'oct_booster_units': elem['booster_units'][9],
-        #
-        #             'nov_employee_units': elem['own_units'][10],
-        #
-        #             'nov_company_units': elem['company_units'][10],
-        #
-        #             'nov_booster_units': elem['booster_units'][10],
-        #
-        #             'dec_employee_units': elem['own_units'][11],
-        #
-        #             'dec_company_units': elem['company_units'][11],
-        #
-        #             'dec_booster_units': elem['booster_units'][11],
-        #
-        #         })
+
+            for elem in res:
+                self.env['ppf.unit.yearly.balance'].create({
+                        'name': elem['name'],
+                        'department': self.department.id,
+                        'year': self.year,
+                        'product'
+                        'jan_employee_units': elem['own_units'][0],
+
+                        'jan_company_units': elem['company_units'][0],
+
+                        'jan_booster_units': elem['booster_units'][0],
+
+                        'feb_employee_units': elem['own_units'][1],
+
+                        'feb_company_units': elem['company_units'][1],
+
+                        'feb_booster_units': elem['booster_units'][1],
+
+                        'mar_employee_units': elem['own_units'][2],
+
+                        'mar_company_units': elem['company_units'][2],
+
+                        'mar_booster_units': elem['booster_units'][2],
+
+                        'apr_employee_units': elem['own_units'][3],
+
+                        'apr_company_units': elem['company_units'][3],
+
+                        'apr_booster_units': elem['booster_units'][3],
+
+                        'may_employee_units': elem['own_units'][4],
+
+                        'may_company_units': elem['company_units'][4],
+
+                        'may_booster_units': elem['booster_units'][4],
+
+                        'jun_employee_units': elem['own_units'][5],
+
+                        'jun_company_units': elem['company_units'][5],
+
+                        'jun_booster_units': elem['booster_units'][5],
+
+                        'jul_employee_units': elem['own_units'][6],
+
+                        'jul_company_units': elem['company_units'][6],
+
+                        'jul_booster_units': elem['booster_units'][6],
+
+                        'aug_employee_units': elem['own_units'][7],
+
+                        'aug_company_units': elem['company_units'][7],
+
+                        'aug_booster_units': elem['booster_units'][7],
+
+                        'sep_employee_units': elem['own_units'][8],
+
+                        'sep_company_units': elem['company_units'][8],
+
+                        'sep_booster_units': elem['booster_units'][8],
+
+                        'oct_employee_units': elem['own_units'][9],
+
+                        'oct_company_units': elem['company_units'][9],
+
+                        'oct_booster_units': elem['booster_units'][9],
+
+                        'nov_employee_units': elem['own_units'][10],
+
+                        'nov_company_units': elem['company_units'][10],
+
+                        'nov_booster_units': elem['booster_units'][10],
+
+                        'dec_employee_units': elem['own_units'][11],
+
+                        'dec_company_units': elem['company_units'][11],
+
+                        'dec_booster_units': elem['booster_units'][11],
+
+                    })
 
 
         self.unit_yearly_balance_created = True
